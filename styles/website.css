@@ -1,0 +1,622 @@
+/* ============================================================
+   Python 入门书 · 主 Web 主题 v2（教材级视觉系统）
+   强制浅色、统一配色、代码高亮、折叠美化
+   ============================================================ */
+:root {
+  --blue:   #4A6CF7;
+  --blue-light: #EEF2FF;
+  --green:  #10b981;
+  --green-light: #ECFDF5;
+  --red:    #ef4444;
+  --red-light: #FEF2F2;
+  --yellow: #f59e0b;
+  --yellow-light: #FFFBEB;
+  --purple: #8b5cf6;
+  --text:   #1e293b;
+  --text-light: #64748b;
+  --bg:     #f8f9fc;
+  --cell:   #e8ecff;
+  --line:   #e2e8f0;
+
+  /* ---- 语法高亮配色 · GitHub Dark Dimmed（2026 #1 最火）---- */
+  --code-bg:       #22272e;
+  --code-fg:       #adbac7;
+  --code-surface:  #2d333b;
+  --code-border:   #444c56;
+  --code-hl-bg:    #2d333b;
+  --code-keyword:  #f47067;            /* def / if / for / return → 珊瑚红 */
+  --code-string:    #a5d6ff;            /* 字符串 → 天蓝 */
+  --code-number:    #79c0ff;            /* 数字 → 亮蓝 */
+  --code-comment:   #8b949e;            /* 注释 → 灰 */
+  --code-function:  #d2a8ff;            /* 函数名 → 淡紫 */
+  --code-builtin:   #f0883e;            /* 内置函数 → 橙 */
+  --code-operator:  #ffa657;            /* 操作符 → 金橙 */
+  --code-punct:     #adbac7;            /* 标点 → 同前景 */
+  --code-decorate:  #ffa657;            /* 参数/变量 → 金 */
+  --code-type:      #ffab70;            /* 类型 → 杏 */
+  --code-class:     #7ee787;            /* 类名 → 翠绿 */
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  background: #ffffff;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
+               "Microsoft YaHei", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.78;
+  font-size: 16px;
+}
+
+.content { padding: 0 12px; max-width: 820px; margin: 0 auto; }
+
+h1, h2, h3, h4 { line-height: 1.4; font-weight: 700; color: #0f172a; }
+h1 { font-size: 1.9em; margin-top: 0.2em; }
+h2 { font-size: 1.45em; margin-top: 1.6em; }
+h3 { font-size: 1.15em; margin-top: 1.2em; }
+
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+p { margin: 0.7em 0; }
+
+/* ── 内联代码 ── */
+code {
+  background: var(--blue-light);
+  color: #3730a3;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-size: 0.88em;
+  font-family: "Cascadia Code", "JetBrains Mono", Consolas, Menlo,
+               "Fira Code", monospace;
+  border: 1px solid #ddd6fe;
+  letter-spacing: 0.02em;
+}
+
+/* ════════════════════════════════════════════
+   🎨 代码块 — GitHub Dark Dimmed 风格（2026 最火）
+   ════════════════════════════════════════════ */
+pre {
+  position: relative;
+  background: var(--code-bg) !important;
+  color: var(--code-fg) !important;
+  padding: 20px 24px !important;
+  padding-top: 36px !important;       /* 给语言标签留空间 */
+  border-radius: 10px !important;
+  overflow-x: auto;
+  line-height: 1.7;
+  font-size: 0.895em;
+  margin: 18px 0 24px 0 !important;
+  border: 1px solid var(--code-border) !important;
+  box-shadow:
+    0 4px 16px rgba(0,0,0,.28),
+    0 0 0 1px rgba(255,255,255,.03) inset,
+    0 1px 3px rgba(0,0,0,.15) inset;
+  /* 自定义滚动条（GitHub 暗色风） */
+  scrollbar-width: thin;
+  scrollbar-color: var(--code-border) transparent;
+}
+pre::-webkit-scrollbar { height: 7px; }
+pre::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+pre::-webkit-scrollbar-thumb {
+  background: var(--code-border);
+  border-radius: 4px;
+}
+
+/* 代码块内文本继承 pre 的颜色与字体 */
+.content pre code,
+pre > code {
+  background: transparent !important;
+  color: inherit !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  font-size: 1em !important;
+  font-family: "JetBrains Mono", "Cascadia Code", "Fira Code",
+               "SF Mono", Consolas, Menlo, monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: .01em;
+}
+
+/* ── 语言标签条（绝对定位到右上角，GitHub 风）── */
+pre::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  font-size: 0.65em;
+  color: #768390;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 600;
+  user-select: none;
+  z-index: 2;
+  pointer-events: none;
+  opacity: .75;
+}
+
+/* ── highlight.js 语法高亮 · GitHub Dark Dimmed 全量覆盖 ──
+   使用 :where() + !important 确保覆盖 mdBook 内置主题
+   ──────────────────────────────────────────────── */
+.content pre code .hljs-comment,
+.content pre code .hljs-quote { color: var(--code-comment) !important; font-style: italic !important; }
+
+.content pre code .hljs-keyword,
+.content pre code .hljs-selector-tag,
+.content pre code .hljs-addition { color: var(--code-keyword) !important; }
+
+.content pre code .hljs-string,
+.content pre code .hljs-template-variable,
+.content pre code .hljs-regexp,
+.content pre code .hljs-meta .hljs-meta-string { color: var(--code-string) !important; }
+
+.content pre code .hljs-number,
+.content pre code .hljs-literal { color: var(--code-number) !important; }
+
+.content pre code .hljs-title.function_,
+.content pre code .hljs-title.class_,
+.content pre code .hljs-section { color: var(--code-function) !important; }
+
+.content pre code .hljs-variable,
+.content pre code .hljs-template-variable,
+.content pre code .hljs-attr,
+.content pre code .hljs-params { color: var(--code-decorate) !important; }
+
+.content pre code .hljs-type,
+.content pre code .hljs-built_in,
+.content pre code .hljs-builtin-name { color: var(--code-type) !important; }
+
+.content pre code .hljs-builtin,
+.content pre code .hljs-attribute { color: var(--code-builtin) !important; }
+
+.content pre code .hljs-operator { color: var(--code-operator) !important; }
+
+.content pre code .hljs-punctuation { color: var(--code-punct) !important; }
+
+.content pre code .hljs-name,
+.content pre code .hljs-link,
+.content pre code .hljs-subst { color: var(--code-fg) !important; }
+
+.content pre code .hljs-symbol,
+.content pre code .hljs-bullet { color: var(--code-class) !important; }
+
+.content pre code .hljs-decorator,
+.content pre code .hljs-class .hljs-title,
+.content pre code .hljs-selector-class { color: var(--code-decorate) !important; }
+
+.content pre code .hljs-meta { color: var(--code-comment) !important; }
+
+.content pre code .hljs-deletion { color: #f85149 !important; }
+
+.content pre code .hljs-emphasis { font-style: italic !important; }
+.content pre code .hljs-strong  { font-weight: bold !important; }
+
+/* ════════════════════════════════════════════
+   📦 <details> 折叠框 — 教材级美化
+   ════════════════════════════════════════════ */
+details {
+  background: linear-gradient(135deg,#fafbff,#f5f8ff);
+  border: 1px solid #dbe3ff;
+  border-radius: 11px;
+  padding: 4px 18px 16px 18px;
+  margin: 16px 0 22px 0;
+  box-shadow: 0 1px 4px rgba(74,108,247,.06);
+  transition: box-shadow .25s ease;
+}
+details[open] {
+  box-shadow: 0 4px 14px rgba(74,108,247,.09);
+}
+summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.95em;
+  color: var(--blue);
+  list-style: none;              /* 去掉默认三角 */
+  padding: 10px 0 6px 0;
+  outline: none;
+  user-select: none;
+}
+summary::-webkit-details-marker { display: none; }  /* Safari */
+summary::before {
+  content: "▶";
+  display: inline-block;
+  font-size: 0.72em;
+  margin-right: 8px;
+  transition: transform .2s ease;
+  color: var(--blue);
+}
+details[open] > summary::before {
+  transform: rotate(90deg);
+}
+summary:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+details > summary ~ * {
+  animation: fadeSlideIn .3s ease forwards;
+}
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* details 内部的 pre 再缩进一点 */
+details pre { margin-top: 10px !important; margin-bottom: 6px !important; }
+
+/* ════════════════════════════════════════════
+   📌 Blockquote callout（按 emoji 分色）
+   ════════════════════════════════════════════ */
+blockquote {
+  border-left: 4px solid var(--blue);
+  background: var(--blue-light);
+  padding: 12px 18px;
+  border-radius: 0 10px 10px 0;
+  margin: 16px 0;
+  color: #334155;
+  font-size: 0.96em;
+}
+blockquote p { margin: 5px 0; }
+
+/* ⚠️ Warning → 黄 */
+blockquote:has(> p:first-child > strong:first-child),
+blockquote:has(> :first-child):has(strong:has(> span)) {
+  /* 由行内 class 控制更可靠，这里仅 fallback */
+}
+blockquote.warning-callout {
+  border-left-color: var(--yellow);
+  background: var(--yellow-light);
+}
+/* 💡 Insight → 蓝 */
+blockquote.insight-callout {
+  border-left-color: var(--blue);
+  background: var(--blue-light);
+}
+/* 🐛 Bug / ⚡ Pro Tip → 红 */
+blockquote.bug-callout {
+  border-left-color: var(--red);
+  background: var(--red-light);
+}
+/* ✅ 成功 / 💚 绿 */
+blockquote.success-callout {
+  border-left-color: var(--green);
+  background: var(--green-light);
+}
+
+/* ════════════════════════════════════════════
+   📊 表格
+   ════════════════════════════════════════════ */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  margin: 18px 0;
+  font-size: 0.95em;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  border: 1px solid #e2e8f0;
+}
+th {
+  background: linear-gradient(180deg,#f0f1ff,#e8ecff);
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 2px solid #c7d2fe;
+  font-weight: 700;
+  color: #312e81;
+  font-size: 0.93em;
+  white-space: nowrap;
+}
+td {
+  padding: 9px 14px;
+  border-bottom: 1px solid #f0f0f5;
+  vertical-align: top;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: #fafbff; }
+
+img { max-width: 100%; height: auto; border-radius: 8px; }
+hr { border: none; border-top: 1px solid var(--line); margin: 28px 0; }
+
+/* ════════════════════════════════════════════
+   🏷️ 徽章头部（flex 行内）
+   ════════════════════════════════════════════ */
+.badge-row { margin-bottom: 24px; }
+
+/* ════════════════════════════════════════════
+   📋 复制按钮（code-enhance.js 生成）· GitHub 风
+   ════════════════════════════════════════════ */
+.code-copy-btn {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  background: rgba(255,255,255,.06);
+  color: #8b949e;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 6px;
+  padding: 2px 10px;
+  font-size: 0.65em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .18s ease;
+  user-select: none;
+  letter-spacing: .03em;
+}
+.code-copy-btn:hover {
+  background: rgba(210,168,255,.15);
+  color: #d2a8ff;
+  border-color: rgba(210,168,255,.3);
+}
+
+/* ════════════════════════════════════════════
+   🔢 练习题区域特殊样式
+   ════════════════════════════════════════════ */
+/* Sample Input / Output 区域加浅背景区分 */
+
+/* ═══════════════════════════════════════════
+   🧩 练一练 互动小测卡片（正文内嵌）
+   ═══════════════════════════════════════════ */
+.try-it {
+  background: #f5f3ff;
+  border: 1px solid #ddd6fe;
+  border-left: 4px solid #8b5cf6;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 22px 0;
+  box-shadow: 0 2px 10px rgba(139, 92, 246, 0.08);
+}
+.try-it > strong {
+  color: #7c3aed;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 1.02em;
+}
+.try-it p {
+  margin: 6px 0;
+  color: var(--text);
+  line-height: 1.7;
+}
+.try-it code {
+  background: #ede9fe;
+  color: #6d28d9;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.9em;
+}
+.try-it pre {
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  padding-top: 32px;              /* 给复制按钮留空间 */
+  overflow: auto;
+  margin: 10px 0;
+}
+.try-it pre code {
+  background: none;
+  color: var(--code-fg) !important;
+  padding: 0;
+  font-size: 0.86em;
+}
+.try-it details {
+  margin-top: 10px;
+  border-top: 1px dashed #ddd6fe;
+  padding-top: 8px;
+}
+.try-it summary {
+  cursor: pointer;
+  color: #7c3aed;
+  font-weight: 600;
+  user-select: none;
+  list-style: none;
+}
+.try-it summary::-webkit-details-marker { display: none; }
+.try-it summary::before {
+  content: "▸ ";
+  display: inline-block;
+  transition: transform .2s ease;
+}
+.try-it details[open] summary::before { content: "▾ "; }
+.try-it summary:hover { text-decoration: underline; }
+
+/* ═══════════════════════════════════════════
+   🎡 少儿/青少年友好栏目：小剧场 / 任务卡 / Boss Bug / 通关徽章
+   ═══════════════════════════════════════════ */
+.story-scene,
+.quest-card,
+.boss-bug,
+.badge-card {
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin: 22px 0;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+}
+.story-scene > strong,
+.quest-card > strong,
+.boss-bug > strong,
+.badge-card > strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1.04em;
+}
+.story-scene p,
+.quest-card p,
+.boss-bug p,
+.badge-card p {
+  margin: 7px 0;
+  color: var(--text);
+  line-height: 1.75;
+}
+.story-scene ul,
+.quest-card ul,
+.boss-bug ul,
+.badge-card ul {
+  margin: 8px 0 0 1.2em;
+  padding-left: 0.4em;
+}
+.story-scene li,
+.quest-card li,
+.boss-bug li,
+.badge-card li {
+  margin: 5px 0;
+}
+.story-scene {
+  background: #fff7ed;
+  border-color: #fed7aa;
+  border-left: 5px solid #f97316;
+}
+.story-scene > strong { color: #c2410c; }
+.quest-card {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  border-left: 5px solid #4A6CF7;
+}
+.quest-card > strong { color: #1d4ed8; }
+.boss-bug {
+  background: #fff1f2;
+  border-color: #fecdd3;
+  border-left: 5px solid #ef4444;
+}
+.boss-bug > strong { color: #be123c; }
+.badge-card {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  border-left: 5px solid #22c55e;
+}
+.badge-card > strong { color: #15803d; }
+
+/* ════════════════════════════════════════════
+   🌙 暗色模式适配（当读者选择 navy 暗色主题时）
+   通过 mdBook 的 html[data-theme="navy"] 钩子生效，
+   把书里硬编码的浅色组件翻成深色，避免"浅色卡片配暗色页面"
+   ════════════════════════════════════════════ */
+html[data-theme="navy"] {
+  --text:        #c9d1d9;
+  --text-light:  #8b949e;
+  --bg:          #0d1117;
+  --cell:        #161b22;
+  --line:        #30363d;
+  --blue-light:    #161b3a;
+  --green-light:   #0f2419;
+  --red-light:     #2a1416;
+  --yellow-light:  #2a2410;
+  --purple:        #a78bfa;
+}
+
+/* 页面底色 + 正文文字翻深色 */
+html[data-theme="navy"],
+html[data-theme="navy"] body {
+  background: #0d1117;
+  color: var(--text);
+}
+
+/* 标题用近白，保证对比度 */
+html[data-theme="navy"] h1,
+html[data-theme="navy"] h2,
+html[data-theme="navy"] h3,
+html[data-theme="navy"] h4 {
+  color: #f0f6fc;
+}
+
+/* 内联代码 */
+html[data-theme="navy"] code {
+  background: rgba(110,118,129,.25);
+  color: #c9d1d9;
+  border-color: #30363d;
+}
+
+/* 折叠框 <details> */
+html[data-theme="navy"] details {
+  background: #161b22;
+  border-color: #30363d;
+  box-shadow: none;
+}
+
+/* 引用 callout：文字翻浅，背景用上面的暗色变量 */
+html[data-theme="navy"] blockquote {
+  color: var(--text);
+}
+html[data-theme="navy"] blockquote.warning-callout  { background: var(--yellow-light); }
+html[data-theme="navy"] blockquote.insight-callout  { background: var(--blue-light); }
+html[data-theme="navy"] blockquote.bug-callout      { background: var(--red-light); }
+html[data-theme="navy"] blockquote.success-callout  { background: var(--green-light); }
+
+/* 表格 */
+html[data-theme="navy"] table {
+  border-color: #30363d;
+  box-shadow: none;
+}
+html[data-theme="navy"] th {
+  background: #161b22;
+  color: #c9d1d9;
+  border-bottom-color: #30363d;
+}
+html[data-theme="navy"] td {
+  border-bottom-color: #21262d;
+}
+html[data-theme="navy"] tbody tr:hover td { background: #1c2128; }
+
+/* 练一练卡片：紫底翻成深紫，文字提亮 */
+html[data-theme="navy"] .try-it {
+  background: #1b1633;
+  border-color: #3a2f5c;
+  border-left-color: #8b5cf6;
+  box-shadow: 0 2px 10px rgba(0,0,0,.45);
+}
+html[data-theme="navy"] .try-it > strong { color: #c4b5fc; }
+html[data-theme="navy"] .try-it p { color: var(--text); }
+html[data-theme="navy"] .try-it code {
+  background: #2a2350;
+  color: #c4b5fc;
+}
+html[data-theme="navy"] .try-it details {
+  border-top-color: #3a2f5c;
+}
+html[data-theme="navy"] .try-it summary { color: #c4b5fc; }
+
+/* 少儿/青少年栏目暗色适配 */
+html[data-theme="navy"] .story-scene,
+html[data-theme="navy"] .quest-card,
+html[data-theme="navy"] .boss-bug,
+html[data-theme="navy"] .badge-card {
+  box-shadow: none;
+}
+html[data-theme="navy"] .story-scene {
+  background: #2a1b10;
+  border-color: #7c2d12;
+  border-left-color: #f97316;
+}
+html[data-theme="navy"] .story-scene > strong { color: #fdba74; }
+html[data-theme="navy"] .quest-card {
+  background: #111c3a;
+  border-color: #1e3a8a;
+  border-left-color: #60a5fa;
+}
+html[data-theme="navy"] .quest-card > strong { color: #93c5fd; }
+html[data-theme="navy"] .boss-bug {
+  background: #2a1218;
+  border-color: #7f1d1d;
+  border-left-color: #fb7185;
+}
+html[data-theme="navy"] .boss-bug > strong { color: #fda4af; }
+html[data-theme="navy"] .badge-card {
+  background: #0f2419;
+  border-color: #166534;
+  border-left-color: #4ade80;
+}
+html[data-theme="navy"] .badge-card > strong { color: #86efac; }
+html[data-theme="navy"] .story-scene p,
+html[data-theme="navy"] .quest-card p,
+html[data-theme="navy"] .boss-bug p,
+html[data-theme="navy"] .badge-card p,
+html[data-theme="navy"] .story-scene li,
+html[data-theme="navy"] .quest-card li,
+html[data-theme="navy"] .boss-bug li,
+html[data-theme="navy"] .badge-card li {
+  color: var(--text);
+}

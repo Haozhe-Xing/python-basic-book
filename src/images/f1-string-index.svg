@@ -1,0 +1,45 @@
+<svg width="720" height="300" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <!-- 背景 -->
+  <rect x="0" y="0" width="720" height="300" fill="#f8f9fc"/>
+
+  <!-- 标题 -->
+  <text x="360" y="36" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">字符串索引：s = "Python"</text>
+
+  <!-- 字符格子 -->
+  <!-- P y t h o n 居中区，6格 宽90 高70，起点 x=90 -->
+  <rect x="90"  y="80" width="90" height="70" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <rect x="180" y="80" width="90" height="70" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <rect x="270" y="80" width="90" height="70" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <rect x="360" y="80" width="90" height="70" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <rect x="450" y="80" width="90" height="70" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <rect x="540" y="80" width="90" height="70" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+
+  <text x="135" y="123" text-anchor="middle" font-size="26" font-weight="bold" fill="#1e293b">P</text>
+  <text x="225" y="123" text-anchor="middle" font-size="26" font-weight="bold" fill="#1e293b">y</text>
+  <text x="315" y="123" text-anchor="middle" font-size="26" font-weight="bold" fill="#1e293b">t</text>
+  <text x="405" y="123" text-anchor="middle" font-size="26" font-weight="bold" fill="#1e293b">h</text>
+  <text x="495" y="123" text-anchor="middle" font-size="26" font-weight="bold" fill="#1e293b">o</text>
+  <text x="585" y="123" text-anchor="middle" font-size="26" font-weight="bold" fill="#1e293b">n</text>
+
+  <!-- 正索引（上） -->
+  <text x="135" y="70" text-anchor="middle" font-size="15" fill="#10b981">0</text>
+  <text x="225" y="70" text-anchor="middle" font-size="15" fill="#10b981">1</text>
+  <text x="315" y="70" text-anchor="middle" font-size="15" fill="#10b981">2</text>
+  <text x="405" y="70" text-anchor="middle" font-size="15" fill="#10b981">3</text>
+  <text x="495" y="70" text-anchor="middle" font-size="15" fill="#10b981">4</text>
+  <text x="585" y="70" text-anchor="middle" font-size="15" fill="#10b981">5</text>
+  <text x="360" y="56" text-anchor="middle" font-size="13" fill="#64748b">正索引（从左，从 0 起）</text>
+
+  <!-- 负索引（下） -->
+  <text x="135" y="178" text-anchor="middle" font-size="15" fill="#f59e0b">-6</text>
+  <text x="225" y="178" text-anchor="middle" font-size="15" fill="#f59e0b">-5</text>
+  <text x="315" y="178" text-anchor="middle" font-size="15" fill="#f59e0b">-4</text>
+  <text x="405" y="178" text-anchor="middle" font-size="15" fill="#f59e0b">-3</text>
+  <text x="495" y="178" text-anchor="middle" font-size="15" fill="#f59e0b">-2</text>
+  <text x="585" y="178" text-anchor="middle" font-size="15" fill="#f59e0b">-1</text>
+  <text x="360" y="200" text-anchor="middle" font-size="13" fill="#64748b">负索引（从右，从 -1 起）</text>
+
+  <!-- 底部说明 -->
+  <rect x="0" y="260" width="720" height="40" fill="#1e293b"/>
+  <text x="360" y="285" text-anchor="middle" font-size="14" fill="#94a3b8" font-family="Courier New, monospace">s[0] = 'P'   s[5] = 'n'   s[-1] = 'n'（正数从左、负数从右，同一字符两把钥匙）</text>
+</svg>

@@ -1,0 +1,13 @@
+# mdBook 构建产物（可由 `mdbook build` 重新生成）
+book/
+
+# macOS
+.DS_Store
+
+# 编辑器 / 工具
+.idea/
+.vscode/
+*.swp
+
+# WorkBuddy 本地数据（如需团队共享可移除此行）
+.workbuddy/

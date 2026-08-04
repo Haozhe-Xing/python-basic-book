@@ -1,0 +1,50 @@
+<svg width="800" height="460" viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="dbg" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 Z" fill="#4A6CF7"/></marker>
+  </defs>
+  <rect x="0" y="0" width="800" height="460" fill="#f8f9fc"/>
+  <text x="400" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">调试流程：像侦探一样破案</text>
+
+  <!-- 步骤 -->
+  <rect x="300" y="54" width="200" height="40" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="400" y="79" text-anchor="middle" font-size="14" fill="#1e293b">① 复现 bug</text>
+
+  <rect x="300" y="124" width="200" height="40" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="400" y="149" text-anchor="middle" font-size="14" fill="#1e293b">② 读报错 / 观察</text>
+
+  <rect x="300" y="194" width="200" height="40" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="400" y="219" text-anchor="middle" font-size="14" fill="#1e293b">③ 提假设</text>
+
+  <rect x="300" y="264" width="200" height="40" rx="8" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
+  <text x="400" y="289" text-anchor="middle" font-size="14" fill="#1e293b">④ 缩小范围(print/assert)</text>
+
+  <rect x="300" y="334" width="200" height="40" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="400" y="359" text-anchor="middle" font-size="14" fill="#1e293b">⑤ 修复并验证</text>
+
+  <!-- 向下箭头 -->
+  <line x1="400" y1="94" x2="400" y2="122" stroke="#4A6CF7" stroke-width="2" marker-end="url(#dbg)"/>
+  <line x1="400" y1="164" x2="400" y2="192" stroke="#4A6CF7" stroke-width="2" marker-end="url(#dbg)"/>
+  <line x1="400" y1="234" x2="400" y2="262" stroke="#4A6CF7" stroke-width="2" marker-end="url(#dbg)"/>
+  <line x1="400" y1="304" x2="400" y2="332" stroke="#4A6CF7" stroke-width="2" marker-end="url(#dbg)"/>
+
+  <!-- 还没修好：⑤ 右侧回 ① -->
+  <polyline points="500,354 600,354 600,74 502,74" fill="none" stroke="#ef4444" stroke-width="2" marker-end="url(#dbg)"/>
+  <text x="560" y="220" text-anchor="middle" font-size="12" fill="#dc2626">还没修好？</text>
+
+  <!-- 修好了出口 -->
+  <rect x="560" y="334" width="170" height="40" rx="20" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="645" y="359" text-anchor="middle" font-size="14" font-weight="bold" fill="#16a34a">✓ 修好了</text>
+  <line x1="500" y1="354" x2="558" y2="354" stroke="#10b981" stroke-width="2" marker-end="url(#dbg)"/>
+  <text x="528" y="346" font-size="12" fill="#16a34a">修好</text>
+
+  <!-- 橡皮鸭提示 -->
+  <rect x="40" y="200" width="210" height="130" rx="10" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
+  <text x="145" y="228" text-anchor="middle" font-size="14" font-weight="bold" fill="#d97706">🦆 橡皮鸭法</text>
+  <text x="56" y="252" font-size="12" fill="#1e293b">把代码逐行讲给一只</text>
+  <text x="56" y="272" font-size="12" fill="#1e293b">橡皮鸭听，往往讲着</text>
+  <text x="56" y="292" font-size="12" fill="#1e293b">讲着自己就发现哪里</text>
+  <text x="56" y="312" font-size="12" fill="#1e293b">逻辑不对了。</text>
+
+  <rect x="0" y="440" width="800" height="20" fill="#1e293b"/>
+  <text x="400" y="454" text-anchor="middle" font-size="13" fill="#94a3b8" font-family="Courier New, monospace">调试不是瞎猜：复现 → 观察 → 假设 → 缩小 → 修复 → 验证</text>
+</svg>

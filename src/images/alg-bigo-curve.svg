@@ -1,0 +1,51 @@
+<svg width="800" height="440" viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <!-- 背景 -->
+  <rect x="0" y="0" width="800" height="440" fill="#f8f9fc"/>
+
+  <!-- 标题 -->
+  <text x="400" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">Big-O 增长曲线：同样到 n=30，操作次数天差地别</text>
+
+  <!-- 坐标系背景 -->
+  <rect x="80" y="60" width="680" height="300" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- 网格横线 -->
+  <line x1="80" y1="135" x2="760" y2="135" stroke="#eef2ff" stroke-width="1"/>
+  <line x1="80" y1="210" x2="760" y2="210" stroke="#eef2ff" stroke-width="1"/>
+  <line x1="80" y1="285" x2="760" y2="285" stroke="#eef2ff" stroke-width="1"/>
+
+  <!-- 坐标轴 -->
+  <line x1="80" y1="60" x2="80" y2="360" stroke="#64748b" stroke-width="2"/>
+  <line x1="80" y1="360" x2="760" y2="360" stroke="#64748b" stroke-width="2"/>
+  <text x="40" y="210" text-anchor="middle" font-size="13" fill="#64748b" transform="rotate(-90 40 210)">操作次数</text>
+  <text x="420" y="388" text-anchor="middle" font-size="13" fill="#64748b">数据规模 n（人数 / 元素个数）</text>
+  <text x="752" y="352" text-anchor="end" font-size="12" fill="#64748b">n=30</text>
+  <text x="86" y="74" text-anchor="start" font-size="12" fill="#64748b">顶部</text>
+
+  <!-- O(n²) 红色 平方 -->
+  <polyline points="80,360 150,355 221,344 291,327 361,304 432,275 502,240 572,199 643,152 713,99 760,60"
+            fill="none" stroke="#ef4444" stroke-width="4"/>
+  <circle cx="760" cy="60" r="5" fill="#ef4444"/>
+
+  <!-- O(n) 蓝色 线性 -->
+  <polyline points="80,350 150,320 221,290 291,260 361,230 432,200 502,170 572,140 643,110 713,80 760,60"
+            fill="none" stroke="#4A6CF7" stroke-width="4"/>
+  <circle cx="760" cy="60" r="5" fill="#4A6CF7"/>
+
+  <!-- O(log n) 绿色 对数 -->
+  <polyline points="80,360 150,240 221,192 291,161 361,138 432,120 502,105 572,93 643,81 713,72 760,66"
+            fill="none" stroke="#10b981" stroke-width="4"/>
+  <circle cx="760" cy="66" r="5" fill="#10b981"/>
+
+  <!-- 图例 -->
+  <rect x="560" y="72" width="190" height="92" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <rect x="574" y="86" width="22" height="6" rx="3" fill="#ef4444"/>
+  <text x="606" y="95" font-size="14" fill="#1e293b">O(n²) 平方：爆炸增长</text>
+  <rect x="574" y="116" width="22" height="6" rx="3" fill="#4A6CF7"/>
+  <text x="606" y="125" font-size="14" fill="#1e293b">O(n) 线性：稳步上升</text>
+  <rect x="574" y="146" width="22" height="6" rx="3" fill="#10b981"/>
+  <text x="606" y="155" font-size="14" fill="#1e293b">O(log n) 对数：很快平缓</text>
+
+  <!-- 底部说明 -->
+  <rect x="0" y="410" width="800" height="30" fill="#1e293b"/>
+  <text x="400" y="430" text-anchor="middle" font-size="13" fill="#94a3b8" font-family="Courier New, monospace">同样处理到 n=30，n² 曲线已贴天花板，log n 几乎还贴着地板 —— 差距就是"能不能用"</text>
+</svg>

@@ -1,0 +1,47 @@
+<svg width="800" height="420" viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="wf" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 Z" fill="#4A6CF7"/></marker>
+    <marker id="wfg" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 Z" fill="#10b981"/></marker>
+    <marker id="wfr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 Z" fill="#ef4444"/></marker>
+  </defs>
+  <rect x="0" y="0" width="800" height="420" fill="#f8f9fc"/>
+  <text x="400" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">while 循环流程图</text>
+
+  <!-- 开始 -->
+  <rect x="320" y="54" width="160" height="40" rx="20" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="400" y="79" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">开始</text>
+
+  <!-- 条件菱形 -->
+  <polygon points="400,118 510,168 400,218 290,168" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
+  <text x="400" y="173" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">条件成立?</text>
+
+  <!-- 循环体 -->
+  <rect x="560" y="143" width="210" height="50" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="665" y="162" text-anchor="middle" font-size="13" fill="#1e293b">循环体</text>
+  <text x="665" y="182" text-anchor="middle" font-size="12" fill="#64748b">做事 + 更新计数器</text>
+
+  <!-- 结束 -->
+  <rect x="320" y="320" width="160" height="40" rx="20" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+  <text x="400" y="345" text-anchor="middle" font-size="14" font-weight="bold" fill="#dc2626">结束</text>
+
+  <!-- 开始->条件 -->
+  <line x1="400" y1="94" x2="400" y2="116" stroke="#4A6CF7" stroke-width="2" marker-end="url(#wf)"/>
+  <!-- 条件 是 -> 循环体 -->
+  <line x1="510" y1="168" x2="558" y2="168" stroke="#10b981" stroke-width="2" marker-end="url(#wfg)"/>
+  <text x="534" y="160" text-anchor="middle" font-size="12" fill="#16a34a">是</text>
+  <!-- 循环体 -> 回到条件 (折返) -->
+  <polyline points="665,193 665,250 400,250 400,220" fill="none" stroke="#4A6CF7" stroke-width="2" marker-end="url(#wf)"/>
+  <text x="540" y="244" text-anchor="middle" font-size="12" fill="#4A6CF7">回到判断</text>
+  <!-- 条件 否 -> 结束 -->
+  <line x1="400" y1="218" x2="400" y2="318" stroke="#ef4444" stroke-width="2" marker-end="url(#wfr)"/>
+  <text x="412" y="270" font-size="12" fill="#dc2626">否</text>
+
+  <!-- 提示框 -->
+  <rect x="40" y="300" width="220" height="80" rx="8" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
+  <text x="56" y="324" font-size="13" font-weight="bold" fill="#d97706">⚠️ 死循环防范</text>
+  <text x="56" y="346" font-size="12" fill="#1e293b">循环体里一定要让</text>
+  <text x="56" y="364" font-size="12" fill="#1e293b">条件"有朝一日变 False"</text>
+
+  <rect x="0" y="400" width="800" height="20" fill="#1e293b"/>
+  <text x="400" y="414" text-anchor="middle" font-size="13" fill="#94a3b8" font-family="Courier New, monospace">while 条件: 循环体   # 别忘在循环体里改变条件，否则死循环</text>
+</svg>

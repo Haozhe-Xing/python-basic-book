@@ -1,0 +1,79 @@
+<svg width="800" height="440" viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <!-- 背景 -->
+  <rect x="0" y="0" width="800" height="440" fill="#f8f9fc"/>
+
+  <!-- 标题 -->
+  <text x="400" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">迷雾古堡冒险 · 场景状态图</text>
+
+  <defs>
+    <marker id="b" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4A6CF7"/>
+    </marker>
+    <marker id="g" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#94a3b8"/>
+    </marker>
+    <marker id="k" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#f59e0b"/>
+    </marker>
+  </defs>
+
+  <!-- 转移连线（先画，让节点压在上面） -->
+  <!-- 正向（蓝） -->
+  <line x1="342" y1="82" x2="212" y2="168" stroke="#4A6CF7" stroke-width="2.5" marker-end="url(#b)"/>
+  <line x1="458" y1="82" x2="588" y2="168" stroke="#4A6CF7" stroke-width="2.5" marker-end="url(#b)"/>
+  <line x1="200" y1="227" x2="200" y2="321" stroke="#4A6CF7" stroke-width="2.5" marker-end="url(#b)"/>
+  <line x1="258" y1="216" x2="360" y2="322" stroke="#4A6CF7" stroke-width="2.5" marker-end="url(#b)"/>
+  <!-- 反向（灰） -->
+  <line x1="216" y1="323" x2="216" y2="227" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#g)"/>
+  <line x1="362" y1="330" x2="262" y2="216" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#g)"/>
+  <line x1="186" y1="173" x2="354" y2="92" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#g)"/>
+  <!-- 开门（金，虚线） -->
+  <line x1="476" y1="350" x2="524" y2="350" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#k)"/>
+
+  <!-- 方向标签 -->
+  <text x="262" y="120" text-anchor="middle" font-size="12" fill="#4A6CF7">north</text>
+  <text x="538" y="120" text-anchor="middle" font-size="12" fill="#4A6CF7">east</text>
+  <text x="178" y="280" text-anchor="middle" font-size="12" fill="#4A6CF7">west</text>
+  <text x="300" y="290" text-anchor="middle" font-size="12" fill="#4A6CF7">down</text>
+  <text x="232" y="282" text-anchor="middle" font-size="11" fill="#94a3b8">east</text>
+  <text x="312" y="278" text-anchor="middle" font-size="11" fill="#94a3b8">up</text>
+  <text x="270" y="135" text-anchor="middle" font-size="11" fill="#94a3b8">south</text>
+  <text x="500" y="338" text-anchor="middle" font-size="12" fill="#d97706">open(key)</text>
+
+  <!-- 节点 -->
+  <!-- entrance -->
+  <rect x="325" y="33" width="150" height="54" rx="8" fill="#4A6CF7"/>
+  <text x="400" y="58" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">entrance</text>
+  <text x="400" y="76" text-anchor="middle" font-size="12" fill="#eaf0ff">古堡大门</text>
+
+  <!-- hall -->
+  <rect x="125" y="173" width="150" height="54" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="200" y="198" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">hall</text>
+  <text x="200" y="216" text-anchor="middle" font-size="12" fill="#64748b">大厅 · 有钥匙</text>
+
+  <!-- garden -->
+  <rect x="525" y="173" width="150" height="54" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="600" y="198" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">garden</text>
+  <text x="600" y="216" text-anchor="middle" font-size="12" fill="#64748b">花园</text>
+
+  <!-- library -->
+  <rect x="125" y="323" width="150" height="54" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="200" y="348" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">library</text>
+  <text x="200" y="366" text-anchor="middle" font-size="12" fill="#64748b">图书室</text>
+
+  <!-- cellar -->
+  <rect x="325" y="323" width="150" height="54" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="400" y="348" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">cellar</text>
+  <text x="400" y="366" text-anchor="middle" font-size="12" fill="#64748b">地窖 · 铁门</text>
+
+  <!-- treasure（终点，绿色） -->
+  <rect x="525" y="323" width="150" height="54" rx="8" fill="#10b981"/>
+  <text x="600" y="348" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">treasure</text>
+  <text x="600" y="366" text-anchor="middle" font-size="12" fill="#dcfce7">藏宝室(终点)</text>
+
+  <!-- 图例 -->
+  <rect x="560" y="410" width="14" height="14" rx="3" fill="#4A6CF7"/>
+  <text x="580" y="421" font-size="12" fill="#64748b">正向移动</text>
+  <rect x="660" y="410" width="14" height="14" rx="3" fill="#94a3b8"/>
+  <text x="680" y="421" font-size="12" fill="#64748b">返回</text>
+</svg>

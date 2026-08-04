@@ -1,0 +1,51 @@
+<svg width="800" height="460" viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="f4pin" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#1e293b"/>
+    </marker>
+  </defs>
+
+  <!-- 背景 -->
+  <rect x="0" y="0" width="800" height="460" fill="#f8f9fc"/>
+
+  <!-- 标题 -->
+  <text x="400" y="36" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">模块拼图：站在别人肩膀上</text>
+  <text x="400" y="60" text-anchor="middle" font-size="13" fill="#64748b">标准库与第三方库都是现成"积木"，一片片 import 拼进你的主程序即可</text>
+
+  <!-- 主程序（中心） -->
+  <rect x="310" y="180" width="180" height="100" rx="8" fill="#4A6CF7" stroke="#fff" stroke-width="2"/>
+  <text x="400" y="216" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">我的</text>
+  <text x="400" y="240" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">算法游乐场</text>
+  <text x="400" y="262" text-anchor="middle" font-size="12" fill="#eaf0ff" font-family="Courier New, monospace">main.py</text>
+
+  <!-- 左上：random 抽奖 -->
+  <rect x="40" y="90" width="220" height="76" rx="8" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
+  <text x="60" y="120" font-size="15" font-weight="bold" fill="#d97706">🎲 random</text>
+  <text x="60" y="146" font-size="13" fill="#1e293b">随机抽取幸运游客 / 抽奖</text>
+
+  <!-- 左下：math 圆面积 -->
+  <rect x="40" y="280" width="220" height="76" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="60" y="310" font-size="15" font-weight="bold" fill="#10b981">📐 math</text>
+  <text x="60" y="336" font-size="13" fill="#1e293b">算圆面积 / 开方 sqrt</text>
+
+  <!-- 右上：datetime 时间戳 -->
+  <rect x="540" y="90" width="220" height="76" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="560" y="120" font-size="15" font-weight="bold" fill="#4A6CF7">🕐 datetime</text>
+  <text x="560" y="146" font-size="13" fill="#1e293b">记录开园 / 闭园时间</text>
+
+  <!-- 右下：os 文件 -->
+  <rect x="540" y="280" width="220" height="76" rx="8" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+  <text x="560" y="310" font-size="15" font-weight="bold" fill="#ef4444">📁 os</text>
+  <text x="560" y="336" font-size="13" fill="#1e293b">读写文件 / 排行榜存档</text>
+
+  <!-- 连线：四块积木 → 主程序 -->
+  <line x1="260" y1="128" x2="308" y2="210" stroke="#1e293b" stroke-width="2" marker-end="url(#f4pin)"/>
+  <line x1="260" y1="318" x2="308" y2="250" stroke="#1e293b" stroke-width="2" marker-end="url(#f4pin)"/>
+  <line x1="540" y1="128" x2="492" y2="210" stroke="#1e293b" stroke-width="2" marker-end="url(#f4pin)"/>
+  <line x1="540" y1="318" x2="492" y2="250" stroke="#1e293b" stroke-width="2" marker-end="url(#f4pin)"/>
+
+  <!-- 底部说明 -->
+  <rect x="0" y="410" width="800" height="50" fill="#1e293b"/>
+  <text x="400" y="436" text-anchor="middle" font-size="14" fill="#e2e8f0" font-family="Courier New, monospace">import random / math / datetime / os  →  不重复造轮子，直接复用</text>
+  <text x="400" y="456" text-anchor="middle" font-size="12" fill="#94a3b8">需要更专业的库？用 pip install 装上更多"积木"</text>
+</svg>

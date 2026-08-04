@@ -1,0 +1,49 @@
+<svg width="800" height="440" viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="f4arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4A6CF7"/>
+    </marker>
+  </defs>
+
+  <!-- 背景 -->
+  <rect x="0" y="0" width="800" height="440" fill="#f8f9fc"/>
+
+  <!-- 标题 -->
+  <text x="400" y="36" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">函数 = 黑盒：喂参数，吐结果</text>
+  <text x="400" y="60" text-anchor="middle" font-size="13" fill="#64748b">同一个函数，给它不同的"料"，它就吐出不同的结果——不必把代码复制一遍</text>
+
+  <!-- 左侧输入：参数卡片 -->
+  <rect x="40" y="110" width="200" height="74" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="58" y="138" font-size="14" fill="#1e293b">① 参数 name</text>
+  <text x="58" y="164" font-size="15" font-weight="bold" fill="#4A6CF7" font-family="Courier New, monospace">"小明"</text>
+
+  <rect x="40" y="256" width="200" height="74" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="58" y="284" font-size="14" fill="#1e293b">① 参数 name</text>
+  <text x="58" y="310" font-size="15" font-weight="bold" fill="#4A6CF7" font-family="Courier New, monospace">"小红"</text>
+
+  <!-- 中间：函数黑盒 -->
+  <rect x="300" y="170" width="200" height="100" rx="8" fill="#4A6CF7" stroke="#fff" stroke-width="2"/>
+  <text x="400" y="202" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff" font-family="Courier New, monospace">greet(name)</text>
+  <text x="400" y="230" text-anchor="middle" font-size="13" fill="#eaf0ff">黑盒内部：</text>
+  <text x="400" y="250" text-anchor="middle" font-size="12" fill="#eaf0ff" font-family="Courier New, monospace">return "你好, " + name</text>
+
+  <!-- 右侧输出：return 结果卡片 -->
+  <rect x="560" y="110" width="200" height="74" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="578" y="138" font-size="14" fill="#1e293b">② return 结果</text>
+  <text x="578" y="164" font-size="15" font-weight="bold" fill="#10b981" font-family="Courier New, monospace">"你好，小明！"</text>
+
+  <rect x="560" y="256" width="200" height="74" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="578" y="284" font-size="14" fill="#1e293b">② return 结果</text>
+  <text x="578" y="310" font-size="15" font-weight="bold" fill="#10b981" font-family="Courier New, monospace">"你好，小红！"</text>
+
+  <!-- 箭头：参数 → 黑盒 -->
+  <line x1="240" y1="147" x2="298" y2="200" stroke="#4A6CF7" stroke-width="2" marker-end="url(#f4arrow)"/>
+  <line x1="240" y1="293" x2="298" y2="240" stroke="#4A6CF7" stroke-width="2" marker-end="url(#f4arrow)"/>
+  <!-- 箭头：黑盒 → 结果 -->
+  <line x1="502" y1="200" x2="558" y2="147" stroke="#10b981" stroke-width="2" marker-end="url(#f4arrow)"/>
+  <line x1="502" y1="240" x2="558" y2="293" stroke="#10b981" stroke-width="2" marker-end="url(#f4arrow)"/>
+
+  <!-- 底部说明 -->
+  <rect x="0" y="410" width="800" height="30" fill="#1e293b"/>
+  <text x="400" y="430" text-anchor="middle" font-size="13" fill="#94a3b8" font-family="Courier New, monospace">def greet(name): 封装一次，调用 N 次 —— 这就是"把一串操作打包成一个按钮"</text>
+</svg>

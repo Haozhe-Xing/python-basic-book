@@ -1,0 +1,73 @@
+<svg width="800" height="440" viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <!-- 背景 -->
+  <rect x="0" y="0" width="800" height="440" fill="#f8f9fc"/>
+
+  <!-- 标题 -->
+  <text x="400" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">归并排序：先拆成单片，再两两合并成有序</text>
+
+  <defs>
+    <marker id="alg2arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4A6CF7"/>
+    </marker>
+    <marker id="alg2arrowG" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#10b981"/>
+    </marker>
+  </defs>
+
+  <!-- ============ 左：拆分 Divide ============ -->
+  <text x="40" y="64" font-size="15" font-weight="bold" fill="#4A6CF7">① 拆分 Divide（一路拆到每堆只剩 1 个数）</text>
+
+  <!-- 整列 -->
+  <rect x="70" y="80" width="300" height="40" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="220" y="105" text-anchor="middle" font-size="14" fill="#1e293b">[38, 27, 43, 3, 9, 82, 10]</text>
+  <line x1="220" y1="120" x2="220" y2="150" stroke="#4A6CF7" stroke-width="2" marker-end="url(#alg2arrow)"/>
+
+  <!-- 两半 -->
+  <rect x="70" y="150" width="140" height="34" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="140" y="172" text-anchor="middle" font-size="13" fill="#1e293b">[38, 27, 43]</text>
+  <rect x="230" y="150" width="140" height="34" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="300" y="172" text-anchor="middle" font-size="13" fill="#1e293b">[3, 9, 82, 10]</text>
+  <line x1="140" y1="184" x2="140" y2="214" stroke="#4A6CF7" stroke-width="2" marker-end="url(#alg2arrow)"/>
+  <line x1="300" y1="184" x2="300" y2="214" stroke="#4A6CF7" stroke-width="2" marker-end="url(#alg2arrow)"/>
+
+  <!-- 单片（绿色 = 天然有序） -->
+  <rect x="60" y="214" width="38" height="30" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="79" y="234" text-anchor="middle" font-size="13" fill="#1e293b">38</text>
+  <rect x="102" y="214" width="38" height="30" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="121" y="234" text-anchor="middle" font-size="13" fill="#1e293b">27</text>
+  <rect x="144" y="214" width="38" height="30" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="163" y="234" text-anchor="middle" font-size="13" fill="#1e293b">43</text>
+  <rect x="186" y="214" width="38" height="30" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="205" y="234" text-anchor="middle" font-size="13" fill="#1e293b">3</text>
+  <rect x="228" y="214" width="38" height="30" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="247" y="234" text-anchor="middle" font-size="13" fill="#1e293b">9</text>
+  <rect x="270" y="214" width="38" height="30" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="289" y="234" text-anchor="middle" font-size="13" fill="#1e293b">82</text>
+  <rect x="312" y="214" width="38" height="30" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="331" y="234" text-anchor="middle" font-size="13" fill="#1e293b">10</text>
+  <text x="220" y="268" text-anchor="middle" font-size="13" fill="#64748b">每堆 1 个数 = 天然有序，可以开始合并</text>
+
+  <!-- ============ 右：合并 Merge ============ -->
+  <text x="415" y="64" font-size="15" font-weight="bold" fill="#4A6CF7">② 合并 Merge（把两个有序堆合成一个大有序堆）</text>
+
+  <rect x="420" y="80" width="160" height="34" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="500" y="102" text-anchor="middle" font-size="13" fill="#1e293b">[3, 27, 38, 43]</text>
+  <rect x="600" y="80" width="160" height="34" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="680" y="102" text-anchor="middle" font-size="13" fill="#1e293b">[5, 9, 10, 82]</text>
+  <line x1="500" y1="114" x2="540" y2="150" stroke="#10b981" stroke-width="2" marker-end="url(#alg2arrowG)"/>
+  <line x1="680" y1="114" x2="640" y2="150" stroke="#10b981" stroke-width="2" marker-end="url(#alg2arrowG)"/>
+
+  <rect x="420" y="150" width="340" height="44" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="3"/>
+  <text x="590" y="178" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">[3, 5, 9, 10, 27, 38, 43, 82]</text>
+
+  <!-- 合并规则说明 -->
+  <rect x="420" y="214" width="340" height="86" rx="8" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
+  <text x="436" y="238" font-size="13" font-weight="bold" fill="#d97706">合并规则（每次都挑小的）</text>
+  <text x="436" y="260" font-size="13" fill="#1e293b">比较两个堆的「队首」，谁小先取谁；</text>
+  <text x="436" y="282" font-size="13" fill="#1e293b">例：3 &lt; 5 → 取 3；5 &lt; 27 → 取 5；</text>
+  <text x="436" y="292" font-size="13" fill="#1e293b">9 &lt; 27 → 取 9 … 取完即有序。</text>
+
+  <!-- 底部公式栏 -->
+  <rect x="0" y="420" width="800" height="20" fill="#1e293b"/>
+  <text x="400" y="434" text-anchor="middle" font-size="13" fill="#94a3b8" font-family="Courier New, monospace">拆分 ≈ log₂(n) 层 · 每层合并比较 O(n) 次 → 总复杂度 O(n log n)</text>
+</svg>

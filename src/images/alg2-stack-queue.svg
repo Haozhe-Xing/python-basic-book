@@ -1,0 +1,63 @@
+<svg width="800" height="440" viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <!-- 背景 -->
+  <rect x="0" y="0" width="800" height="440" fill="#f8f9fc"/>
+
+  <!-- 标题 -->
+  <text x="400" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">栈 vs 队列：一个后进先出，一个先进先出</text>
+
+  <defs>
+    <marker id="sqArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4A6CF7"/>
+    </marker>
+  </defs>
+
+  <!-- ============ 左：栈 Stack ============ -->
+  <rect x="30" y="56" width="350" height="40" rx="8" fill="#4A6CF7"/>
+  <text x="205" y="82" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">栈 Stack（后进先出 LIFO）</text>
+
+  <!-- 容器（竖着堆叠） -->
+  <rect x="150" y="110" width="110" height="200" rx="8" fill="#ffffff" stroke="#4A6CF7" stroke-width="2"/>
+  <!-- 元素从底到顶：A(底) B C(顶) -->
+  <rect x="158" y="262" width="94" height="40" rx="6" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="205" y="288" text-anchor="middle" font-size="15" fill="#1e293b">A（底）</text>
+  <rect x="158" y="218" width="94" height="40" rx="6" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="205" y="244" text-anchor="middle" font-size="15" fill="#1e293b">B</text>
+  <rect x="158" y="174" width="94" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="205" y="200" text-anchor="middle" font-size="15" fill="#1e293b">C（顶）</text>
+  <!-- TOP 标记 -->
+  <text x="205" y="162" text-anchor="middle" font-size="13" font-weight="bold" fill="#10b981">↑ TOP（只能从这进出）</text>
+
+  <!-- push / pop 箭头 -->
+  <line x1="280" y1="194" x2="330" y2="194" stroke="#4A6CF7" stroke-width="2" marker-end="url(#sqArrow)"/>
+  <text x="300" y="186" text-anchor="middle" font-size="12" fill="#1e293b">push</text>
+  <line x1="330" y1="214" x2="280" y2="214" stroke="#ef4444" stroke-width="2" marker-end="url(#sqArrow)"/>
+  <text x="300" y="232" text-anchor="middle" font-size="12" fill="#ef4444">pop</text>
+
+  <text x="205" y="330" text-anchor="middle" font-size="13" fill="#64748b">最后进的 C 最先出 → 像一摞盘子</text>
+
+  <!-- ============ 右：队列 Queue ============ -->
+  <rect x="420" y="56" width="350" height="40" rx="8" fill="#10b981"/>
+  <text x="595" y="82" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">队列 Queue（先进先出 FIFO）</text>
+
+  <!-- 容器（横着排） -->
+  <rect x="450" y="150" width="300" height="80" rx="8" fill="#ffffff" stroke="#10b981" stroke-width="2"/>
+  <rect x="458" y="160" width="80" height="60" rx="6" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="498" y="196" text-anchor="middle" font-size="15" fill="#1e293b">甲（头）</text>
+  <rect x="544" y="160" width="80" height="60" rx="6" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="584" y="196" text-anchor="middle" font-size="15" fill="#1e293b">乙</text>
+  <rect x="630" y="160" width="80" height="60" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="670" y="196" text-anchor="middle" font-size="15" fill="#1e293b">丙（尾）</text>
+
+  <!-- FRONT / BACK 标记 -->
+  <text x="498" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#4A6CF7">← 出队 dequeue（队首）</text>
+  <text x="670" y="248" text-anchor="middle" font-size="13" font-weight="bold" fill="#10b981">入队 enqueue（队尾）→</text>
+  <line x1="710" y1="190" x2="738" y2="190" stroke="#10b981" stroke-width="2" marker-end="url(#sqArrow)"/>
+  <line x1="450" y1="190" x2="422" y2="190" stroke="#ef4444" stroke-width="2" marker-end="url(#sqArrow)"/>
+
+  <text x="595" y="278" text-anchor="middle" font-size="13" fill="#64748b">最早来的甲先走 → 像食堂排队打饭</text>
+
+  <!-- 底部对比栏 -->
+  <rect x="0" y="360" width="800" height="80" rx="0" fill="#1e293b"/>
+  <text x="400" y="392" text-anchor="middle" font-size="14" fill="#e2e8f0" font-family="Courier New, monospace">栈 Stack  : push/pop  都在同一端(TOP)      → 后进先出 LIFO</text>
+  <text x="400" y="418" text-anchor="middle" font-size="14" fill="#e2e8f0" font-family="Courier New, monospace">队列 Queue: enqueue(尾)/dequeue(头) 各站一端 → 先进先出 FIFO</text>
+</svg>

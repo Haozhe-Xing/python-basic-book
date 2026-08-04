@@ -1,0 +1,36 @@
+<svg width="760" height="260" viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <!-- 背景 -->
+  <rect x="0" y="0" width="760" height="260" fill="#f8f9fc"/>
+
+  <!-- 标题 -->
+  <text x="380" y="36" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">交互系统：输入 → 处理 → 输出</text>
+
+  <defs>
+    <marker id="flowArrow" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#4A6CF7"/>
+    </marker>
+  </defs>
+
+  <!-- 输入框 -->
+  <rect x="40" y="100" width="170" height="80" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="3"/>
+  <text x="125" y="132" text-anchor="middle" font-size="16" font-weight="bold" fill="#4A6CF7">📥 输入</text>
+  <text x="125" y="158" text-anchor="middle" font-size="13" fill="#64748b">input()</text>
+
+  <!-- 处理框 -->
+  <rect x="295" y="100" width="170" height="80" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="3"/>
+  <text x="380" y="132" text-anchor="middle" font-size="16" font-weight="bold" fill="#10b981">⚙️ 处理</text>
+  <text x="380" y="158" text-anchor="middle" font-size="13" fill="#64748b">变量·运算符·字符串</text>
+
+  <!-- 输出框 -->
+  <rect x="550" y="100" width="170" height="80" rx="8" fill="#fef9ec" stroke="#f59e0b" stroke-width="3"/>
+  <text x="635" y="132" text-anchor="middle" font-size="16" font-weight="bold" fill="#d97706">📤 输出</text>
+  <text x="635" y="158" text-anchor="middle" font-size="13" fill="#64748b">print()</text>
+
+  <!-- 箭头 -->
+  <line x1="210" y1="140" x2="293" y2="140" stroke="#4A6CF7" stroke-width="3" marker-end="url(#flowArrow)"/>
+  <line x1="465" y1="140" x2="548" y2="140" stroke="#4A6CF7" stroke-width="3" marker-end="url(#flowArrow)"/>
+
+  <!-- 例子说明 -->
+  <rect x="40" y="210" width="680" height="34" rx="8" fill="#1e293b"/>
+  <text x="380" y="232" text-anchor="middle" font-size="14" fill="#94a3b8" font-family="Courier New, monospace">键盘输入 "小龙,14"  →  算票价/判断  →  屏幕打印 "欢迎 小龙！票价30元"</text>
+</svg>

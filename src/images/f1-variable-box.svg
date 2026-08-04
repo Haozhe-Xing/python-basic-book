@@ -1,0 +1,38 @@
+<svg width="720" height="320" viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <!-- 背景 -->
+  <rect x="0" y="0" width="720" height="320" fill="#f8f9fc"/>
+
+  <!-- 标题 -->
+  <text x="360" y="36" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">变量 = 带标签的盒子</text>
+
+  <!-- 盒子 1: name -->
+  <rect x="50" y="80" width="180" height="170" rx="8" fill="#ffffff" stroke="#4A6CF7" stroke-width="3"/>
+  <rect x="50" y="80" width="180" height="40" rx="8" fill="#4A6CF7"/>
+  <rect x="50" y="104" width="180" height="16" fill="#4A6CF7"/>
+  <text x="140" y="107" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">name</text>
+  <rect x="80" y="150" width="120" height="60" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="140" y="188" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">小龙</text>
+  <text x="140" y="240" text-anchor="middle" font-size="13" fill="#64748b">str 类型</text>
+
+  <!-- 盒子 2: age -->
+  <rect x="270" y="80" width="180" height="170" rx="8" fill="#ffffff" stroke="#10b981" stroke-width="3"/>
+  <rect x="270" y="80" width="180" height="40" rx="8" fill="#10b981"/>
+  <rect x="270" y="104" width="180" height="16" fill="#10b981"/>
+  <text x="360" y="107" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">age</text>
+  <rect x="300" y="150" width="120" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="360" y="188" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">14</text>
+  <text x="360" y="240" text-anchor="middle" font-size="13" fill="#64748b">int 类型</text>
+
+  <!-- 盒子 3: price -->
+  <rect x="490" y="80" width="180" height="170" rx="8" fill="#ffffff" stroke="#f59e0b" stroke-width="3"/>
+  <rect x="490" y="80" width="180" height="40" rx="8" fill="#f59e0b"/>
+  <rect x="490" y="104" width="180" height="16" fill="#f59e0b"/>
+  <text x="580" y="107" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">price</text>
+  <rect x="520" y="150" width="120" height="60" rx="8" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
+  <text x="580" y="188" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">30</text>
+  <text x="580" y="240" text-anchor="middle" font-size="13" fill="#64748b">int 类型</text>
+
+  <!-- 底部说明 -->
+  <rect x="0" y="290" width="720" height="30" fill="#1e293b"/>
+  <text x="360" y="310" text-anchor="middle" font-size="14" fill="#94a3b8" font-family="Courier New, monospace">名字（标签）在盒外，值装在盒内；用名字就能取出对应的值</text>
+</svg>

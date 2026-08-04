@@ -1,0 +1,57 @@
+<svg width="800" height="470" viewBox="0 0 800 470" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <!-- 背景 -->
+  <rect x="0" y="0" width="800" height="470" fill="#f8f9fc"/>
+
+  <!-- 标题 -->
+  <text x="400" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">Windows vs macOS · 安装要点对比</text>
+
+  <!-- 左列：Windows -->
+  <rect x="30" y="58" width="350" height="40" rx="8" fill="#4A6CF7"/>
+  <text x="205" y="84" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Windows</text>
+
+  <rect x="30" y="110" width="350" height="58" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="46" y="134" font-size="14" fill="#1e293b">① python.org → Windows installer (64-bit)</text>
+  <text x="46" y="156" font-size="13" fill="#64748b">下载官方安装包（避开微软商店版）</text>
+
+  <rect x="30" y="178" width="350" height="58" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="46" y="202" font-size="14" fill="#1e293b">② 运行 → 勾 "Add python.exe to PATH"</text>
+  <text x="46" y="224" font-size="13" fill="#64748b">务必勾选！再点 Install Now</text>
+
+  <rect x="30" y="246" width="350" height="58" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="46" y="270" font-size="14" fill="#1e293b">③ 验证：cmd 输入 `python --version`</text>
+  <text x="46" y="292" font-size="13" fill="#64748b">看到 Python 3.12+ 即成功</text>
+
+  <!-- Windows 坑 -->
+  <rect x="30" y="316" width="350" height="120" rx="8" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
+  <text x="46" y="340" font-size="14" font-weight="bold" fill="#d97706">⚠️ Windows 常见坑</text>
+  <text x="46" y="364" font-size="13" fill="#1e293b">• 忘勾 PATH → "不是内部命令"，重装勾选</text>
+  <text x="46" y="388" font-size="13" fill="#1e293b">• 微软商店版冲突 → 用官网安装包</text>
+  <text x="46" y="412" font-size="13" fill="#1e293b">• 中文/空格路径 → 报错，用纯英文短路径</text>
+
+  <!-- 右列：macOS -->
+  <rect x="420" y="58" width="350" height="40" rx="8" fill="#10b981"/>
+  <text x="595" y="84" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">macOS</text>
+
+  <rect x="420" y="110" width="350" height="58" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="436" y="134" font-size="14" fill="#1e293b">① python.org → macOS 64-bit (pkg)</text>
+  <text x="436" y="156" font-size="13" fill="#64748b">或终端 `brew install python`</text>
+
+  <rect x="420" y="178" width="350" height="58" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="436" y="202" font-size="14" fill="#1e293b">② 验证：终端 `python3 --version`</text>
+  <text x="436" y="224" font-size="13" fill="#64748b">注意要写 python3，不是 python</text>
+
+  <rect x="420" y="246" width="350" height="58" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="436" y="270" font-size="14" fill="#1e293b">③ 装 VS Code（选对芯片）</text>
+  <text x="436" y="292" font-size="13" fill="#64748b">Intel / Apple Silicon 别下错</text>
+
+  <!-- macOS 坑 -->
+  <rect x="420" y="316" width="350" height="120" rx="8" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
+  <text x="436" y="340" font-size="14" font-weight="bold" fill="#d97706">⚠️ macOS 常见坑</text>
+  <text x="436" y="364" font-size="13" fill="#1e293b">• 误用自带 Python 2 → 别碰 /usr/bin/python</text>
+  <text x="436" y="388" font-size="13" fill="#1e293b">• `python`≠`python3` → 验证一律用 python3</text>
+  <text x="436" y="412" font-size="13" fill="#1e293b">• 装完找不到 → 重开终端 / 重启 VS Code</text>
+
+  <!-- 底部公式栏 -->
+  <rect x="0" y="450" width="800" height="20" fill="#1e293b"/>
+  <text x="400" y="464" text-anchor="middle" font-size="13" fill="#94a3b8" font-family="Courier New, monospace">Windows: python --version   |   macOS: python3 --version</text>
+</svg>

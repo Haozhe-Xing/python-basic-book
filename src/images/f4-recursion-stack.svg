@@ -1,0 +1,57 @@
+<svg width="800" height="510" viewBox="0 0 800 510" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="f4down" markerWidth="10" markerHeight="10" refX="5" refY="8" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L5,8 L10,0 Z" fill="#4A6CF7"/>
+    </marker>
+    <marker id="f4up" markerWidth="10" markerHeight="10" refX="5" refY="2" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,8 L5,0 L10,8 Z" fill="#10b981"/>
+    </marker>
+  </defs>
+
+  <!-- 背景 -->
+  <rect x="0" y="0" width="800" height="510" fill="#f8f9fc"/>
+
+  <!-- 标题 -->
+  <text x="400" y="36" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">递归调用栈：factorial(4)</text>
+  <text x="400" y="60" text-anchor="middle" font-size="13" fill="#64748b">自己调用自己，逐层"深入"到基线，再逐层"回溯"把结果乘回来</text>
+
+  <!-- 调用（深入）左侧竖线 + 向下箭头 -->
+  <line x1="95" y1="80" x2="95" y2="250" stroke="#4A6CF7" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#f4down)"/>
+  <text x="95" y="74" text-anchor="middle" font-size="12" font-weight="bold" fill="#4A6CF7">调用·深入</text>
+
+  <!-- 返回（回溯）右侧竖线 + 向上箭头 -->
+  <line x1="705" y1="440" x2="705" y2="270" stroke="#10b981" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#f4up)"/>
+  <text x="705" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#10b981">返回·回溯</text>
+
+  <!-- 帧 1 -->
+  <rect x="120" y="80" width="560" height="42" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="140" y="106" font-size="15" fill="#1e293b" font-family="Courier New, monospace">factorial(4)  →  4 × factorial(3)</text>
+
+  <!-- 帧 2 -->
+  <rect x="160" y="134" width="480" height="42" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="180" y="160" font-size="15" fill="#1e293b" font-family="Courier New, monospace">factorial(3)  →  3 × factorial(2)</text>
+
+  <!-- 帧 3 -->
+  <rect x="200" y="188" width="400" height="42" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="220" y="214" font-size="15" fill="#1e293b" font-family="Courier New, monospace">factorial(2)  →  2 × factorial(1)</text>
+
+  <!-- 帧 4：基线条件 -->
+  <rect x="240" y="242" width="320" height="42" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="260" y="268" font-size="15" font-weight="bold" fill="#10b981" font-family="Courier New, monospace">factorial(1) = 1   ◀ 基线</text>
+
+  <!-- 帧 5 -->
+  <rect x="200" y="312" width="400" height="42" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="220" y="338" font-size="15" fill="#1e293b" font-family="Courier New, monospace">factorial(2) = 2 × 1 = 2   ◀ 返回</text>
+
+  <!-- 帧 6 -->
+  <rect x="160" y="366" width="480" height="42" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="180" y="392" font-size="15" fill="#1e293b" font-family="Courier New, monospace">factorial(3) = 3 × 2 = 6   ◀ 返回</text>
+
+  <!-- 帧 7：最终答案 -->
+  <rect x="120" y="420" width="560" height="42" rx="8" fill="#4A6CF7" stroke="#fff" stroke-width="2"/>
+  <text x="140" y="446" font-size="15" font-weight="bold" fill="#ffffff" font-family="Courier New, monospace">factorial(4) = 4 × 6 = 24   ◀ 最终答案</text>
+
+  <!-- 底部说明 -->
+  <rect x="0" y="478" width="800" height="32" fill="#1e293b"/>
+  <text x="400" y="499" text-anchor="middle" font-size="13" fill="#94a3b8" font-family="Courier New, monospace">没有基线条件 → 无限调用 → 栈溢出（Stack Overflow）。基线必须"能到达"。</text>
+</svg>

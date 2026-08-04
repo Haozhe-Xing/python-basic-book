@@ -1,0 +1,20 @@
+[book]
+title = "Python 入门：像计算机科学家一样思考"
+description = "为零基础中学生/高中生打造的 Python 第一本书。双引擎：计算思维 + 算法启蒙，为算法竞赛（USACO Bronze→Silver）与 AI/ML 路线打底。"
+authors = ["小行"]
+language = "zh"
+
+[build]
+build-dir = "book"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+additional-css = ["styles/website.css", "styles/theme-lock.css"]
+additional-js = ["scripts/theme-lock.js", "scripts/viz-expand.js", "scripts/code-enhance.js"]
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true

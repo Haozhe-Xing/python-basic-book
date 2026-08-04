@@ -1,0 +1,61 @@
+<svg width="760" height="380" viewBox="0 0 760 380" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <!-- 背景 -->
+  <rect x="0" y="0" width="760" height="380" fill="#f8f9fc"/>
+
+  <!-- 标题 -->
+  <text x="380" y="36" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">运算符优先级 与 真值表</text>
+
+  <!-- 左：优先级金字塔 -->
+  <text x="40" y="70" font-size="15" font-weight="bold" fill="#4A6CF7">优先级（高 → 低）</text>
+  <rect x="60" y="84" width="220" height="34" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="170" y="106" text-anchor="middle" font-size="14" fill="#1e293b">**  次方（最高）</text>
+  <rect x="80" y="124" width="180" height="34" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="170" y="146" text-anchor="middle" font-size="14" fill="#1e293b">*  /  //  %</text>
+  <rect x="100" y="164" width="140" height="34" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="170" y="186" text-anchor="middle" font-size="14" fill="#1e293b">+  -</text>
+  <rect x="80" y="204" width="180" height="34" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="170" y="226" text-anchor="middle" font-size="14" fill="#1e293b">==  !=  &gt;  &lt;</text>
+  <rect x="100" y="244" width="140" height="34" rx="8" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
+  <text x="170" y="266" text-anchor="middle" font-size="14" fill="#1e293b">not</text>
+  <rect x="80" y="284" width="180" height="34" rx="8" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
+  <text x="170" y="306" text-anchor="middle" font-size="14" fill="#1e293b">and</text>
+  <rect x="100" y="324" width="140" height="34" rx="8" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
+  <text x="170" y="346" text-anchor="middle" font-size="14" fill="#1e293b">or  （最低）</text>
+
+  <!-- 右：真值表 -->
+  <text x="400" y="70" font-size="15" font-weight="bold" fill="#4A6CF7">真值表（A / B 组合）</text>
+  <rect x="400" y="84" width="320" height="40" rx="8" fill="#4A6CF7"/>
+  <text x="430" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">A</text>
+  <text x="490" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">B</text>
+  <text x="560" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">A and B</text>
+  <text x="660" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">A or B</text>
+
+  <!-- 4 rows -->
+  <rect x="400" y="128" width="320" height="38" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="430" y="152" text-anchor="middle" font-size="14" fill="#1e293b">T</text>
+  <text x="490" y="152" text-anchor="middle" font-size="14" fill="#1e293b">T</text>
+  <text x="560" y="152" text-anchor="middle" font-size="14" fill="#10b981">T</text>
+  <text x="660" y="152" text-anchor="middle" font-size="14" fill="#10b981">T</text>
+
+  <rect x="400" y="170" width="320" height="38" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="430" y="194" text-anchor="middle" font-size="14" fill="#1e293b">T</text>
+  <text x="490" y="194" text-anchor="middle" font-size="14" fill="#1e293b">F</text>
+  <text x="560" y="194" text-anchor="middle" font-size="14" fill="#ef4444">F</text>
+  <text x="660" y="194" text-anchor="middle" font-size="14" fill="#10b981">T</text>
+
+  <rect x="400" y="212" width="320" height="38" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="430" y="236" text-anchor="middle" font-size="14" fill="#1e293b">F</text>
+  <text x="490" y="236" text-anchor="middle" font-size="14" fill="#1e293b">T</text>
+  <text x="560" y="236" text-anchor="middle" font-size="14" fill="#ef4444">F</text>
+  <text x="660" y="236" text-anchor="middle" font-size="14" fill="#10b981">T</text>
+
+  <rect x="400" y="254" width="320" height="38" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="430" y="278" text-anchor="middle" font-size="14" fill="#1e293b">F</text>
+  <text x="490" y="278" text-anchor="middle" font-size="14" fill="#1e293b">F</text>
+  <text x="560" y="278" text-anchor="middle" font-size="14" fill="#ef4444">F</text>
+  <text x="660" y="278" text-anchor="middle" font-size="14" fill="#ef4444">F</text>
+
+  <text x="560" y="320" text-anchor="middle" font-size="13" fill="#64748b">and：两边都真才真</text>
+  <text x="660" y="320" text-anchor="middle" font-size="13" fill="#64748b">or：任一真就真</text>
+  <text x="510" y="350" text-anchor="middle" font-size="13" fill="#64748b">not：True↔False 取反</text>
+</svg>

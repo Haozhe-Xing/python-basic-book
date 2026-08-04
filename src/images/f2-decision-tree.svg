@@ -1,0 +1,65 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="f2arr1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4A6CF7"/>
+    </marker>
+    <marker id="f2arrG" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#10b981"/>
+    </marker>
+    <marker id="f2arrR" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#ef4444"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="800" height="500" fill="#f8f9fc"/>
+  <text x="400" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">决策树：用 if 给成绩分等级</text>
+
+  <!-- 起点 -->
+  <rect x="320" y="54" width="160" height="40" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="400" y="79" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">输入成绩 score</text>
+
+  <!-- 菱形1 -->
+  <polygon points="400,108 480,150 400,192 320,150" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
+  <text x="400" y="155" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">score ≥ 90?</text>
+
+  <!-- A -->
+  <rect x="70" y="128" width="160" height="44" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="150" y="155" text-anchor="middle" font-size="14" fill="#16a34a">A 优秀</text>
+
+  <!-- 菱形2 -->
+  <polygon points="400,238 480,280 400,322 320,280" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
+  <text x="400" y="285" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">score ≥ 80?</text>
+
+  <!-- B -->
+  <rect x="70" y="258" width="160" height="44" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="150" y="285" text-anchor="middle" font-size="14" fill="#16a34a">B 良好</text>
+
+  <!-- 菱形3 -->
+  <polygon points="400,368 480,410 400,452 320,410" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
+  <text x="400" y="415" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">score ≥ 60?</text>
+
+  <!-- C -->
+  <rect x="70" y="388" width="160" height="44" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="150" y="415" text-anchor="middle" font-size="14" fill="#16a34a">C 及格</text>
+
+  <!-- D -->
+  <rect x="560" y="388" width="170" height="44" rx="8" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+  <text x="645" y="415" text-anchor="middle" font-size="14" fill="#dc2626">D 不及格</text>
+
+  <!-- arrows -->
+  <line x1="400" y1="94" x2="400" y2="106" stroke="#4A6CF7" stroke-width="2" marker-end="url(#f2arr1)"/>
+  <line x1="320" y1="150" x2="232" y2="150" stroke="#10b981" stroke-width="2" marker-end="url(#f2arrG)"/>
+  <text x="276" y="142" text-anchor="middle" font-size="12" fill="#16a34a">是</text>
+  <line x1="400" y1="192" x2="400" y2="236" stroke="#ef4444" stroke-width="2" marker-end="url(#f2arrR)"/>
+  <text x="410" y="218" font-size="12" fill="#dc2626">否</text>
+  <line x1="320" y1="280" x2="232" y2="280" stroke="#10b981" stroke-width="2" marker-end="url(#f2arrG)"/>
+  <text x="276" y="272" text-anchor="middle" font-size="12" fill="#16a34a">是</text>
+  <line x1="400" y1="322" x2="400" y2="366" stroke="#ef4444" stroke-width="2" marker-end="url(#f2arrR)"/>
+  <text x="410" y="352" font-size="12" fill="#dc2626">否</text>
+  <line x1="320" y1="410" x2="232" y2="410" stroke="#10b981" stroke-width="2" marker-end="url(#f2arrG)"/>
+  <text x="276" y="402" text-anchor="middle" font-size="12" fill="#16a34a">是</text>
+  <line x1="480" y1="410" x2="558" y2="410" stroke="#ef4444" stroke-width="2" marker-end="url(#f2arrR)"/>
+  <text x="520" y="402" font-size="12" fill="#dc2626">否</text>
+
+  <rect x="0" y="480" width="800" height="20" fill="#1e293b"/>
+  <text x="400" y="494" text-anchor="middle" font-size="13" fill="#94a3b8" font-family="Courier New, monospace">每一个判断都是一次"分叉"：是走这路，否走那条 → 这就是决策树</text>
+</svg>

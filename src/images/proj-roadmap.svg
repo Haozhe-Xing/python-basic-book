@@ -1,0 +1,47 @@
+<svg width="800" height="460" viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <!-- 背景 -->
+  <rect x="0" y="0" width="800" height="460" fill="#f8f9fc"/>
+
+  <!-- 标题 -->
+  <text x="400" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">下一步去哪？· 四条路线地图</text>
+
+  <defs>
+    <marker id="r" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4A6CF7"/>
+    </marker>
+  </defs>
+
+  <!-- 四条路线卡片 -->
+  <rect x="60" y="58" width="200" height="64" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
+  <text x="160" y="86" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">🚀 算法竞赛</text>
+  <text x="160" y="108" text-anchor="middle" font-size="12" fill="#64748b">USACO Bronze→Silver</text>
+
+  <rect x="540" y="58" width="200" height="64" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="640" y="86" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">🤖 AI / ML</text>
+  <text x="640" y="108" text-anchor="middle" font-size="12" fill="#64748b">numpy→pytorch</text>
+
+  <rect x="60" y="320" width="200" height="64" rx="8" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
+  <text x="160" y="348" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">🌐 Web 开发</text>
+  <text x="160" y="370" text-anchor="middle" font-size="12" fill="#64748b">Flask / Django</text>
+
+  <rect x="540" y="320" width="200" height="64" rx="8" fill="#f3e8ff" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="640" y="348" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">🔧 开源贡献</text>
+  <text x="640" y="370" text-anchor="middle" font-size="12" fill="#64748b">GitHub Pull Request</text>
+
+  <!-- 中心起点 -->
+  <rect x="300" y="178" width="200" height="64" rx="8" fill="#4A6CF7"/>
+  <text x="400" y="206" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">你 · 已准备好</text>
+  <text x="400" y="228" text-anchor="middle" font-size="12" fill="#eaf0ff">三个项目 + 双引擎</text>
+
+  <!-- 连线 -->
+  <line x1="324" y1="184" x2="244" y2="118" stroke="#4A6CF7" stroke-width="2.5" marker-end="url(#r)"/>
+  <line x1="476" y1="184" x2="556" y2="118" stroke="#10b981" stroke-width="2.5" marker-end="url(#r)"/>
+  <line x1="324" y1="236" x2="244" y2="318" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#r)"/>
+  <line x1="476" y1="236" x2="556" y2="318" stroke="#8b5cf6" stroke-width="2.5" marker-end="url(#r)"/>
+
+  <!-- Git 底座 -->
+  <rect x="220" y="410" width="360" height="36" rx="8" fill="#1e293b"/>
+  <text x="400" y="433" text-anchor="middle" font-size="14" fill="#ffffff">🛠️ Git = 时光机：每条路线都需要的底座</text>
+
+  <text x="400" y="392" text-anchor="middle" font-size="12" fill="#94a3b8">选一条主线深耕，其余当视野；兴趣是最好的续航电池</text>
+</svg>

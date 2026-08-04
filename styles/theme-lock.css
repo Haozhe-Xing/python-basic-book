@@ -1,0 +1,19 @@
+/* ============================================================
+   theme-lock.css — 强制浅色主题
+   无论读者是否切到 dark，本书始终以浅色渲染，
+   保证 SVG / 截图 / 代码配色一致可读。
+   ============================================================ */
+html, body, .page, #content, .content {
+  background: #ffffff !important;
+  color: #1e293b !important;
+}
+:root { color-scheme: light; }
+
+/* 覆盖 mdBook 内置 dark 变量 */
+html[data-theme="dark"],
+html.theme-dark {
+  --bg: #ffffff;
+  --fg: #1e293b;
+  background: #ffffff !important;
+  color: #1e293b !important;
+}

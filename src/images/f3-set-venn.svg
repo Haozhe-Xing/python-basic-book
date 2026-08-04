@@ -1,0 +1,40 @@
+<svg width="800" height="440" viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4A6CF7"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="800" height="440" fill="#f8f9fc"/>
+  <text x="400" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">集合 Venn 图：交 &amp; · 并 | · 差 -</text>
+
+  <!-- 左圆 A -->
+  <circle cx="310" cy="190" r="120" fill="#4A6CF7" fill-opacity="0.18" stroke="#4A6CF7" stroke-width="2"/>
+  <!-- 右圆 B -->
+  <circle cx="490" cy="190" r="120" fill="#10b981" fill-opacity="0.18" stroke="#10b981" stroke-width="2"/>
+
+  <text x="200" y="108" font-size="16" font-weight="bold" fill="#4A6CF7">集合 A</text>
+  <text x="200" y="128" font-size="13" fill="#64748b">编程社</text>
+  <text x="600" y="108" font-size="16" font-weight="bold" fill="#10b981">集合 B</text>
+  <text x="600" y="128" font-size="13" fill="#64748b">篮球队</text>
+
+  <!-- 仅 A -->
+  <text x="225" y="200" text-anchor="middle" font-size="13" fill="#1e293b">小明</text>
+  <text x="225" y="222" text-anchor="middle" font-size="13" fill="#1e293b">小红</text>
+  <!-- 仅 B -->
+  <text x="575" y="200" text-anchor="middle" font-size="13" fill="#1e293b">小刚</text>
+  <text x="575" y="222" text-anchor="middle" font-size="13" fill="#1e293b">小美</text>
+  <!-- 交集 -->
+  <text x="400" y="196" text-anchor="middle" font-size="13" fill="#1e293b">阿强</text>
+  <text x="400" y="218" text-anchor="middle" font-size="13" fill="#1e293b">小兰</text>
+
+  <!-- 图例 -->
+  <rect x="60" y="346" width="680" height="84" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="80" y="374" font-size="14" font-weight="bold" fill="#4A6CF7">🟦 交集 A &amp; B</text>
+  <text x="240" y="374" font-size="14" fill="#1e293b">两个社都参加的人 → {阿强, 小兰}</text>
+  <text x="80" y="400" font-size="14" font-weight="bold" fill="#10b981">🟩 并集 A | B</text>
+  <text x="240" y="400" font-size="14" fill="#1e293b">参加任一社的人（自动去重）</text>
+  <text x="470" y="400" font-size="14" font-weight="bold" fill="#ef4444">差 A - B</text>
+  <text x="600" y="400" font-size="14" fill="#1e293b">只在 A：{小明, 小红}</text>
+  <text x="80" y="422" font-size="14" font-weight="bold" fill="#ef4444">差 B - A</text>
+  <text x="240" y="422" font-size="14" fill="#1e293b">只在 B：{小刚, 小美}</text>
+</svg>

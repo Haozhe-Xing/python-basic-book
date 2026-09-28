@@ -37,15 +37,6 @@
 ---
 
 ## 8.0 生活里的"for 思维"
-
-<div class="try-it">
-<strong>🧩 练一练 8.1</strong>
-<p>题目：在生活里举一个"对每一样东西都做一遍"的例子。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：例如"对每一本书都盖个章"；或"对每一个同学都点一次名"。这就是 for 思维。</p>
-</details>
-</div>
-
 想想"发作业本"：老师手里一沓本子，从第一本到最后一本，**一本本**发下去，发完就停。这就是 `for` 的脑内模型——
 
 ```
@@ -71,15 +62,6 @@
 ---
 
 ## 8.1 for … in：遍历一串东西
-
-<div class="try-it">
-<strong>🧩 练一练 8.2</strong>
-<p>题目：用 for 遍历列表 [1, 2, 3]，把每个元素打印出来。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>for x in [1,2,3]: print(x)</code>。每次循环 x 依次取 1、2、3。</p>
-</details>
-</div>
-
 最朴素的 `for`：把一串东西"逐个"取出来交给一个变量。
 
 ```python
@@ -91,23 +73,18 @@ for fruit in ["苹果", "香蕉", "橙子"]:
 ```
 我喜欢吃 苹果
 我喜欢吃 香蕉
-喜欢吃 橙子
+我喜欢吃 橙子
 ```
+
+![for 循环逐项追踪：列表里的水果一次交给 fruit 一个](../images/f2-for-loop-trace.svg)
+
+*图：每一轮 `for` 都取出一个新元素、执行一次循环体；最后一个元素处理完，循环自动结束。*
 
 > 🤔 **Why 叫 `for ... in`？** 读起来就像人话："对于（for）列表里**每一个（in）** 水果，做……"。Python 的语法就是故意写成这样好懂。
 
 ---
 
 ## 8.2 range：造出一串数
-
-<div class="try-it">
-<strong>🧩 练一练 8.3</strong>
-<p>题目：用 range 分别打印：0~4、1~5、0~9 的偶数。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>range(5)</code> → 0,1,2,3,4；<code>range(1,6)</code> → 1..5；<code>range(0,10,2)</code> → 0,2,4,6,8。</p>
-</details>
-</div>
-
 `for` 最常配合 `range()` 使用——它负责"造一串整数"给你遍历。
 
 ```python
@@ -138,15 +115,6 @@ for i in range(0, 10, 2):
 ---
 
 ## 8.3 遍历字符串（列表以后再说）
-
-<div class="try-it">
-<strong>🧩 练一练 8.4</strong>
-<p>题目：用 for 遍历字符串 "hello"，把每个字符打印出来。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>for ch in "hello": print(ch)</code> 依次输出 h e l l o。</p>
-</details>
-</div>
-
 字符串就是一串字符，`for` 可以**一个字一个字**地走过它（列表 list 我们第 10 章才正式学，这里先用字符串热热身）：
 
 ```python
@@ -178,18 +146,30 @@ print("元音个数：", count)    # 元音个数： 3
 
 > 📝 **Note:** 第 10 章你会学到**列表（list）**——它和字符串一样能被 `for` 遍历，而且能装任意东西。到时候 `for item in my_list:` 就是日常操作了。现在先拿字符串练手，原理一模一样。
 
+### 回接：完成第 3 章的密码检查器
+
+第 3 章已经能分别检查长度和指定片段。现在有了 `for`，就能逐个字符寻找“任意一个数字”；再用第 6 章的 `if` 给出最终结果：
+
+```python
+password = input("设置密码：")
+length_ok = len(password) >= 8
+has_digit = False
+
+for ch in password:
+    if ch in "0123456789":
+        has_digit = True
+
+if length_ok and has_digit:
+    print("密码强度：合格")
+else:
+    print("密码太弱：需至少 8 位且含数字")
+```
+
+`for ch in password` 正是“逐个检查”的实现：每次拿到一个字符，只要发现数字，就把 `has_digit` 记为 `True`。
+
 ---
 
 ## 8.4 案例一：打印三角形
-
-<div class="try-it">
-<strong>🧩 练一练 8.5</strong>
-<p>题目：用嵌套 for 打印 3 行、每行 5 个星号 * 的矩形。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：外层 <code>for r in range(3):</code>，内层 <code>for c in range(5): print('*', end='')</code>，每行结束 <code>print()</code> 换行。</p>
-</details>
-</div>
-
 用 `for` + 字符串乘法 `*`，能轻松画出靠右/递增的图形。
 
 **右三角形（每行多一颗星）：**
@@ -312,15 +292,6 @@ print(squares)    # [1, 4, 9, 16, 25]
 ```
 
 读法像人话：**"把 `i*i`，对 `range(1,6)` 里的每个 `i`"**。`[]` 表示"我要造一个列表"，里面先写"对每个元素做什么"（`i*i`），再写 `for ... in ...` 说明遍历什么。
-
-<div class="try-it">
-<strong>🧩 练一练 8.6</strong>
-<p>题目：用列表推导式生成 1~10 每个数的立方（即 i³），结果存到列表 cubes 里并打印。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>cubes = [i**3 for i in range(1, 11)]</code>，打印得到 <code>[1, 8, 27, ..., 1000]</code>。<code>i**3</code> 即立方。</p>
-</details>
-</div>
-
 还能在末尾加 `if` 做**过滤**，比如"只要偶数的平方"：
 
 ```python

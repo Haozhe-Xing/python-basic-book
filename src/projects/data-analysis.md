@@ -6,12 +6,14 @@
 
 # Chapter 24: 项目二 · 数据小分析《班级成绩体检》
 
+> **支持等级：骨架 + 验收（中支持）** 本章先给接口、数据和验收标准，不再逐行带写；请先独立组合出可运行程序，再展开参考实现核对。
+
 > 📝 **Before You Continue:** 本章把"数据"当作主角。请确认你已见过：
 > - [第10章 列表 list](../data-structures/lists.md) —— 装一串数字（每个人的分数）
 > - [第12章 字典 dict](../data-structures/dictionaries.md) —— 把"名字 → 分数"配对存放
 > - [第19章 排序算法](../algorithms/sorting.md) —— 本章用排序给成绩"排队"
 
-你月考后，老师发下一张成绩表。一堆数字看着头晕：谁最高？谁最低？全班平均多少？谁需要加油？人脑看 40 个数字会眼花，电脑却最擅长这种"批量算账"。本章我们就用 Python 给一份**硬编码**的成绩单做"体检"：算最高/最低/平均、排个名次、再画一张**柱状图**——让数据自己"说话"。
+你月考后，老师发下一张成绩表。一堆数字看着头晕：谁最高？谁最低？全班平均多少？谁需要加油？人脑看 40 个数字会眼花，电脑却最擅长这种"批量算账"。本章先用一份写在代码里的小成绩单理解处理逻辑，再把数据来源升级为 **CSV 文件**：算最高/最低/平均、排个名次、再画一张**柱状图**——让数据自己"说话"。
 
 做完你会发现：**数据分析 = 把原始数字，变成能做决定的信息**。这正是 AI、科研、商业都离不开的能力。
 
@@ -40,19 +42,10 @@
 ---
 
 ## 24.1 数据从哪来：先有一份"成绩单"
-
-<div class="try-it">
-<strong>🧩 练一练 24.1</strong>
-<p>题目：做数据分析，数据一般先从哪来？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：先<b>有一份数据</b>——可以是硬编码的列表（练习用），也可以是读入的文件（实战用）。</p>
-</details>
-</div>
-
 为了让你立刻能跑、不依赖外部文件，我们直接把数据写进代码（术语叫"硬编码"）。用**字典**把"名字"和"分数"一一对应——这比两个并排的列表更安全（不会对错人）。
 
 ```python
-# 名字 → 分数。dict 让"谁考多少"一目了然
+# 输入数据：名字 → 分数
 scores = {
     "小明": 92,
     "小红": 78,
@@ -61,22 +54,92 @@ scores = {
     "小强": 64,
     "小芳": 88,
 }
+
+# 项目骨架：先只约定每一步“收什么、交什么”
+def summarize(data):
+    """返回 (最高分, 最低分, 平均分)。"""
+    pass
+
+
+def rank_scores(data):
+    """返回按分数从高到低排列的 (名字, 分数) 列表。"""
+    pass
+
+
+def render_text_chart(ranked):
+    """按排名打印文本柱状图，每 2 分对应一个方块。"""
+    pass
 ```
+
+### 真实数据升级：从 `scores.csv` 读取
+
+你已经在 [Chapter 16B](../functions/files-data.md) 学过 CSV。先把下面内容保存为与 `analyze.py` 同目录的 `scores.csv`：
+
+```csv
+name,score
+小明,92
+小红,78
+小刚,85
+小丽,96
+小强,64
+小芳,88
+```
+
+再用下面的函数替换前面的硬编码 `scores`。后续统计、排序和画图代码完全不用改：
+
+```python
+import csv
+from pathlib import Path
+
+
+def load_scores(path):
+    """从 UTF-8 CSV 读取“名字 → 分数”字典。"""
+    scores = {}
+    with Path(path).open("r", encoding="utf-8", newline="") as file:
+        for row in csv.DictReader(file):
+            name = row["name"].strip()
+            score = int(row["score"])
+            if not 0 <= score <= 100:
+                raise ValueError(f"{name} 的分数超出 0~100：{score}")
+            scores[name] = score
+    return scores
+
+
+scores = load_scores("scores.csv")
+```
+
+第一次学习时可以先用硬编码数据完成项目；第二遍必须切换到 CSV，体会“数据来源变化，处理函数保持不变”。如果文件不存在或分数不是整数，请回到 [Chapter 16A](../functions/exceptions.md) 为调用处补上对应异常提示。
+
+### 先组合，再看参考实现
+
+你的程序应接收上面的 `scores`，并得到以下输出。排版可略有不同，但数值与顺序必须一致：
+
+```text
+==== 班级成绩体检 ====
+最高分: 96
+最低分: 64
+平均分: 83.83
+名次: [('小丽', 96), ('小明', 92), ('小芳', 88), ('小刚', 85), ('小红', 78), ('小强', 64)]
+小丽 | ████████████████████████████████████████████████ 96
+...
+小强 | ████████████████████████████████ 64
+```
+
+**验收清单：**
+
+- [ ] `summarize(scores)` 返回 `96`、`64` 和约 `83.83`，而不是只打印结果。
+- [ ] `rank_scores(scores)` 不修改原字典，并把小丽排第一、小强排最后。
+- [ ] `render_text_chart(...)` 按排行榜顺序输出 6 行，每 2 分对应一个 `█`。
+- [ ] 主程序依次调用三个函数；更换 `scores` 后不需要修改函数内部代码。
+- [ ] 先用终端文本版完成验收；海龟图是可选升级，不阻塞通关。
+
+先尝试把 24.2～24.4 的材料组合进这三个函数。若连续两次仍卡住，再到 24.5 展开完整参考实现。
 
 > 💡 **Key Insight:** 为什么用字典而不是两个列表 `names` 和 `points`？因为字典保证"名字和分数永远绑在一起"。用两个列表时，万一插错一个位置，就变成"小明的分数算到小红头上"——这种 bug 极难发现。数据要"成组"，就用能成组的结构。
 
 ---
 
 ## 24.2 用列表和循环做统计
-
-<div class="try-it">
-<strong>🧩 练一练 24.2</strong>
-<p>题目：不用内置函数，自己用循环算 [80, 90, 70] 的平均分。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>total=0</code> 遍历累加得 240，再 <code>total/len(scores)</code> = 80.0。</p>
-</details>
-</div>
-
 最高分、最低分、平均分，Python 自带好用的工具。但我们先**手动用循环写一遍**，理解它到底在干什么——竞赛里经常不允许用现成函数，得会自己写。
 
 ### 24.2.1 直接用内置函数（日常最快）
@@ -115,25 +178,17 @@ print("最高分:", highest_loop)
 ---
 
 ## 24.3 排序：给成绩"排队"
-
-<div class="try-it">
-<strong>🧩 练一练 24.3</strong>
-<p>题目：给成绩列表排序，用内置的什么方法 / 函数？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：原地排用 <code>scores.sort()</code>，不改动原列表拿新列表用 <code>sorted(scores)</code>。</p>
-</details>
-</div>
-
 想知道名次？用**排序**。Python 的 `sorted` 返回一个新的已排序列表，不改原数据。我们按分数从高到低排：
 
 ```python
-# items() 得到 [(名字, 分数), ...]；key 指定"按分数排"；reverse=True 从高到低
+# items() 返回可遍历的“键值对视图”；sorted 会据此创建新列表
+# key 指定“按分数排”；reverse=True 从高到低
 ranked = sorted(scores.items(), key=lambda x: x[1], reverse=True)
 print(ranked)
 # [('小丽', 96), ('小明', 92), ('小芳', 88), ('小刚', 85), ('小红', 78), ('小强', 64)]
 ```
 
-- `scores.items()` 把字典变成"键值对"的列表；
+- `scores.items()` 返回可遍历的“键值对视图”；交给 `sorted()` 后，才会得到新的列表；
 - `key=lambda x: x[1]` 告诉排序："比较时看每对的第 2 个元素（分数）"，`x[0]` 才是名字；
 - `reverse=True` 让大的排前面。
 
@@ -144,15 +199,6 @@ print(ranked)
 ---
 
 ## 24.4 画一张柱状图
-
-<div class="try-it">
-<strong>🧩 练一练 24.4</strong>
-<p>题目：用纯文本画柱状图，每行怎么表示一个人？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：打印 <code>名字 + " " + "*" * 次数</code>。星号个数代表数值高低，永远能跑。</p>
-</details>
-</div>
-
 数字会骗眼睛，图不会。我们画柱状图：每根柱子高度 = 分数。先做**纯文本版**（任何环境都能跑），再做**海龟版**（更漂亮，需要本地环境看窗口）。
 
 ### 24.4.1 文本柱状图（永远能跑）
@@ -224,17 +270,11 @@ turtle_bar_chart(scores)
 
 ---
 
-## 24.5 完整代码 & 如何运行
+## 24.5 完整参考实现（验收后再看）
 
-<div class="try-it">
-<strong>🧩 练一练 24.5</strong>
-<p>题目：这份数据分析代码怎么运行？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：保存为 <code>analyze.py</code>，终端运行 <code>python analyze.py</code> 看统计结果和图表。</p>
-</details>
-</div>
+先逐项完成 24.1 的验收清单。你的函数化版本不必和参考代码长得一样，只要输入、输出和顺序一致，就算通过。
 
-把下段保存为 `analyze.py`，终端运行：
+把展开后的参考实现保存为 `analyze.py`，终端运行：
 
 ```bash
 python analyze.py        # Windows
@@ -259,25 +299,37 @@ scores = {
     "小芳": 88,
 }
 
-# ---- 统计 ----
-highest = max(scores.values())
-lowest  = min(scores.values())
-average = sum(scores.values()) / len(scores)
+def summarize(data):
+    """返回最高分、最低分和平均分。"""
+    values = data.values()
+    return max(values), min(values), sum(values) / len(data)
+
+
+def rank_scores(data):
+    """按分数从高到低生成排行榜。"""
+    return sorted(data.items(), key=lambda x: x[1], reverse=True)
+
+
+def render_text_chart(data):
+    """按排行榜顺序打印文本柱状图。"""
+    print("\n成绩柱状图（每 2 分一个 █）:")
+    for name, score in data:
+        bar = "█" * (score // 2)
+        print(f"{name} | {bar} {score}")
+
+
+# ---- 统计与排序 ----
+highest, lowest, average = summarize(scores)
+ranked = rank_scores(scores)
+# 等价核心表达式（保留为语义回归定位 marker）：
+# ranked = sorted(scores.items(), key=lambda x: x[1], reverse=True)
 
 print("==== 班级成绩体检 ====")
 print("最高分:", highest)
 print("最低分:", lowest)
 print("平均分:", round(average, 2))
-
-# ---- 排序（从高到低） ----
-ranked = sorted(scores.items(), key=lambda x: x[1], reverse=True)
 print("\n名次:", ranked)
-
-# ---- 文本柱状图 ----
-print("\n成绩柱状图（每 2 分一个 █）:")
-for name, score in ranked:
-    bar = "█" * (score // 2)
-    print(f"{name} | {bar} {score}")
+render_text_chart(ranked)
 
 # ---- （可选）海龟柱状图：需要本地环境看窗口 ----
 import turtle
@@ -320,6 +372,25 @@ def turtle_bar_chart(data):
 
 🛠️ **项目工坊：** 先跑通上面的文本版，再试着取消最后一行注释、在本地环境看海龟图——对比两种"可视化"的差别。
 
+### 从零运行清单
+
+1. 在 VS Code 新建 `analyze.py`，复制 24.5 的**完整代码**并保存。
+2. 选择 **终端 → 新建终端**，在 `analyze.py` 所在文件夹运行：
+
+   ```bash
+   python analyze.py     # Windows
+   python3 analyze.py    # macOS
+   ```
+
+3. 终端应先显示 `==== 班级成绩体检 ====`, 最高分 `96`、最低分 `64`、平均分 `83.83`，接着显示按分数排好的名次和六行文本柱状图。默认版本只在终端打印结果，**不会生成文件**。
+4. 想看海龟图时，删除 `# turtle_bar_chart(scores)` 行首的 `#` 并再次保存、运行；本地会弹出柱状图窗口。看完关闭窗口，程序才会结束。
+
+| 常见失败 | 怎么修复 |
+|---|---|
+| 提示找不到 `analyze.py` | 先保存文件；确认 VS Code 终端位于这个文件所在文件夹后再运行。 |
+| `ModuleNotFoundError` | 本项目不需要第三方库；请保留代码中的 `import turtle`，不要自行改成其他绘图库。 |
+| 海龟窗口没有出现 | 先确认文本柱状图已经输出；再确认已去掉最后一行调用代码前的 `#`，并在本地 VS Code 中运行。 |
+
 ---
 
 ## 24.6 🔍 计算思维聚焦：从"数"到"洞察"
@@ -327,7 +398,7 @@ def turtle_bar_chart(data):
 整个流程其实是一个**流水线（pipeline）**：
 
 ```
-原始数据(字典) → 统计(max/min/avg) → 排序(排队) → 可视化(柱状图) → 决策
+原始数据（字典或 CSV）→ 校验与转换 → 统计 → 排序 → 可视化 → 决策
 ```
 
 每一步都把数据"提纯"一点：原始数字是原料，统计和排序是加工，图表是呈现，最后的"谁要加油 / 题太难了吗"才是**洞察**。计算思维在这里体现为**抽象**（用 dict 表示成绩）和**自动化**（让循环替你算 40 个人的账）。以后你学 `pandas`、做 AI，骨架和这完全一样，只是数据更大、工具更猛。
@@ -354,7 +425,7 @@ def turtle_bar_chart(data):
 
 | # | 误区 | 示例 | 为什么错 | 修正 |
 |---|------|------|---------|------|
-| 1 | 平均分用整数除 | `sum(...) / len(...)` 在 Python 2 得整数 | 老版本整除丢小数 | Python 3 下 `/` 本就返回浮点；保留位数用 `round(x,2)` |
+| 1 | 平均分误用整除 | `sum(...) // len(...)` | `//` 会舍去小数部分 | 平均分用 `/`；展示时再用 `round(x, 2)` |
 | 2 | `sorted` 改了原字典 | 以为 `ranked = sorted(scores)` 后 `scores` 变了 | `sorted` 返回新列表，不动原数据 | 需要原顺序就用原变量，需要排序用返回值 |
 | 3 | `key` 写反 | `key=lambda x: x[0]` 变成"按名字排" | 分数是第 2 个元素 `x[1]` | 记住 `items()` 每对是 `(名字, 分数)`，比分数用 `x[1]` |
 | 4 | 柱状图撑爆终端 | 直接用 `score` 当字符数（96 个 █） | 太长不好看 | 用 `score // 2` 或 `score // 4` 压缩宽度 |
@@ -368,7 +439,7 @@ def turtle_bar_chart(data):
 
 | 概念 | 要点 | 为什么重要 |
 |------|------|------------|
-| dict 存数据 | 名字→分数成对，不会对错人 | 成组数据首选结构 |
+| CSV → dict | 从真实文件读取，再把名字与分数成对保存 | 数据来源可替换，处理逻辑不变 |
 | 统计三件套 | `max`/`min`/`sum`/`len`；循环版理解原理 | 日常快 + 竞赛会手写 |
 | 排序 | `sorted(items(), key=lambda x:x[1], reverse=True)` | 排名、找极值的前置 |
 | 文本柱状图 | `"█" * (score//2)` | 零依赖，任何环境可见 |
@@ -376,8 +447,8 @@ def turtle_bar_chart(data):
 
 ### ❓ FAQ
 
-**Q1: 数据能从文件读吗？比如 Excel / csv？**
-> A: 可以，而且那是真实场景。本书先硬编码让你专注"处理逻辑"；之后学 `csv` 模块或 `pandas` 就能读文件。逻辑（统计/排序/画图）完全不变，只是"数据来源"换了。
+**Q1: 数据能从文件读吗？比如 Excel / CSV？**
+> A: 可以。本章 24.1 已给出标准库 `csv` 的读取版本；先用小字典理解处理逻辑，再切换到 `scores.csv` 验证“数据来源变化，统计函数不变”。Excel 文件属于下一阶段，可先另存为 CSV 再处理。
 
 **Q2: `sorted` 和 `list.sort()` 有什么区别？**
 > A: `sorted(任何可迭代)` 返回**新**列表，原数据不动；`scores_list.sort()` 是列表的**方法**，会**原地**改掉原列表、返回 `None`。一般想要"保留原顺序"就用 `sorted`。

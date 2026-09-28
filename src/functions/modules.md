@@ -35,16 +35,7 @@
 ---
 
 ## 16.1 三种导入方式
-
-<div class="try-it">
-<strong>🧩 练一练 16.1</strong>
-<p>题目：写出导入 math 模块的三种方式。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：① <code>import math</code>；② <code>from math import sqrt</code>；③ <code>import math as m</code>（起别名）。</p>
-</details>
-</div>
-
-`import` 的本质是"把别人写好的代码请进你的文件里用"。常用三种写法：
+`import` 的本质是“加载一个模块，并使用它提供的名字”。这个模块可以来自标准库、第三方库，也可以是你自己写的文件。常用三种写法：
 
 ```python
 import math                      # ① 整块导入：用 math.xxx 调用
@@ -66,18 +57,77 @@ print(m.sqrt(25))                # 5.0
 
 > ⚠️ **Warning:** `from math import *`（星号导入所有）虽然能"不写前缀直接用一切"，但会**把一堆名字倒进你的命名空间**，极易和你自己的变量撞名、还难排查。**初学者尽量避免 `import *`**，用前三种更安全。
 
+### 一个 `.py` 文件就是一个模块
+
+你不只能导入标准库，也能导入自己写的代码。对现在的我们来说，**一个 `.py` 文件就是一个模块**：文件名是模块名，文件里的函数和变量是模块提供的工具。例如，`helpers.py` 对应模块名 `helpers`，导入时写 `import helpers`，不要写 `.py`。
+
+下面做一个真正可以复制运行的双文件示例。先新建一个文件夹，例如 `module_demo`，再在这个文件夹里新建两个文件：
+
+- `helpers.py`
+- `main.py`
+
+两个文件必须直接放在**同一个文件夹**里。初学阶段先这样放，Python 才能直接找到 `helpers` 模块。
+
+把下面内容保存到 `helpers.py`：
+
+```python
+print("helpers.py：模块顶层代码正在执行")
+
+
+def greet(name):
+    """返回一条欢迎消息。"""
+    return f"欢迎，{name}！"
+
+
+def main():
+    """直接运行 helpers.py 时执行的入口函数。"""
+    print(greet("工具管理员"))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+再把下面内容保存到同一文件夹里的 `main.py`：
+
+```python
+import helpers
+
+
+def main():
+    """组织这个程序真正要完成的工作。"""
+    message = helpers.greet("小派")
+    print(message)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+在 VS Code 中打开 `module_demo` 文件夹，再打开终端。确认终端当前就在这个文件夹中，然后运行：
+
+```bash
+uv run main.py
+```
+
+你会看到：
+
+```text
+helpers.py：模块顶层代码正在执行
+欢迎，小派！
+```
+
+这里发生了三件关键的事：
+
+1. **导入会执行模块的顶层代码。** Python 第一次执行 `import helpers` 时，会从上到下执行 `helpers.py`。因此最上面的 `print(...)` 立刻输出；`def greet(...)` 和 `def main(...)` 会创建函数，但函数体要等调用时才执行。
+2. **`main()` 只是普通函数。** Python 不会因为它叫 `main` 就自动调用它。我们把程序入口集中在这个函数里，是为了让代码结构更清楚。
+3. **`if __name__ == "__main__":` 决定是否启动入口。** 直接运行某个文件时，该文件的 `__name__` 是 `"__main__"`，所以会调用自己的 `main()`；被别的文件导入时，`helpers.py` 的 `__name__` 是 `"helpers"`，因此它的 `main()` 不会执行。
+
+这个保护条件能避免“导入工具模块时，工具模块自己先跑完整程序”。不过，保护条件外的顶层语句仍会在导入时执行，所以实际项目通常把顶层代码控制在导入、常量和函数定义等必要内容中。示例中的顶层 `print(...)` 是为了让你亲眼看到导入过程。
+
 ---
 
 ## 16.2 标准库之 math：数学好帮手
-
-<div class="try-it">
-<strong>🧩 练一练 16.2</strong>
-<p>题目：用 math 模块求 16 的平方根。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>import math</code> 后 <code>math.sqrt(16)</code> 得到 <code>4.0</code>。</p>
-</details>
-</div>
-
 `math` 是 Python 自带的"科学计算器"，常用成员：
 
 ```python
@@ -108,15 +158,6 @@ print("半径", r, "的圆面积 ≈", round(circle_area(r), 2))   # 半径 5 �
 ---
 
 ## 16.3 标准库之 random：制造"随机"
-
-<div class="try-it">
-<strong>🧩 练一练 16.3</strong>
-<p>题目：用 random 模块模拟掷一个六面骰子。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>import random</code> 后 <code>random.randint(1, 6)</code> 随机返回 1~6。</p>
-</details>
-</div>
-
 抽奖、随机出题、游戏里掉装备——全靠 `random`。最常用三个：
 
 ```python
@@ -140,21 +181,12 @@ def draw_prize():
 print("恭喜抽中：", draw_prize())
 ```
 
-> 🤔 **Why 叫"伪随机"？** 计算机本质是确定的，它用的是"伪随机数生成器"——从一个种子算出看似随机的序列。对游戏、抽奖完全够用；但真要"密码级安全随机"，得用 `secrets` 库。中学生阶段，`random` 够玩遍所有玩具项目。
+> 🤔 **Why 叫"伪随机"？** `random` 使用伪随机数生成器：它根据内部状态计算出一串看似随机、但原则上可以重现的结果。这很适合游戏、模拟和课堂上的抽奖练习；密码、验证码或有公平性与安全要求的真实抽奖不能依赖 `random`，应使用 `secrets` 等更合适的安全随机方案。
 
 ---
 
-## 16.4 标准库之 datetime 与 os：时间与文件
-
-<div class="try-it">
-<strong>🧩 练一练 16.4</strong>
-<p>题目：用 datetime 打印今天的日期。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>from datetime import date</code> 后 <code>print(date.today())</code>。</p>
-</details>
-</div>
-
-这两个库帮你"感知世界"——一个管时间，一个管文件系统。
+## 16.4 标准库之 datetime 与 os：时间与路径环境
+`datetime` 负责日期和时间；这里用 `os` 查看程序当前所在的目录，以及目录中有哪些条目。
 
 **datetime：记下开园、闭园时刻**
 
@@ -166,47 +198,64 @@ print(now)                                  # 2026-07-17 14:30:05.123456
 print(now.strftime("%Y-%m-%d %H:%M"))       # 2026-07-17 14:30（自定义格式）
 ```
 
-**os：看看当前目录里有什么**
+**os：看看当前工作目录**
 
 ```python
 import os
 
 print(os.getcwd())          # 当前工作目录（你程序"站在"哪个文件夹）
-print(os.listdir("."))      # 当前目录下的文件/文件夹列表
+print(os.listdir("."))      # 列出当前目录中的文件名和文件夹名
 ```
 
-> 📝 **Note:** `os` 还能做"读写文件""建文件夹""拼路径"等——等你做第 13 章的排行榜存档、或第六篇项目时，`os` 会派上大用场。本章先认个脸，知道"有这个零件"即可。
+> 📝 **Note:** 上面的 `os` 示例只是在查询工作目录和目录内容，不是在读写文件内容。**路径处理与文件读写将在后续 Chapter 16B 专门讲解**，到时会区分 `pathlib`、内置的 `open()` 与 `os` 各自负责什么。
 
 ---
 
-## 16.5 pip：装上更多"第三方零件"
+## 16.5 用 uv 安装第三方库
+标准库随 Python 一起安装；**第三方库**由其他开发者发布，通常需要另外添加到项目中。本书沿用[第 0 章 0.5](../getting-started/install.md#05-推荐用-uv-管理项目环境与第三方包)的工具链：用 `uv` 管理项目和依赖。
 
-<div class="try-it">
-<strong>🧩 练一练 16.5</strong>
-<p>题目：pip 是干什么用的？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：pip 用来<b>安装第三方包</b>（别人写好的工具），比如 <code>pip install 包名</code>，站在别人肩膀上。</p>
-</details>
-</div>
-
-标准库是 Python 自带的；但网上还有海量**第三方库**（别人写好后上传到 PyPI 仓库）。用 `pip` 一条命令就能装：
+如果当前练习文件夹里还没有 `pyproject.toml`，先创建并进入一个 uv 项目：
 
 ```bash
-pip install requests        # Windows
-pip3 install requests       # macOS 可能要用 pip3
+uv init requests_demo
+cd requests_demo
 ```
 
-装完就能 `import` 使用：
+如果已经在第 0 章创建好的 uv 项目里，就不用再次执行 `uv init`。在项目文件夹中添加 `requests`：
+
+```bash
+uv add requests
+```
+
+把项目根目录中的 `main.py` 改成下面的内容：
 
 ```python
 import requests
-r = requests.get("https://api.example.com/hello")
-print(r.status_code)        # 200 表示请求成功
+
+
+def main():
+    """请求测试服务并打印 HTTP 状态码。"""
+    # httpbin 是专门用于测试 HTTP 请求的公开服务
+    response = requests.get("https://httpbin.org/get", timeout=10)
+    response.raise_for_status()
+    print(response.status_code)
+
+
+if __name__ == "__main__":
+    main()
 ```
 
-> 🔗 **接第0章 0.4：** 第 0 章说过，第三方库就像"别人写好的积木"——`turtle` 是自带的，但做网站的 `django`、做数据的 `pandas` 需要 `pip` 装。今天你正式见到了 `import` 怎么用这些积木；将来想玩更硬核的包管理，可搜 "astral uv"（第 0 章提过的现代工具）。
+仍在这个项目文件夹中运行：
 
-> ⚠️ **Warning:** `pip install` 装的是**全网任何人**上传的包。初学阶段只装"有名、常用"的库（如 `requests`、`pandas`、`matplotlib`），别乱装来路不明的包，避免安全风险。
+```bash
+uv run main.py
+```
+
+网络正常时会输出状态码 `200`。`uv add requests` 把依赖记录在项目配置中，`uv run main.py` 则使用这个项目自己的环境运行程序；两条命令配套使用，换电脑时更容易复现。
+
+> 📝 **pip 兼容说明：** 如果你正在维护一个没有使用 uv 的旧项目，可以用 `python -m pip install requests`。这种写法明确让当前 `python` 对应的 pip 安装依赖；本书新项目仍以 `uv add` 和 `uv run` 为主线。
+
+> ⚠️ **Warning:** 第三方包来自外部开发者。初学阶段只添加来源可靠、用途明确的包，并认真核对包名，避免装到名称相似的可疑包。
 
 ### 🔍 计算思维聚焦：复用（Reuse）
 
@@ -249,9 +298,9 @@ print(lucky_draw(today_guests))
 print(lucky_draw(today_guests))
 ```
 
-每次运行结果都不同——因为 `random.choice` 真随机。**现在游乐场多了"随机事件引擎"：`lucky_draw(guests)` 一个函数，借 `random` + `datetime` 两块现成拼图，就实现了"抽幸运游客 + 送随机奖品 + 打时间戳"。** 你没写一行随机数算法，却拥有了抽奖机。
+多次运行时，结果通常会变化，也可能碰巧连续抽中同一项——`random.choice` 给出的是**伪随机**结果。**现在游乐场多了"随机事件引擎"：`lucky_draw(guests)` 一个函数，借 `random` + `datetime` 两块现成拼图，就实现了"抽幸运游客 + 送随机奖品 + 打时间戳"。** 你没写一行伪随机数生成算法，却拥有了课堂版抽奖机。
 
-> ⚡ **Pro Tip:** 真实项目里 `today_guests` 会来自第 10-13 章用列表/字典管理的游客数据。模块的价值正在于此：你前面攒的"数据零件"和这里攒的"功能零件"，可以无缝拼装。
+> ⚡ **Pro Tip:** 真实项目里 `today_guests` 会来自第 10-13 章用列表/字典管理的游客数据。模块的价值正在于此：你前面攒的"数据零件"和这里攒的"功能零件"，可以无缝拼装。这个示例用于学习和模拟；涉及奖品价值、公平审计或安全要求的真实抽奖，不能直接把 `random` 当作可靠方案。
 
 ---
 
@@ -283,10 +332,12 @@ print(lucky_draw(today_guests))
 |---|------|------|---------|------|
 | 1 | 没 import 就用 | `print(pi)` | `pi` 不在当前命名空间 | 先 `import math` 或 `from math import pi` |
 | 2 | `from x import *` 污染命名 | `from math import *` 后变量冲突 | 倒进一堆名字，难排查 | 用 `import math` 或精准 `from math import sqrt` |
-| 3 | 以为 random 真随机 | 用于密码/抽奖公正性 | 是伪随机，可预测 | 密码场景用 `secrets` 库 |
-| 4 | macOS 用 `pip` 装不上 | `pip install xxx` 报错 | Mac 常要 `pip3` | 换成 `pip3 install xxx` |
-| 5 | 别名写错调用 | `import math as m` 后写 `math.sqrt` | 起了别名后原名失效 | 统一用别名 `m.sqrt` |
-| 6 | 抽空列表 | `random.choice([])` | 空列表没东西可抽，报错 | 调用前判断列表非空 |
+| 3 | 以为 `random` 能保证真随机 | 用于密码或要求公平审计的真实抽奖 | 它生成伪随机序列，不能提供这类安全保证 | 安全随机使用 `secrets` 等合适方案 |
+| 4 | 两个模块文件分散放置 | `main.py` 找不到 `helpers` | 初学示例中，Python 无法从当前文件夹找到模块 | 先把 `helpers.py` 和 `main.py` 放在同一文件夹 |
+| 5 | 把启动代码直接写在模块顶层 | 导入 `helpers` 时程序意外启动 | 导入会执行模块的顶层代码 | 把入口放进 `main()`，并用 `if __name__ == "__main__":` 保护 |
+| 6 | 添加依赖后绕开项目环境运行 | 直接运行时报 `No module named 'requests'` | 运行程序的 Python 环境里没有该依赖 | 在项目目录执行 `uv add requests`，再执行 `uv run main.py` |
+| 7 | 别名写错调用 | `import math as m` 后写 `math.sqrt` | 起了别名后原名不会自动保留 | 统一用别名 `m.sqrt` |
+| 8 | 从空序列抽取 | `random.choice([])` | 空序列没有候选项，会报错 | 抽取前检查每个候选序列都非空 |
 
 ---
 
@@ -298,10 +349,12 @@ print(lucky_draw(today_guests))
 |------|------|------------|
 | `import` | 把现成代码请进来用 | 不重复造轮子 |
 | 三种导入 | `import` / `from..import` / `as` 别名 | 按场景选，避免命名冲突 |
+| 自定义模块 | 一个 `.py` 文件可以作为模块；导入会执行顶层代码 | 把自己的函数拆开复用 |
+| 程序入口 | `main()` 组织入口，`if __name__ == "__main__":` 控制何时启动 | 避免导入模块时意外运行程序 |
 | `math` | `pi` / `sqrt` / `pow` / `floor` | 数学计算现成可用 |
-| `random` | `randint` / `choice` / `random` | 抽奖、随机、游戏核心 |
-| `datetime` / `os` | 时间格式化 / 文件系统 | 感知世界的两块基础拼图 |
-| `pip` | 装第三方库（Mac 用 `pip3`） | 扩展能力，接第0章 0.4 |
+| `random` | `randint` / `choice` / `random` 生成伪随机结果 | 适合游戏、模拟与课堂练习 |
+| `datetime` / `os` | 时间格式化 / 查看当前目录环境 | 获取时间和程序运行位置 |
+| `uv` | `uv add` 添加依赖，`uv run` 在项目环境中运行 | 可复现地管理第三方库 |
 
 ### ❓ FAQ
 
@@ -309,10 +362,13 @@ print(lucky_draw(today_guests))
 > A: 没有绝对好坏。用到很多 math 功能、且想避免名字冲突时，用 `import math`（调用写 `math.sqrt`）；只偶尔用一两个、想少打字，用 `from math import sqrt`。关键是保持一个文件里的风格一致、可读。
 
 **Q2: 标准库和第三方库有什么区别？**
-> A: 标准库（如 `math`、`random`、`datetime`、`os`）随 Python 一起安装，开箱即用；第三方库（如 `requests`、`pandas`）需要 `pip install` 额外装。前者管"基础通用"，后者管"专业领域"。两者都通过 `import` 使用，对你是一样的"积木"。
+> A: 标准库（如 `math`、`random`、`datetime`、`os`）随 Python 一起安装，开箱即用；第三方库（如 `requests`、`pandas`）需要先添加到项目中。本书新项目使用 `uv add 包名` 管理第三方依赖。两者都通过 `import` 使用，对你的代码来说都是可以复用的"积木"。
 
-**Q3: `pip` 装包时报权限错误或找不到命令怎么办？**
-> A: Windows 一般是 PATH/权限问题，可试 `python -m pip install 包名`；macOS 多半是命令写成 `pip` 而系统要 `pip3`，换成 `pip3 install 包名`。本书第 0 章的排查思路同样适用。
+**Q3: 执行 `uv run main.py` 时提示找不到 `requests` 怎么办？**
+> A: 先确认终端位于包含 `pyproject.toml` 和 `main.py` 的项目文件夹，再执行 `uv add requests`，最后执行 `uv run main.py`。如果维护的是没有使用 uv 的旧项目，兼容命令是 `python -m pip install requests`。
+
+**Q4: 为什么写了 `main()` 还要再写保护条件？**
+> A: `main()` 不会自动执行，它只是把入口逻辑集中起来。`if __name__ == "__main__":` 表示“只有直接运行这个文件时才调用 `main()`”；当文件被导入时，函数可以复用，但入口不会意外启动。
 
 ### 🔗 Connections to Later Chapters
 
@@ -404,7 +460,7 @@ print("约", round(volume, 2))
 
 写一个函数 `roll_dice()`，用 `random.randint(1, 6)` 返回一次掷骰子的点数。连续调用 5 次并打印。
 
-**Sample Output:**（每次不同，示例）
+**Sample Output:**（伪随机结果示例；实际结果可能不同，也可能出现重复）
 ```
 3
 6
@@ -430,7 +486,7 @@ for _ in range(5):
 
 **Key points:**
 - `for _ in range(5)` 里 `_` 表示"我不用这个循环变量"，是 Python 习惯写法。
-- 每次运行结果不同，这正是随机性的体现。
+- `random` 生成伪随机结果；多次结果可能变化，也可能重复。
 
 </details>
 
@@ -466,11 +522,59 @@ print(s(225))     # 15.0
 
 ---
 
-**Problem 16.4 — 🏆 Challenge：闭园幸运抽奖** 🏆 Challenge
+**Problem 16.4 — 把函数拆成双文件模块** 🟡 Medium
 
-写一个函数 `closing_lottery(guests, prizes)`，从 `guests` 随机抽一位幸运游客、从 `prizes` 随机抽一份奖品，返回形如 `"🎉 幸运游客 小明 获得 发光头箍"` 的字符串。要求：若 `guests` 为空，返回 `"今日无游客"`；用 `random.choice` 实现。用 `closing_lottery(["小明","小红","阿强"], ["棉花糖","不限次通行证"])` 测试。
+在同一个文件夹中创建 `helpers.py` 和 `main.py`。`helpers.py` 的顶层先打印 `helpers.py 已加载`，再定义函数 `double(number)`；`main.py` 导入 `helpers`，在自己的 `main()` 中打印 `double(21)` 的结果，并用 `if __name__ == "__main__":` 启动入口。最后执行 `uv run main.py`。
 
-**Sample Output:**（随机，示例）
+**Sample Output:**
+```text
+helpers.py 已加载
+42
+```
+
+<details>
+<summary>💡 Solution (click to reveal)</summary>
+
+**`helpers.py`：**
+
+```python
+print("helpers.py 已加载")
+
+
+def double(number):
+    """返回 number 的两倍。"""
+    return number * 2
+```
+
+**`main.py`：**
+
+```python
+import helpers
+
+
+def main():
+    """运行双倍计算示例。"""
+    print(helpers.double(21))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+**Key points:**
+- `import helpers` 会执行 `helpers.py` 的顶层代码，所以先看到“已加载”。
+- `helpers.double(21)` 用“模块名.函数名”明确指出函数来自哪里。
+- 两个文件放在同一文件夹，并从该文件夹执行 `uv run main.py`。
+
+</details>
+
+---
+
+**Problem 16.5 — 🏆 Challenge：闭园幸运抽奖** 🏆 Challenge
+
+写一个函数 `closing_lottery(guests, prizes)`，从 `guests` 随机抽一位幸运游客、从 `prizes` 随机抽一份奖品，返回形如 `"🎉 幸运游客 小明 获得 发光头箍"` 的字符串。要求：若 `guests` 为空，返回 `"今日无游客"`；若 `prizes` 为空，返回 `"今日无奖品"`；用 `random.choice` 实现。用 `closing_lottery(["小明","小红","阿强"], ["棉花糖","不限次通行证"])` 测试。
+
+**Sample Output:**（伪随机结果示例）
 ```
 🎉 幸运游客 小红 获得 不限次通行证
 ```
@@ -478,14 +582,18 @@ print(s(225))     # 15.0
 <details>
 <summary>💡 Solution (click to reveal)</summary>
 
-**Approach:** 先判空防错，再用两次 `random.choice` 分别抽游客和奖品，拼成字符串返回。
+**Approach:** 两个候选列表都先判空，再用两次 `random.choice` 分别抽游客和奖品，拼成字符串返回。
 
 ```python
 import random
 
+
 def closing_lottery(guests, prizes):
-    if not guests:                 # 防空列表
+    """返回一次课堂抽奖结果，候选列表为空时返回提示。"""
+    if not guests:
         return "今日无游客"
+    if not prizes:
+        return "今日无奖品"
     lucky = random.choice(guests)
     prize = random.choice(prizes)
     return "🎉 幸运游客 " + lucky + " 获得 " + prize
@@ -496,12 +604,13 @@ print(closing_lottery(["小明", "小红", "阿强"],
 ```
 
 **Key points:**
-- `if not guests:` 是判断"列表为空"的惯用写法，避免 `random.choice([])` 报错。
+- `guests` 和 `prizes` 都会传给 `random.choice`，所以两个列表都必须判空。
 - 函数返回字符串而非直接 `print`，调用处可自由决定怎么展示——这正是第 14 章封装思想的延续。
+- `random.choice` 适合这个课堂模拟，但它提供的是伪随机结果，不应用于有安全或公平审计要求的真实抽奖。
 - 此函数与第 16.6 节项目工坊的 `lucky_draw` 思路一致，是把"随机事件"封装复用的完整范例。
 
 </details>
 
 ---
 
-> 💡 **记住这一句：** 模块就是"借来的轮子"——**`import` 一下，站上别人肩膀，把精力留给真正属于你的难题。**
+> 💡 **记住这一句：** 一个 `.py` 文件可以成为可复用的模块；用 `import` 既能调用自己整理好的工具，也能使用标准库和第三方库。

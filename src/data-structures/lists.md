@@ -40,15 +40,6 @@
 ---
 
 ## 10.1 为什么需要"列表"？——从一堆散装变量说起
-
-<div class="try-it">
-<strong>🧩 练一练 10.1</strong>
-<p>题目：为什么用列表，而不是定义一堆 a1、a2、a3 散装变量？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：列表能<b>统一遍历、统一增删</b>，散装变量做不到“对每一个都做一遍”。</p>
-</details>
-</div>
-
 如果你只有 3 个同学的成绩，可以这么写：
 
 ```python
@@ -67,15 +58,6 @@ print("平均分：", (score1 + score2 + score3) / 3)
 ---
 
 ## 10.2 创建列表：用方括号把东西装进去
-
-<div class="try-it">
-<strong>🧩 练一练 10.2</strong>
-<p>题目：创建列表 scores = [88, 92, 75]，打印第二个元素（索引 1）。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>scores = [88,92,75]</code> 后 <code>print(scores[1])</code> 输出 <code>92</code>。</p>
-</details>
-</div>
-
 列表用一对方括号 `[ ]` 表示，里面的值用逗号隔开。框里可以装数字、文字，甚至混着装：
 
 ```python
@@ -92,15 +74,6 @@ empty = []                               # 空列表：先备好筐，待会儿�
 ---
 
 ## 10.3 索引：用"第几个"精准取出（从 0 开始！）
-
-<div class="try-it">
-<strong>🧩 练一练 10.3</strong>
-<p>题目：列表 nums = [10, 20, 30]，取出最后两个元素（用切片）。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>nums[-2:]</code> 得到 <code>[20, 30]</code>。负数切片从末尾数。</p>
-</details>
-</div>
-
 要从列表里拿某一项，用 `列表[编号]`。这个"编号"在编程里叫**索引（index）**。
 
 > ⚠️ **Warning:** Python（以及绝大多数编程语言）的索引**从 0 开始**，不是从 1！第一个元素的编号是 `0`，第二个是 `1`……这是新手最容易栽的坑。
@@ -114,7 +87,7 @@ print(names[3])   # 小美  （第四个）
 
 ![列表索引：从 0 开始数](../images/f3-list-index.svg)
 
-上图把 `scores[0]` 指向了第一个格子"小明"。记住：**第 1 个是 `[0]`**，这是计算机世界的"数数方式"，习惯就好。
+上图把 `names[0]` 指向了第一个格子"小明"。记住：**第 1 个是 `[0]`**，这是计算机世界的"数数方式"，习惯就好。
 
 ### 🧠 Mental Model: 索引像座位号
 
@@ -135,15 +108,6 @@ print(names[-2])   # 小刚（倒数第二）
 ---
 
 ## 10.4 切片：一次切出一整段
-
-<div class="try-it">
-<strong>🧩 练一练 10.4</strong>
-<p>题目：用 append 往 ["a", "b"] 后面加一个 "c"。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>lst = ["a","b"]; lst.append("c")</code>，此时 lst 为 <code>['a','b','c']</code>。</p>
-</details>
-</div>
-
 有时候你不想只拿一个，而是想拿"第 2 到第 4 个"这种**一段**。用**切片（slice）**：`列表[起点:终点]`，注意 **含起点、不含终点**（左闭右开）。
 
 ```python
@@ -162,15 +126,6 @@ print(nums[-2:])    # [40, 50]      —— 取最后两个
 ---
 
 ## 10.5 增：append 与 insert
-
-<div class="try-it">
-<strong>🧩 练一练 10.5</strong>
-<p>题目：用 for 遍历列表 ["小明","小红","小刚"]，逐个打印名字。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>for name in ["小明","小红","小刚"]: print(name)</code>。</p>
-</details>
-</div>
-
 列表是"可变"的——可以随时往里加东西。
 
 - `append(x)`：在**末尾**加一个 `x`（最常用）。
@@ -357,54 +312,44 @@ print("最高分：", best)     # 最高分： 100
 
 我们的"算法游乐场"之前有了招牌（第 1 章）、门票问答机（第 5 章）、抽奖转盘和积分（第 6–8 章）。现在轮到**用列表管理"今天来了哪些游客"**——这是游乐场数据化的第一步。
 
-下面这段**自包含**代码（纯终端，无需新依赖）实现了：记录游客、查看名单、按名字移除（临时离开）、点名查勤。
+下面这段**直来直去**的代码（纯终端，无需新依赖）实现了：记录游客、查看名单、按名字移除（临时离开）、点名查勤。`if` 和 `for` 已在第 6–8 章学过；这里先不用第 14 章才会讲的函数。
 
 ```python
 # 算法游乐场 · 游客名单（列表版）
-visitors = []                       # 空名单，游客到了就 append
+visitors = []
 
-def check_in(name):
-    if name in visitors:
-        print(f"{name} 已经在场了！")
-    else:
-        visitors.append(name)
-        print(f"✅ {name} 入园，当前 {len(visitors)} 人")
+# 两位游客入园
+visitors.append("小明")
+visitors.append("小红")
+print(f"当前 {len(visitors)} 人：{visitors}")
 
-def check_out(name):
-    if name in visitors:
-        visitors.remove(name)
-        print(f"👋 {name} 离场，剩余 {len(visitors)} 人")
-    else:
-        print(f"{name} 不在名单里")
+# 再来一位同名游客：先查重，再决定是否加入
+new_visitor = "小明"
+if new_visitor in visitors:
+    print(f"{new_visitor} 已经在场了！")
+else:
+    visitors.append(new_visitor)
 
-def roll_call():
-    print("—— 当前在场游客 ——")
-    for i, v in enumerate(visitors):
-        print(f"  {i}. {v}")
+# 小红离场
+visitors.remove("小红")
+print(f"离场后剩余 {len(visitors)} 人")
 
-# 试一试
-check_in("小明")
-check_in("小红")
-check_in("小明")          # 重复入园会被拦下
-roll_call()
-check_out("小红")
-roll_call()
+# 点名
+print("—— 当前在场游客 ——")
+for i, visitor in enumerate(visitors):
+    print(f"  {i}. {visitor}")
 ```
 
 **运行输出：**
 ```
-✅ 小明 入园，当前 1 人
-✅ 小红 入园，当前 2 人
+当前 2 人：['小明', '小红']
 小明 已经在场了！
-—— 当前在场游客 ——
-  0. 小明
-  1. 小红
-👋 小红 离场，剩余 1 人
+离场后剩余 1 人
 —— 当前在场游客 ——
   0. 小明
 ```
 
-> 💡 **记住这一句（项目）：** 现在游乐场多了**"游客名单"**——用列表 `append/remove` 就能增删查，入园离场一目了然。第 11 章我们会再加"已玩项目清单"，避免重复计次。
+> 💡 **记住这一句（项目）：** 现在游乐场多了**“游客名单”**——用列表 `append/remove` 就能增删查，入园离场一目了然。第 11 章我们会再加“已玩项目清单”，避免重复计次；第 14 章还会把这些重复操作封装成函数。
 
 ---
 

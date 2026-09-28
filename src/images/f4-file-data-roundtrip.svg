@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="864" viewBox="0 0 680 864" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="svga-file-data-roundtrip-title svga-file-data-roundtrip-desc">
+  <title id="svga-file-data-roundtrip-title">scores 列表写入 JSON 和 CSV 并从 JSON 读回冠军</title>
+  <desc id="svga-file-data-roundtrip-desc">同一份 Python scores 列表通过 Path 构造的路径，以 UTF-8 分别写入 scores.json 和 scores.csv；程序从 JSON 读回列表，再用 max 找出 95 分的小雨为冠军。</desc>
+  <rect x="0" y="0" width="680" height="864" fill="#F8FAFC"/>
+
+  <text x="40" y="52" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="26" font-weight="700" fill="#1E293B">一份 scores 数据，落盘再读回</text>
+  <text x="40" y="82" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="16" fill="#475569">Path 负责路径，UTF-8 负责中文；数据格式不同，来源仍是同一份列表。</text>
+
+  <rect x="40" y="110" width="600" height="142" rx="16" fill="#FFFFFF" stroke="#93C5FD" stroke-width="2"/>
+  <rect x="58" y="128" width="148" height="28" rx="14" fill="#EFF6FF" stroke="#93C5FD"/>
+  <text x="132" y="148" text-anchor="middle" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="15" font-weight="700" fill="#1E3A8A">Python list: scores</text>
+  <rect x="64" y="174" width="164" height="54" rx="10" fill="#F8FAFC" stroke="#CBD5E1"/>
+  <rect x="258" y="174" width="164" height="54" rx="10" fill="#F8FAFC" stroke="#CBD5E1"/>
+  <rect x="452" y="174" width="164" height="54" rx="10" fill="#F8FAFC" stroke="#CBD5E1"/>
+  <text x="146" y="197" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="15" font-weight="600" fill="#1E293B">小云</text>
+  <text x="146" y="218" text-anchor="middle" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="16" font-weight="700" fill="#1E3A8A">80</text>
+  <text x="340" y="197" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="15" font-weight="600" fill="#1E293B">小雨</text>
+  <text x="340" y="218" text-anchor="middle" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="16" font-weight="700" fill="#1E3A8A">95</text>
+  <text x="534" y="197" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="15" font-weight="600" fill="#1E293B">小树</text>
+  <text x="534" y="218" text-anchor="middle" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="16" font-weight="700" fill="#1E3A8A">88</text>
+
+  <text x="340" y="278" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" font-weight="600" fill="#1E3A8A">Path("park_data") 拼路径 · encoding="utf-8" 写入</text>
+  <path d="M340 252 L340 286 L184 286 L184 304" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M177 296 L184 304 L191 296" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M340 286 L496 286 L496 304" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M489 296 L496 304 L503 296" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="40" y="312" width="288" height="224" rx="16" fill="#FFFFFF" stroke="#60A5FA" stroke-width="2"/>
+  <rect x="56" y="328" width="256" height="34" rx="10" fill="#EFF6FF"/>
+  <text x="184" y="351" text-anchor="middle" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="15" font-weight="700" fill="#1E3A8A">park_data / scores.json</text>
+  <text x="64" y="386" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" font-weight="600" fill="#475569">json.dump · UTF-8 · 中文不转义</text>
+  <text x="64" y="416" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="13" fill="#1E293B">[</text>
+  <text x="78" y="441" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="13" fill="#1E293B">{"name":"小云", "score":80},</text>
+  <text x="78" y="466" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="13" fill="#1E293B">{"name":"小雨", "score":95},</text>
+  <text x="78" y="491" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="13" fill="#1E293B">{"name":"小树", "score":88}</text>
+  <text x="64" y="516" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="13" fill="#1E293B">]</text>
+
+  <rect x="352" y="312" width="288" height="224" rx="16" fill="#FFFFFF" stroke="#A78BFA" stroke-width="2"/>
+  <rect x="368" y="328" width="256" height="34" rx="10" fill="#EDE9FE"/>
+  <text x="496" y="351" text-anchor="middle" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="15" font-weight="700" fill="#5B21B6">park_data / scores.csv</text>
+  <text x="376" y="386" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" font-weight="600" fill="#475569">DictWriter · UTF-8 · newline=""</text>
+  <text x="376" y="422" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="14" font-weight="700" fill="#1E293B">name,score</text>
+  <text x="376" y="452" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="14" fill="#1E293B">小云,80</text>
+  <text x="376" y="482" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="14" fill="#1E293B">小雨,95</text>
+  <text x="376" y="512" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="14" fill="#1E293B">小树,88</text>
+
+  <path d="M184 536 L184 566 L340 566 L340 584" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M333 576 L340 584 L347 576" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="202" y="560" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="13" font-weight="700" fill="#1E3A8A">json.load(path.open("r", encoding="utf-8"))</text>
+
+  <rect x="80" y="592" width="520" height="122" rx="16" fill="#EFF6FF" stroke="#60A5FA" stroke-width="2"/>
+  <text x="104" y="621" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="16" font-weight="700" fill="#1E3A8A">读回 Python 列表 loaded</text>
+  <text x="104" y="648" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#475569">结构和分数保持不变，可以继续用 Python 计算。</text>
+  <rect x="104" y="663" width="136" height="32" rx="8" fill="#FFFFFF" stroke="#BFDBFE"/>
+  <rect x="272" y="663" width="136" height="32" rx="8" fill="#FFFFFF" stroke="#BFDBFE"/>
+  <rect x="440" y="663" width="136" height="32" rx="8" fill="#FFFFFF" stroke="#BFDBFE"/>
+  <text x="172" y="685" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" font-weight="600" fill="#1E293B">小云 · 80</text>
+  <text x="340" y="685" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" font-weight="600" fill="#1E293B">小雨 · 95</text>
+  <text x="508" y="685" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" font-weight="600" fill="#1E293B">小树 · 88</text>
+
+  <path d="M340 714 L340 744" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M333 736 L340 744 L347 736" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="356" y="735" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="13" font-weight="700" fill="#166534">max(..., key=score)</text>
+
+  <rect x="150" y="752" width="380" height="78" rx="16" fill="#ECFDF5" stroke="#34D399" stroke-width="2"/>
+  <text x="340" y="781" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="16" font-weight="700" fill="#166534">比较 80、95、88</text>
+  <text x="340" y="812" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="20" font-weight="700" fill="#166534">冠军：小雨，95 分</text>
+</svg>

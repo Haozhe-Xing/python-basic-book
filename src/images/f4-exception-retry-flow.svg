@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="872" viewBox="0 0 680 872" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="svga-exception-retry-flow-title svga-exception-retry-flow-desc">
+  <title id="svga-exception-retry-flow-title">售票机从错误输入到重试成功的异常处理流程</title>
+  <desc id="svga-exception-retry-flow-desc">第一轮输入三张，int 转换触发 ValueError，except 给出提示，finally 执行收尾；第二轮输入 3，转换成功后进入 else，finally 再次执行，然后购票结束。</desc>
+  <rect x="0" y="0" width="680" height="872" fill="#F8FAFC"/>
+
+  <text x="40" y="52" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="26" font-weight="700" fill="#1E293B">一次失败、一次成功：异常重试全流程</text>
+  <text x="40" y="82" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="16" fill="#475569">同一个 while 循环跑两轮；finally 在失败和成功后都会执行。</text>
+
+  <rect x="40" y="108" width="600" height="284" rx="16" fill="#FFFFFF" stroke="#F3D58A" stroke-width="2"/>
+  <rect x="60" y="126" width="82" height="28" rx="14" fill="#FFF8E1" stroke="#F3D58A"/>
+  <text x="101" y="146" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" font-weight="700" fill="#92400E">第 1 轮</text>
+  <text x="158" y="147" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="15" font-weight="600" fill="#92400E">输入无法转换，走 except</text>
+
+  <rect x="60" y="174" width="154" height="94" rx="12" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.5"/>
+  <text x="77" y="200" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" font-weight="600" fill="#1E3A8A">input() 收到</text>
+  <text x="137" y="241" text-anchor="middle" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="24" font-weight="700" fill="#1E293B">"三张"</text>
+
+  <path d="M220 221 L248 221" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M240 214 L248 221 L240 228" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="260" y="174" width="160" height="94" rx="12" fill="#FFF8E1" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="340" y="201" text-anchor="middle" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="16" font-weight="700" fill="#92400E">int("三张")</text>
+  <text x="340" y="227" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" fill="#92400E">转换失败，抛出</text>
+  <text x="340" y="251" text-anchor="middle" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="15" font-weight="700" fill="#92400E">ValueError</text>
+
+  <path d="M426 221 L454 221" fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M446 214 L454 221 L446 228" fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="466" y="174" width="154" height="94" rx="12" fill="#FFF8E1" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="543" y="198" text-anchor="middle" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="14" font-weight="700" fill="#92400E">except ValueError</text>
+  <text x="543" y="224" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#92400E">提示：请输入整数，</text>
+  <text x="543" y="246" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#92400E">例如 2</text>
+
+  <path d="M543 274 L543 286 L340 286 L340 298" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M333 290 L340 298 L347 290" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="164" y="304" width="352" height="58" rx="12" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="186" y="329" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="14" font-weight="700" fill="#334155">finally</text>
+  <text x="268" y="329" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" fill="#334155">输出“本轮输入处理完毕。”</text>
+  <text x="340" y="351" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#475569">循环没有 return，回到 input() 重试</text>
+
+  <path d="M340 392 L340 422" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M333 414 L340 422 L347 414" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="356" y="411" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" font-weight="600" fill="#1E3A8A">重试</text>
+
+  <rect x="40" y="430" width="600" height="288" rx="16" fill="#FFFFFF" stroke="#93C5FD" stroke-width="2"/>
+  <rect x="60" y="448" width="82" height="28" rx="14" fill="#EFF6FF" stroke="#93C5FD"/>
+  <text x="101" y="468" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" font-weight="700" fill="#1E3A8A">第 2 轮</text>
+  <text x="158" y="469" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="15" font-weight="600" fill="#1E3A8A">输入转换成功，走 else</text>
+
+  <rect x="60" y="496" width="154" height="94" rx="12" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.5"/>
+  <text x="77" y="522" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" font-weight="600" fill="#1E3A8A">input() 收到</text>
+  <text x="137" y="563" text-anchor="middle" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="24" font-weight="700" fill="#1E293B">"3"</text>
+
+  <path d="M220 543 L248 543" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M240 536 L248 543 L240 550" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="260" y="496" width="160" height="94" rx="12" fill="#EFF6FF" stroke="#60A5FA" stroke-width="1.5"/>
+  <text x="340" y="523" text-anchor="middle" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="16" font-weight="700" fill="#1E3A8A">int("3")</text>
+  <text x="340" y="550" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" fill="#1E3A8A">转换成功</text>
+  <text x="340" y="574" text-anchor="middle" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="15" font-weight="700" fill="#1E3A8A">count = 3</text>
+
+  <path d="M426 543 L454 543" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M446 536 L454 543 L446 550" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="466" y="496" width="154" height="94" rx="12" fill="#ECFDF5" stroke="#34D399" stroke-width="1.5"/>
+  <text x="543" y="521" text-anchor="middle" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="15" font-weight="700" fill="#166534">else</text>
+  <text x="543" y="547" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#166534">购买成功：3 张</text>
+  <text x="543" y="570" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#166534">共 60 元</text>
+
+  <path d="M543 596 L543 608 L340 608 L340 620" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M333 612 L340 620 L347 612" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="164" y="626" width="352" height="58" rx="12" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="186" y="651" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="14" font-weight="700" fill="#334155">finally</text>
+  <text x="268" y="651" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" fill="#334155">再次输出“本轮输入处理完毕。”</text>
+  <text x="340" y="673" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#475569">else 中 return，但返回前仍先执行 finally</text>
+  <text x="340" y="705" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" font-weight="600" fill="#166534">随后 return，循环结束</text>
+
+  <path d="M340 718 L340 744" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M333 736 L340 744 L347 736" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="100" y="752" width="480" height="78" rx="16" fill="#ECFDF5" stroke="#34D399" stroke-width="2"/>
+  <text x="340" y="783" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="17" font-weight="700" fill="#166534">失败可恢复，成功才结束</text>
+  <text x="340" y="810" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" fill="#166534">except 负责提示；else 负责成功路径；finally 负责每轮收尾。</text>
+</svg>

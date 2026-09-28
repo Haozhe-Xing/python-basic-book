@@ -6,7 +6,7 @@
 
 # Chapter 12: 字典 dict —— 像查字典一样，用"名字"直接找到"值"
 
-> 📝 **Before You Continue:** 建议先读 [第10章 列表](lists.md)（字典常和列表搭配）和 [第11章 元组与集合](tuples-sets.md)（字典的 **key 必须不可变**，所以元组能当 key、列表不能）。[for 循环](../control-flow/for-loops.md) 这章也要用。
+> 📝 **Before You Continue:** 建议先读 [第10章 列表](lists.md)（字典常和列表搭配）和 [第11章 元组与集合](tuples-sets.md)（字典的 **key 必须可哈希（hashable）**，所以列表不能当 key；元组只有在其中每个元素都可哈希时才能当 key）。[for 循环](../control-flow/for-loops.md) 这章也要用。
 
 你有没有过这种经历：老师抱来一摞试卷，想查"小明考了多少分"，只能从头一张张翻，翻到小明那张才算完。要是能像查字典——**直接翻到"小"字头，一眼看到"小明 → 95"**——该多快？
 
@@ -37,15 +37,6 @@
 ---
 
 ## 12.1 创建字典：花括号里写 `键: 值`
-
-<div class="try-it">
-<strong>🧩 练一练 12.1</strong>
-<p>题目：创建字典存小明的成绩 {"语文":88, "数学":95}，查“数学”的分数。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>d = {"语文":88, "数学":95}</code>，<code>print(d["数学"])</code> 输出 <code>95</code>。</p>
-</details>
-</div>
-
 字典也用花括号 `{ }`，但里面写的是 `键: 值` 对，多对之间用逗号隔开。
 
 ```python
@@ -64,20 +55,11 @@ print(scores["小明"])     # 95  （用名字直接查分，不用数第几个�
 
 上图左边蓝框是 key（名字），右边绿框是 value（分数），中间箭头就是"查表"这件事。和列表"数到第几个"相比，字典是"按名字取"，更符合人的直觉。
 
-> 📝 **Note:** 字典的 key 通常是字符串，但也可以是数字、甚至元组（因为不可变）；**列表不能当 key**（因为可变，第11章讲过）。value 则什么都能放，包括列表、字典自己。
+> 📝 **Note:** 字典的 key 必须可哈希（hashable），常见的字符串、数字可以，**列表不能当 key**。元组也要看内部元素：`("坐标", 3, 5)` 可哈希，包含列表的元组 `("标签", [1, 2])` 不可哈希，仍然不能当 key。value 则什么都能放，包括列表、字典自己。
 
 ---
 
 ## 12.2 查：用 `字典[key]` 或 `get()`
-
-<div class="try-it">
-<strong>🧩 练一练 12.2</strong>
-<p>题目：用 get() 查一个可能不存在的 key，并给默认值 0。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>d.get("英语", 0)</code>。若不存在返回 0，而不会像 <code>d["英语"]</code> 那样报错。</p>
-</details>
-</div>
-
 最常用的是 `字典[key]`：
 
 ```python
@@ -97,15 +79,6 @@ print(scores.get("小美", "查无此人")) # 查无此人（给了默认值）
 ---
 
 ## 12.3 增 / 改：赋值即写入
-
-<div class="try-it">
-<strong>🧩 练一练 12.3</strong>
-<p>题目：往字典 d 里加一对新的键值 age: 14。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>d["age"] = 14</code>。若 key 已存在则是“改”，不存在就是“增”。</p>
-</details>
-</div>
-
 字典的"增"和"改"是**同一招**：`字典[key] = 值`。key 不存在就新增，存在就覆盖（改）。
 
 ```python
@@ -120,15 +93,6 @@ print(scores)              # {'小明': 99, '小红': 88}
 ---
 
 ## 12.4 删：pop / del
-
-<div class="try-it">
-<strong>🧩 练一练 12.4</strong>
-<p>题目：用 for 遍历字典的 items()，打印“科目: 分数”。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>for k, v in d.items(): print(f"{k}: {v}")</code>。<code>items()</code> 一次拿出键和值。</p>
-</details>
-</div>
-
 ```python
 scores = {"小明": 95, "小红": 88, "小刚": 76}
 value = scores.pop("小刚")   # 删掉"小刚"，并把他的分数 76 交出来
@@ -144,15 +108,6 @@ print(scores)                # {'小明': 95}
 ---
 
 ## 12.5 遍历：keys / values / items
-
-<div class="try-it">
-<strong>🧩 练一练 12.5</strong>
-<p>题目：判断 "数学" 是不是字典 d 里的 key。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>"数学" in d</code> 返回 <code>True</code>。用 <code>in</code> 判断键在不在，最快。</p>
-</details>
-</div>
-
 字典有三种遍历姿势，对应你想看"键""值"还是"键值对"：
 
 ```python
@@ -336,7 +291,7 @@ champion()
 | 1 | 用 `[]` 当字典 | `d = ["a": 1]` | 字典用 `{}`，`[]` 是列表 | 写 `d = {"a": 1}` |
 | 2 | 查不存在的 key | `scores["小美"]` 但无此人 | 抛 `KeyError` 崩溃 | 用 `scores.get("小美", 0)` |
 | 3 | 以为 `in` 查 value | `"95" in scores` 想查分数 | `in` 只查 **key** | 查值用遍历 `values()` 或列表 |
-| 4 | 用列表当 key | `d[["a","b"]] = 1` | key 必须不可变 | 改用元组 `d[("a","b")] = 1` |
+| 4 | 用不可哈希对象当 key | `d[["a","b"]] = 1` | 列表不可哈希 | 改用全由可哈希元素组成的元组 `d[("a","b")] = 1` |
 | 5 | 忘记 `items()` 拆包 | `for x in d.items(): print(x[0], x[1])` | 能跑但啰嗦 | 写 `for k, v in d.items():` |
 | 6 | 遍历时改字典大小 | `for k in d: d.pop(k)` | 遍历中删元素会报错 | 先 `list(d)` 复制 key 再删 |
 
@@ -354,7 +309,7 @@ champion()
 | 删 | `pop(key)` 返回值 / `del d[key]` | 移除某条记录 |
 | 遍历 | `keys()` / `values()` / `items()` | 按需要看键、值或键值对 |
 | `in` | 查的是 **key 在不在** | 判重、防重复写入 |
-| key 不可变 | 字符串/数字/元组可，列表不可 | 决定什么能当 key |
+| key 可哈希 | 字符串/数字可；元组须所有元素都可哈希；列表不可 | 决定什么能当 key |
 | 映射思维 | A→B 一步定位 | 数据库、缓存、查表的底层 |
 
 ### ❓ FAQ

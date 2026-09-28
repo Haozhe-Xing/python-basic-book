@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="840" viewBox="0 0 680 840" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="svga-testing-regression-loop-title svga-testing-regression-loop-desc">
+  <title id="svga-testing-regression-loop-title">三类测试发现 level_for_score 的边界规则回归</title>
+  <desc id="svga-testing-regression-loop-desc">level_for_score 的金牌条件从大于等于 90 被误改成大于 90。正常值 75 和错误值 101 仍通过，边界值 90 的实际结果变成银牌，测试失败并定位回归；修复条件后重新运行全部测试。</desc>
+  <rect x="0" y="0" width="680" height="840" fill="#F8FAFC"/>
+
+  <text x="40" y="52" font-family="Segoe UI, PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="18" font-weight="700" fill="#1E293B">三类测试怎样抓住一处规则回归</text>
+  <text x="40" y="78" font-family="Segoe UI, PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#475569">核心函数：level_for_score(score)；关键边界是 90 分。</text>
+
+  <rect x="40" y="108" width="280" height="118" rx="14" fill="#ECFDF5" stroke="#34D399" stroke-width="1.5"/>
+  <text x="60" y="136" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" font-weight="600" fill="#166534">原规则</text>
+  <text x="60" y="166" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="16" font-weight="700" fill="#166534">if score &gt;= 90:</text>
+  <text x="76" y="192" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="15" fill="#166534">return "金牌"</text>
+  <text x="60" y="214" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="12" fill="#475569">90 分属于金牌。</text>
+
+  <path d="M322 167 L358 167" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round"/>
+  <path d="M350 160 L358 167 L350 174" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="340" y="150" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="12" font-weight="600" fill="#991B1B">误改</text>
+
+  <rect x="360" y="108" width="280" height="118" rx="14" fill="#FEE2E2" stroke="#F87171" stroke-width="1.5"/>
+  <text x="380" y="136" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" font-weight="600" fill="#991B1B">回归后的规则</text>
+  <text x="380" y="166" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="16" font-weight="700" fill="#991B1B">if score &gt; 90:</text>
+  <text x="396" y="192" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="15" fill="#991B1B">return "金牌"</text>
+  <text x="380" y="214" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="12" fill="#991B1B">90 分会错误地落入“银牌”。</text>
+
+  <path d="M500 226 L500 250 L340 250 L340 270" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M333 262 L340 270 L347 262" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="120" y="278" width="440" height="64" rx="12" fill="#FFFFFF" stroke="#60A5FA" stroke-width="2"/>
+  <text x="340" y="305" text-anchor="middle" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="16" font-weight="700" fill="#1E3A8A">运行 level_for_score 的三类测试</text>
+  <text x="340" y="329" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="12" fill="#475569">每个测试都写明输入、预期和回归版本的实际结果。</text>
+
+  <path d="M340 342 L340 362 L135 362 L135 378" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M128 370 L135 378 L142 370" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M340 342 L340 378" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+  <path d="M333 370 L340 378 L347 370" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M340 362 L545 362 L545 378" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M538 370 L545 378 L552 370" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="40" y="386" width="190" height="206" rx="14" fill="#FFFFFF" stroke="#34D399" stroke-width="1.5"/>
+  <rect x="56" y="402" width="92" height="26" rx="13" fill="#D1FAE5"/>
+  <text x="102" y="420" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="12" font-weight="600" fill="#166534">正常值</text>
+  <text x="60" y="458" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="16" font-weight="700" fill="#1E293B">score = 75</text>
+  <text x="60" y="490" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#475569">预期：银牌</text>
+  <text x="60" y="518" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#475569">实际：银牌</text>
+  <text x="60" y="550" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#166534">75 &lt; 90，未受影响</text>
+  <text x="60" y="577" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="15" font-weight="700" fill="#166534">PASS</text>
+
+  <rect x="245" y="386" width="190" height="206" rx="14" fill="#FFF7F7" stroke="#F87171" stroke-width="2"/>
+  <rect x="261" y="402" width="92" height="26" rx="13" fill="#FEE2E2"/>
+  <text x="307" y="420" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="12" font-weight="600" fill="#991B1B">边界值</text>
+  <text x="265" y="458" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="16" font-weight="700" fill="#1E293B">score = 90</text>
+  <text x="265" y="490" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#475569">预期：金牌</text>
+  <text x="265" y="518" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" font-weight="600" fill="#991B1B">实际：银牌</text>
+  <text x="265" y="550" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#991B1B">90 &gt; 90 为假</text>
+  <text x="265" y="577" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="15" font-weight="700" fill="#991B1B">FAIL · 抓到回归</text>
+
+  <rect x="450" y="386" width="190" height="206" rx="14" fill="#FFFFFF" stroke="#34D399" stroke-width="1.5"/>
+  <rect x="466" y="402" width="92" height="26" rx="13" fill="#D1FAE5"/>
+  <text x="512" y="420" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="12" font-weight="600" fill="#166534">错误值</text>
+  <text x="470" y="458" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="16" font-weight="700" fill="#1E293B">score = 101</text>
+  <text x="470" y="490" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#475569">预期：ValueError</text>
+  <text x="470" y="518" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#475569">实际：ValueError</text>
+  <text x="470" y="550" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#166534">101 超出 0～100</text>
+  <text x="470" y="577" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="15" font-weight="700" fill="#166534">PASS</text>
+
+  <path d="M340 592 L340 618 L175 618 L175 638" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M168 630 L175 638 L182 630" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="40" y="646" width="270" height="92" rx="14" fill="#FEE2E2" stroke="#F87171" stroke-width="1.5"/>
+  <text x="60" y="674" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" font-weight="600" fill="#991B1B">失败信息定位规则</text>
+  <text x="60" y="701" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#991B1B">90 分：预期“金牌”，却得到“银牌”</text>
+  <text x="60" y="724" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="12" fill="#991B1B">说明问题只藏在边界，不在常见输入。</text>
+
+  <path d="M312 692 L358 692" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M350 685 L358 692 L350 699" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="370" y="646" width="270" height="92" rx="14" fill="#EFF6FF" stroke="#60A5FA" stroke-width="1.5"/>
+  <text x="390" y="674" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" font-weight="600" fill="#1E3A8A">修复并重新检查</text>
+  <text x="390" y="702" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="14" font-weight="700" fill="#1E3A8A">score &gt; 90 → score &gt;= 90</text>
+  <text x="390" y="725" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="12" fill="#475569">不是只重跑失败项，而是重跑全部测试。</text>
+
+  <path d="M505 738 L505 758 L340 758 L340 774" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M333 766 L340 774 L347 766" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="150" y="782" width="380" height="42" rx="12" fill="#D1FAE5" stroke="#34D399" stroke-width="1.5"/>
+  <text x="340" y="808" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" font-weight="700" fill="#166534">75、90、101 全部通过，规则回归已修复</text>
+</svg>

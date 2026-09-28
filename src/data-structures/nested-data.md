@@ -37,15 +37,6 @@
 ---
 
 ## 13.1 列表套字典：一群"有结构的对象"
-
-<div class="try-it">
-<strong>🧩 练一练 13.1</strong>
-<p>题目：怎么用“列表套字典”表示多个学生？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>[{"name":"小明","age":14}, {"name":"小红","age":13}]</code>。列表管“一群”，字典管“每个人的属性”。</p>
-</details>
-</div>
-
 最经典的嵌套：一个列表，里面每一项是一个字典（代表一个对象）。比如一群游客：
 
 ```python
@@ -66,6 +57,10 @@ print(visitors[2]["score"])             # 60（小刚的分数）
 
 > 🧠 **Mental Model: 外层列表是"排队的人"，内层字典是"每个人的档案卡"。** 先找到哪个人（列表索引或遍历），再翻他的档案卡（字典 key）。两步定位，干净利落。
 
+![嵌套游客数据的定位路径：从 visitors[2] 走到 played 列表的第 2 个项目](../images/f3-nested-data-path.svg)
+
+*图：`visitors[2]["played"][1]` 先选中小刚，再取项目列表，最后定位到第 2 个项目“碰碰车”。*
+
 ![嵌套结构树：列表里装着字典，字典里装着列表](../images/f3-nested-tree.svg)
 
 上图把"游客列表 → 每个游客字典 → 字典里的 played 列表"一层层画了出来。**容器套容器，就是这么直观。**
@@ -73,15 +68,6 @@ print(visitors[2]["score"])             # 60（小刚的分数）
 ---
 
 ## 13.2 遍历嵌套结构
-
-<div class="try-it">
-<strong>🧩 练一练 13.2</strong>
-<p>题目：遍历上面的嵌套列表，把每个学生的名字打印出来。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>for stu in students: print(stu["name"])</code>。先取出每个学生字典，再按 key 取值。</p>
-</details>
-</div>
-
 想"打印所有人的名字和分数"？外层 `for` 遍历列表，内层直接用字典：
 
 ```python
@@ -101,15 +87,6 @@ for v in visitors:
 ---
 
 ## 13.3 字典套列表：按"类别"分组
-
-<div class="try-it">
-<strong>🧩 练一练 13.3</strong>
-<p>题目：字典套列表：{"一班":["小明","小红"]}，打印“一班”所有人。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>for name in classes["一班"]: print(name)</code>。外层字典取值得到列表，再遍历列表。</p>
-</details>
-</div>
-
 反过来，也可以用字典当"外壳"，每个 value 是个列表，表示"这一类下有哪些成员"。比如班级花名册按小组分：
 
 ```python
@@ -136,15 +113,6 @@ for group, members in roster.items():
 ---
 
 ## 13.4 字典套字典：多级查表
-
-<div class="try-it">
-<strong>🧩 练一练 13.4</strong>
-<p>题目：字典套字典：{"小明":{"age":14}}，查小明的年龄。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>students["小明"]["age"]</code> 得到 <code>14</code>。像查两层抽屉。</p>
-</details>
-</div>
-
 再套一层：字典的 value 本身还是字典，形成"二级映射"。比如每个学生的多科成绩：
 
 ```python
@@ -160,15 +128,6 @@ print(grades["小明"]["数学"])    # 90（先找小明，再找他的数学）
 ---
 
 ## 13.5 改嵌套数据：定位到"最里层"再赋值
-
-<div class="try-it">
-<strong>🧩 练一练 13.5</strong>
-<p>题目：把嵌套数据里“小红”的年龄从 13 改成 14。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>students["小红"]["age"] = 14</code>。定位到最里层再赋值即可。</p>
-</details>
-</div>
-
 嵌套数据的"改"，就是一路精确定位到最里层，再做赋值。比如给小明加 5 分：
 
 ```python
@@ -187,7 +146,7 @@ print(visitors[1]["played"])    # ['碰碰车', '摩天轮']
 
 ---
 
-## 13.6 JSON 直觉：嵌套数据就是互联网的语言
+## 13.6 JSON 直觉：嵌套数据的常见网络表示
 
 你可能在网页、游戏、App 里听过 **JSON**。好消息：**JSON 几乎就是 Python 嵌套字典/列表的"文本版"**。
 
@@ -209,7 +168,7 @@ back = json.loads(text)        # 从 JSON 文本读回 Python 对象
 print(back["visitors"][0]["name"])     # 小明
 ```
 
-> 💡 **Key Insight:** 为什么这很重要？因为**网络上传输数据，本质就是传这种嵌套结构**：前端 ↔ 后端、爬虫抓到的网页、AI 模型的返回结果……全是 JSON。你今天写的 `dict` 套 `list`，和工程师每天处理的数据是**同一种东西**。`json.dumps` / `json.loads` 就是 Python 和 JSON 互转的桥。
+> 💡 **Key Insight:** 为什么这很重要？因为网络服务**经常用 JSON 表示和传输这类嵌套结构**，例如许多前端 ↔ 后端接口和 AI 模型的返回结果；网页本身也可能是 HTML，网络上还有其他数据格式。你今天写的 `dict` 套 `list`，和工程师经常处理的 JSON 数据结构非常接近。`json.dumps` / `json.loads` 就是 Python 和 JSON 互转的桥。
 
 > 📝 **Note:** `ensure_ascii=False` 让中文正常显示（不然中文会变成 `\u...`）；`indent=2` 只是让打印更好看，不影响数据本身。初学先照抄这两参数即可。
 
@@ -309,9 +268,11 @@ def ride(name, project, points):
     for v in visitors:
         if v["name"] == name:
             if project not in v["played"]:
-                v["played"].append(project)   # 去重计次
-            v["score"] += points
-            print(f"🎢 {name} 玩了 {project}，+{points} 分，共 {v['score']} 分")
+                v["played"].append(project)   # `not in` 先去重，再计分
+                v["score"] += points
+                print(f"🎢 {name} 玩了 {project}，+{points} 分，共 {v['score']} 分")
+            else:
+                print(f"🎢 {name} 已玩过 {project}，不重复记录，也不加分，共 {v['score']} 分")
             return
     print(f"❓ 查无 {name}，请先入园")
 
@@ -332,7 +293,7 @@ def champion():
 check_in("小明")
 check_in("小红")
 ride("小明", "过山车", 50)
-ride("小明", "过山车", 50)        # 重复项目，不计次但...见下方说明
+ride("小明", "过山车", 50)        # 重复项目：不重复记录，也不加分
 ride("小明", "摩天轮", 30)
 ride("小红", "碰碰车", 40)
 profile("小明")
@@ -344,16 +305,34 @@ champion()
 ✅ 小明 入园，已建档案
 ✅ 小红 入园，已建档案
 🎢 小明 玩了 过山车，+50 分，共 50 分
-🎢 小明 玩了 过山车，+50 分，共 100 分
-🎢 小明 玩了 摩天轮，+30 分，共 130 分
+🎢 小明 已玩过 过山车，不重复记录，也不加分，共 50 分
+🎢 小明 玩了 摩天轮，+30 分，共 80 分
 🎢 小红 玩了 碰碰车，+40 分，共 40 分
-📋 小明：130 分，玩过 ['过山车', '摩天轮']
-🎢 冠军：小明，130 分
+📋 小明：80 分，玩过 ['过山车', '摩天轮']
+👑 冠军：小明，80 分
 ```
 
-> 📝 **Note（诚实说明）：** 上面 `ride` 对"重复项目"做了 `played` 去重（列表不重复记），但分数仍每次都加——这是为了演示"嵌套里同时管列表和分数"。真实游乐场若想"同一项目只计一次分"，把 `v["score"] += points` 也挪进 `if project not in v["played"]` 块里即可。你可以在本地改一行试试，体会"改最里层字段"的手感。
+> 📝 **Note：** 这里把两条规则绑在一起：新项目才会写入 `played`，也只有新项目才会加分。重复游玩仍会得到明确提示，但不会让“已玩项目数”和积分对不上。`if project not in v["played"]` 就是这层去重保护。
 
 > 💡 **记住这一句（项目）：** 现在游乐场升级出**"完整游客档案"**——每位游客是一个 dict（name/score/played），全部收进列表 `visitors`。名单、去重、积分、排行榜，一个嵌套结构全搞定！第 14 章我们会把这些操作重构成干净的函数。
+
+### 从零运行清单：完整游客档案
+
+1. 在 VS Code 新建 `visitor_profiles.py`，复制“项目工坊”里的**完整游客档案**代码，保存文件。
+2. 选择 **终端 → 新建终端**，在该文件所在文件夹运行：
+
+   ```bash
+   python visitor_profiles.py     # Windows
+   python3 visitor_profiles.py    # macOS
+   ```
+
+3. 终端会依次显示小明、小红入园，小明第一次玩过山车得 50 分、第二次不重复加分，最后显示 `📋 小明：80 分` 和 `👑 冠军：小明，80 分`。这表示档案、去重和排行榜都运行成功；这个项目只打印结果，不会生成额外文件。
+
+| 常见失败 | 怎么修复 |
+|---|---|
+| `NameError: name 'visitors' is not defined` | 不要只复制某个函数；从 `visitors = []` 开始，把项目工坊的完整代码一起保存。 |
+| `IndentationError` | 检查 `for`、`if`、`def` 下一行是否都向右缩进 4 个空格。 |
+| 提示找不到 Python | 在 VS Code 右下角选择 Python 解释器后，使用上面与系统对应的命令重新运行。 |
 
 ---
 
@@ -588,12 +567,12 @@ print("玩得最多：", best_play)
   "visitors": [
     {
       "name": "小明",
-      "score": 130,
+      "score": 80,
       "played": ["过山车", "摩天轮"]
     }
   ]
 }
-读回验证：小明 = 130 分
+读回验证：小明 = 80 分
 ```
 
 <details>
@@ -605,8 +584,8 @@ print("玩得最多：", best_play)
 import json
 
 visitors = [
-    {"name": "小明", "score": 130, "played": ["过山车", "摩天轮"]},
-    {"name": "小红", "score": 40,  "played": ["碰碰车"]},
+    {"name": "小明", "score": 80, "played": ["过山车", "摩天轮"]},
+    {"name": "小红", "score": 40, "played": ["碰碰车"]},
 ]
 data = {"visitors": visitors}
 

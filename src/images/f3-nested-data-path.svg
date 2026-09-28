@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="728" viewBox="0 0 680 728" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="svga-nested-data-path-title svga-nested-data-path-desc">
+  <title id="svga-nested-data-path-title">嵌套游客数据的定位路径</title>
+  <desc id="svga-nested-data-path-desc">以 visitors[2][played][1] 为例，展示先取第三位游客，再取 played 列表，最后取第二个项目碰碰车的逐层定位过程。</desc>
+  <rect x="0" y="0" width="680" height="728" fill="#F8FAFC"/>
+  <text x="40" y="54" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="26" font-weight="700" fill="#1E293B">嵌套数据：找到小刚的第 2 个项目</text>
+  <text x="40" y="82" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="16" fill="#475569">路径：visitors[2]["played"][1]，每一步先确认当前容器类型。</text>
+
+  <rect x="40" y="112" width="600" height="132" rx="16" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+  <circle cx="76" cy="150" r="17" fill="#DBEAFE"/>
+  <text x="76" y="156" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="16" font-weight="700" fill="#1E3A8A">1</text>
+  <text x="108" y="155" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="18" font-weight="700" fill="#1E3A8A">visitors[2]</text>
+  <text x="108" y="184" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="15" fill="#475569">visitors 是列表；索引 2 代表第 3 位游客。</text>
+  <rect x="108" y="199" width="456" height="28" rx="14" fill="#EFF6FF"/>
+  <text x="336" y="219" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="14" font-weight="700" fill="#1E3A8A">[小明, 小红, 小刚] → 选中 小刚 的字典</text>
+
+  <path d="M340 257 L340 281" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
+  <path d="M332 274 L340 282 L348 274" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="40" y="296" width="600" height="142" rx="16" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+  <circle cx="76" cy="334" r="17" fill="#DBEAFE"/>
+  <text x="76" y="340" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="16" font-weight="700" fill="#1E3A8A">2</text>
+  <text x="108" y="339" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="18" font-weight="700" fill="#1E3A8A">["played"]</text>
+  <text x="108" y="368" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="15" fill="#475569">当前是字典；用 key "played" 取出项目列表。</text>
+  <rect x="108" y="384" width="456" height="34" rx="10" fill="#EFF6FF"/>
+  <text x="126" y="407" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="15" fill="#1E3A8A">{"name":"小刚", "played":["过山车","碰碰车","摩天轮"]}</text>
+
+  <path d="M340 451 L340 475" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
+  <path d="M332 468 L340 476 L348 468" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="40" y="490" width="600" height="120" rx="16" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+  <circle cx="76" cy="528" r="17" fill="#DBEAFE"/>
+  <text x="76" y="534" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="16" font-weight="700" fill="#1E3A8A">3</text>
+  <text x="108" y="533" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="18" font-weight="700" fill="#1E3A8A">[1]</text>
+  <text x="108" y="562" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="15" fill="#475569">当前是列表；索引 1 代表第 2 个项目。</text>
+  <rect x="108" y="576" width="456" height="20" rx="10" fill="#EFF6FF"/>
+  <text x="336" y="591" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="13" fill="#1E3A8A">[0] 过山车　　[1] 碰碰车　　[2] 摩天轮</text>
+
+  <rect x="40" y="638" width="600" height="52" rx="14" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/>
+  <text x="340" y="670" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="18" font-weight="700" fill="#166534">最终取到："碰碰车"</text>
+</svg>

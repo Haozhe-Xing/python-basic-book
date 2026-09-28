@@ -43,15 +43,6 @@
 ---
 
 ## 21.1 栈（Stack）：后进先出 LIFO
-
-<div class="try-it">
-<strong>🧩 练一练 21.1</strong>
-<p>题目：栈（Stack）最主要的特点是什么？用生活比喻。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<b>后进先出 LIFO</b>（Last In First Out），像一摞盘子——最后放上去的，最先被拿走。</p>
-</details>
-</div>
-
 栈像一摞盘子——你只能从**最上面**放（push）和拿（pop），最下面的反而最后才能拿到。这叫 **LIFO（Last In, First Out，后进先出）**。
 
 Python 的 `list` 天然能当栈用：
@@ -89,15 +80,6 @@ print(stack)              # ['小明', '小红']
 ---
 
 ## 21.2 队列（Queue）：先进先出 FIFO
-
-<div class="try-it">
-<strong>🧩 练一练 21.2</strong>
-<p>题目：用 Python 列表模拟一个栈：入栈和出栈分别对应什么操作？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：入栈 <code>stack.append(x)</code>，出栈 <code>stack.pop()</code>（弹出最后一个）。</p>
-</details>
-</div>
-
 队列像食堂打饭的队——**队首**先走（出队 dequeue），**队尾**新来（入队 enqueue）。这叫 **FIFO（First In, First Out，先进先出）**。
 
 用 `list` 也能模拟，但有个坑：从 `list` **头部** `pop(0)` 要挪动后面所有元素，慢（O(n)）。Python 标准库专门给了 `collections.deque`（双端队列），两端进出都是 O(1)，排队请用它。
@@ -130,16 +112,7 @@ deque(['乙', '丙'])
 ---
 
 ## 21.3 链表（Linked List）：一节一节串起来
-
-<div class="try-it">
-<strong>🧩 练一练 21.3</strong>
-<p>题目：队列（Queue）和栈相反，它的特点？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<b>先进先出 FIFO</b>（First In First Out），像排队买票——先来的人先办完走。</p>
-</details>
-</div>
-
-`list` 在内存里是一整块连续空间，中间插入/删除要挪动后面所有元素。链表换了个思路：**每个数据是一节"节点"，节点里除了存数据，还存"下一节在哪"的指针（`next`）**。就像寻宝游戏——每找到一个线索，它告诉你"下一个去哪找"。
+在 CPython 中，`list` 通常用一块连续空间存放**对象引用**（对象本身不一定连续）；中间插入/删除要挪动后面的引用。链表换了个思路：**每个数据是一节"节点"，节点里除了存数据，还存"下一节在哪"的指针（`next`）**。就像寻宝游戏——每找到一个线索，它告诉你"下一个去哪找"。
 
 我们用一个 `Node` 类来模拟（不深究内存，理解思想即可）：
 
@@ -170,7 +143,7 @@ while cur is not None:
 3
 ```
 
-> 💡 **Key Insight:** 链表的强项是**在中间插入/删除快**——只要改一下 `next` 指针，不用挪动其他节点。代价是"找第 k 个"得从头数过去（不能像 `list[k]` 直接跳到）。**没有万能结构，只有合不合适。**
+> 💡 **Key Insight:** 链表的强项是：**在已经找到插入/删除位置，并拿到所需节点引用的前提下**，改一下 `next` 指针就能用 O(1) 完成操作，不用挪动其他节点。若还要先查找位置，查找本身通常是 O(n)；"找第 k 个"也得从头数过去（不能像 `list[k]` 直接跳到）。**没有万能结构，只有合不合适。**
 
 > 📝 **Note:** 真实工程里 Python 常用 `list` 或 `deque` 代替手写链表（它们更快更好用）。但链表是**理解"指针/引用"和后面树、图算法**的基石——竞赛里很多数据结构都建立在它的思想上。
 
@@ -179,35 +152,17 @@ while cur is not None:
 ---
 
 ## 21.4 三种结构怎么选（速查表）
-
-<div class="try-it">
-<strong>🧩 练一练 21.4</strong>
-<p>题目：链表（Linked List）里每个“节点”由哪两部分组成？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：① <b>数据</b>（本节点存的值）；② <b>指针 / next</b>（指向下一个节点的地址）。</p>
-</details>
-</div>
-
 | 结构 | 进出规则 | 典型场景 | Python 实现 | 关键操作代价 |
 |------|---------|---------|------------|------------|
 | **栈 Stack** | 后进先出 LIFO | 撤销、函数调用、括号匹配 | `list.append` / `list.pop` | 两端 O(1) |
 | **队列 Queue** | 先进先出 FIFO | 排队、任务调度、广度优先搜索 | `collections.deque` | 两端 O(1) |
-| **链表 List** | 顺着 `next` 串 | 频繁中间插入/删除、建模链式关系 | `Node` 类 | 插入 O(1)，随机访问 O(n) |
+| **链表 List** | 顺着 `next` 串 | 频繁中间插入/删除、建模链式关系 | `Node` 类 | 已找到位置后插入 O(1)，查找/随机访问 O(n) |
 
 > ⚡ **Pro Tip:** 写题时先问自己一句："数据该从哪头进、哪头出？"——答案几乎直接告诉你该用栈还是队列。这是竞赛里省时间的肌肉记忆。
 
 ---
 
 ## ⚔️ 挑战擂台
-
-<div class="try-it">
-<strong>🧩 练一练 21.5</strong>
-<p>题目：撤销（Ctrl+Z）功能更适合用栈还是队列？为什么？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<b>栈</b>。撤销总是退回“最近一次”操作，正是后进先出。</p>
-</details>
-</div>
-
 **擂台题 21（括号匹配）**：给定一串括号如 `"((()))"` 或 `"()()()"`，用**栈**判断它们是"完全配对"还是"没配对好"。规则：遇到 `(` 入栈，遇到 `)` 出栈；最后栈空且过程中不"没东西可弹"才算配对成功。
 
 <details>
@@ -299,7 +254,7 @@ print("请", served, "入场！剩下：", list(ticket_line))
 |------|------|------------|
 | 栈 Stack | 后进先出，`append`/`pop` | 撤销、函数调用、括号匹配 |
 | 队列 Queue | 先进先出，用 `deque.popleft()` | 排队、调度、广度优先搜索 |
-| 链表 | `Node` + `next` 指针串起来 | 中间插入快，理解树/图的基础 |
+| 链表 | `Node` + `next` 指针串起来 | 已找到位置后插入快，理解树/图的基础 |
 | 选结构 | 先看"从哪进从哪出" | 选对结构，程序快一半 |
 
 ### ❓ FAQ
@@ -308,7 +263,7 @@ print("请", served, "入场！剩下：", list(ticket_line))
 > A: `list` 当栈没问题（末尾进出 O(1)），但**当队列**从头部 `pop(0)` 要挪动整列，人多就慢。排队请用 `deque`，两端都 O(1)。
 
 **Q2: 链表比 `list` 好在哪儿？值得手写吗？**
-> A: 链表擅长"中间插入/删除"（改个指针即可），但 Python 里 `list`/`deque` 通常更好用。学链表主要为了**理解指针思想**——它为后面树、图、动态数据结构打底，竞赛里常考。
+> A: 已经找到位置并拿到所需节点引用时，链表能通过改指针快速完成中间插入/删除；若要先查找位置，仍通常需要 O(n)。Python 里 `list`/`deque` 通常更好用。学链表主要为了**理解指针思想**——它为后面树、图、动态数据结构打底，竞赛里常考。
 
 **Q3: 栈和队列能互相替代吗？**
 > A: 不能。它们进出顺序相反：栈处理"最近的"，队列处理"最早的"。场景错配会出逻辑 bug（比如用栈排食堂队，先来的反而最后打饭）。
@@ -370,6 +325,8 @@ print("请", served, "入场！剩下：", list(ticket_line))
 
 ## Practice Problems
 
+> 📝 **进阶选读 / 阅读理解：** 如果你还没学过 `class`，可以先完成 21.1 和 21.2，直接跳过下面标有“进阶选读 / 阅读理解”的 21.3 和 21.4；它们不影响本章栈、队列和链表基本思想的学习。这里的 `class` 只作为“把数据和操作打包”的预览：读懂代码在做什么即可，不要求你现在写出 `class`，本书也尚未系统讲解 OOP。
+
 ---
 
 **Problem 21.1 — 用栈判断括号是否配对** 🟢 Easy
@@ -390,10 +347,11 @@ def is_balanced(s):
     for ch in s:
         if ch == "(":
             stack.append(ch)
-        else:               # 遇到 ")"
+        elif ch == ")":    # 遇到右括号才处理
             if not stack:   # 没东西可弹 → 多了一个右括号
                 return False
             stack.pop()
+        # 如果题目允许普通字符，直接忽略它们
     return len(stack) == 0  # 栈空才完全配对
 
 print(is_balanced("()()()"))   # True
@@ -435,7 +393,9 @@ while q:
 
 ---
 
-**Problem 21.3 — 链表反转（手撸指针）** 🟡 Medium
+**Problem 21.3 — 进阶选读 / 阅读理解：链表反转（手撸指针）** 🟡 Medium
+
+> 📝 这题中的 `class Node` 仅供阅读理解：它把节点数据和相关操作放在一起，是“把数据和操作打包”的预览。现在不要求你写出或改写 `class`，只需观察 `next` 如何把节点串起来、反转时如何改变指向。
 
 给定一个单向链表 `1 → 2 → 3`，写代码把它**反转**成 `3 → 2 → 1`，并遍历打印。要求用 `Node` 类，手动改 `next` 指针。
 
@@ -443,7 +403,7 @@ while q:
 **Sample Output:** `3 2 1`
 
 <details>
-<summary>💡 Solution (click to reveal)</summary>
+<summary>💡 进阶选读 / 阅读理解：Solution (click to reveal)</summary>
 
 **Approach:** 三指针法——`prev`（已反转部分的头）、`cur`（当前节点）、`nxt`（暂存下一个）。每步把 `cur.next` 指向 `prev`，再整体右移。
 
@@ -482,7 +442,9 @@ print(" ".join(out))   # 3 2 1
 
 ---
 
-**Problem 21.4 — 🏆 Challenge：用栈实现队列（竞赛思维）** 🔴 Hard
+**Problem 21.4 — 🏆 进阶选读 / 阅读理解 Challenge：用栈实现队列（竞赛思维）** 🔴 Hard
+
+> 📝 这题中的 `class QueueWithStacks` 仅供阅读理解：它把队列的数据（两个栈）和操作（入队、出队）打包在一起，是“把数据和操作打包”的预览。现在不要求你写出或改写 `class`，重点是读懂两个栈如何配合保持先来先服务的顺序。
 
 不用 `deque`，只用两个**栈**（`list` 的 `append`/`pop`）实现一个"队列"：支持 `enqueue(x)`（入队）和 `dequeue()`（出队，返回队首）。说明思路并给出可运行代码。
 
@@ -490,7 +452,7 @@ print(" ".join(out))   # 3 2 1
 **Sample Output:** `1`（队首先出）
 
 <details>
-<summary>💡 Solution (click to reveal)</summary>
+<summary>💡 进阶选读 / 阅读理解：Solution (click to reveal)</summary>
 
 **思路：** 一个栈 `in_stack` 负责接新元素（入队直接 `append`）。出队时，若 `out_stack` 空，就把 `in_stack` 所有元素倒进 `out_stack`——这一"倒"，顺序就反过来了，`out_stack` 的栈顶正好是**最早入队**的那个。之后从 `out_stack` `pop` 即可。
 
@@ -507,6 +469,8 @@ class QueueWithStacks:
         if not self.out_stack:           # out 空才倒一次
             while self.in_stack:
                 self.out_stack.append(self.in_stack.pop())
+        if not self.out_stack:
+            raise IndexError("队列为空，无法出队")
         return self.out_stack.pop()      # 出队：从 out 栈顶取（最早来的）
 
 q = QueueWithStacks()

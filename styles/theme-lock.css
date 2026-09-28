@@ -1,19 +1,21 @@
 /* ============================================================
-   theme-lock.css — 强制浅色主题
-   无论读者是否切到 dark，本书始终以浅色渲染，
-   保证 SVG / 截图 / 代码配色一致可读。
+   theme-lock.css — 本书只提供浅色主题
    ============================================================ */
+:root,
+html,
+html[data-theme] {
+  color-scheme: light;
+}
+
 html, body, .page, #content, .content {
   background: #ffffff !important;
   color: #1e293b !important;
 }
-:root { color-scheme: light; }
 
-/* 覆盖 mdBook 内置 dark 变量 */
-html[data-theme="dark"],
-html.theme-dark {
-  --bg: #ffffff;
-  --fg: #1e293b;
-  background: #ffffff !important;
-  color: #1e293b !important;
+/* 移除不可用的主题切换入口；搜索、打印和目录按钮不受影响。 */
+#theme-toggle,
+#theme-list,
+.theme-popup,
+[aria-controls="theme-list"] {
+  display: none !important;
 }

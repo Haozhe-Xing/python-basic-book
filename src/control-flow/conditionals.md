@@ -37,15 +37,6 @@
 ---
 
 ## 6.0 为什么需要"判断"
-
-<div class="try-it">
-<strong>🧩 练一练 6.1</strong>
-<p>题目：在生活里举一个需要"判断"的例子，写成"如果…就…否则…"的形式。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：例如"如果下雨，就带伞；否则戴帽子"。编程里的 <code>if / else</code> 就是这种分叉。</p>
-</details>
-</div>
-
 想象一个自动售货机：投入硬币后，它要决定"钱够不够？够了就出货，不够就退币"。如果售货机不会判断，它要么永远出货（亏死），要么永远不出（没人用）。**判断，让程序能应对不同情况。**
 
 <div style="text-align:center; margin:20px 0;">
@@ -83,15 +74,6 @@
 ---
 
 ## 6.1 最简单的判断：if 与 else
-
-<div class="try-it">
-<strong>🧩 练一练 6.2</strong>
-<p>题目：写 if 判断变量 x 是否大于 10，是则打印"大"。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>if x &gt; 10: print("大")</code>。注意冒号 <code>:</code> 和下一行缩进。</p>
-</details>
-</div>
-
 最基础的句型只有两棵树杈：
 
 ```python
@@ -124,15 +106,6 @@ else:
 ---
 
 ## 6.2 多岔路口：elif 链
-
-<div class="try-it">
-<strong>🧩 练一练 6.3</strong>
-<p>题目：用 elif 把 0~100 的分数分成 优（≥90）、良（≥80）、中（≥60）、差 四档。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>if s&gt;=90: print('优')</code>  elif <code>s&gt;=80</code> 良，<code>elif s&gt;=60</code> 中，<code>else</code> 差。</p>
-</details>
-</div>
-
 生活里常常不止两个选项：成绩分 A/B/C/D、菜单分好几种。这时用 `elif`（else if 的缩写）：
 
 ```python
@@ -150,6 +123,10 @@ else:
 
 **执行顺序很关键：** Python 从第一个 `if` 开始，**从上往下**逐个检查。一旦某个条件成立，就执行它下面那段，然后**整条链直接结束**（后面的 `elif` 不再看）。所以 `score = 85` 命中 `>= 80`，打印 "B 良好"，不会再往下判断 `>= 60`。
 
+![条件分支的实际执行路径：score 为 83 时先跳过 90 分判断，再命中 80 分判断](../images/f2-conditional-path.svg)
+
+*图：`score = 83` 先让 `score >= 90` 失败，再命中 `score >= 80`；命中后整条 `if / elif / else` 链停止。*
+
 > 💡 **Pro Tip:** 写 `elif` 链时，**把最严格（最难满足）的条件放最上面**。比如先判断 `>= 90` 再判断 `>= 80`。如果反过来先写 `>= 60`，那么 95 分也会先命中它，永远到不了 A——顺序错了，结果就错了。
 
 > 🐛 **Common Bug:** 有人写 `if score >= 60: ... elif score >= 80: ...`，发现 90 分却只打印"C 及格"。原因就是顺序颠倒，90 先满足了 `>= 60` 就走了。改法：把大数条件调到前面。
@@ -157,15 +134,6 @@ else:
 ---
 
 ## 6.3 案例一：成绩分等级（完整版）
-
-<div class="try-it">
-<strong>🧩 练一练 6.4</strong>
-<p>题目：成绩判断：≥90 为 A，≥80 为 B，≥60 为 C，否则 D（写完整 if/elif/else）。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>if s&gt;=90: g='A' elif s&gt;=80: g='B' elif s&gt;=60: g='C' else: g='D'</code>。顺序很重要，先判最高的。</p>
-</details>
-</div>
-
 把刚才的碎片拼成完整的"小评分器"：
 
 ```python
@@ -193,18 +161,28 @@ print("你的等级是：", grade)
 
 > 📝 **Note:** `input()` 读进来的是**文字**，所以要 `int(...)` 转成数字才能和 90、80 比大小。忘了转，会报 `TypeError`（类型错误），第 9 章我们会专门拆这种报错。
 
+### 回接：让第 5 章门票问答机按年龄选票价
+
+第 5 章先用固定价格完成了“输入 → 计算 → 输出”。现在把年龄读进来，再让 `if / elif / else` 选择价格：
+
+```python
+age = int(input("今年几岁啦？ "))
+
+if age < 12:
+    price = 15
+elif age >= 60:
+    price = 20
+else:
+    price = 30
+
+print(f"你的票价是 {price} 元")
+```
+
+这里的关键不是重新学习 `input()`，而是：不同年龄会让程序走向不同的赋值语句，最后再统一输出 `price`。
+
 ---
 
 ## 6.4 嵌套判断：判断里面再判断
-
-<div class="try-it">
-<strong>🧩 练一练 6.5</strong>
-<p>题目：判断一个数字是"正数 / 负数 / 零"。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>if n&gt;0: print('正数') elif n&lt;0: print('负数') else: print('零')</code>。</p>
-</details>
-</div>
-
 有时候，一个判断还不够，要在"是"的那条路上**再分一次岔**。这就是**嵌套（nested）if**：
 
 ```python
@@ -222,7 +200,7 @@ else:
 
 > 🧠 **Mental Model:** 嵌套 if 就像"先过第一道门，进门后再过第二道门"。外层 if 是"大关卡"，内层 if 是"小关卡"。
 
-> ⚠️ **Warning:** 嵌套层数别太多（一般不超过 3 层）。层数比俄罗斯套娃还多时，人脑很容易绕晕，也更容易出 bug。如果发现自己嵌套了四五层，多半该想想：**能不能把条件合并，或者用后面要学的逻辑运算 `and` / `or` 一次判断？**（逻辑运算在运算符那一章会细讲，这里先留个印象。）
+> ⚠️ **Warning:** 嵌套层数别太多（一般不超过 3 层）。层数比俄罗斯套娃还多时，人脑很容易绕晕，也更容易出 bug。如果发现自己嵌套了四五层，多半该想想：**能不能把条件合并，或者用第 4 章已学过的逻辑运算 `and` / `or` 一次判断？**
 
 ---
 

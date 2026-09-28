@@ -35,15 +35,6 @@
 ---
 
 ## 18.1 线性查找（Linear Search）：最朴素的"挨个问"
-
-<div class="try-it">
-<strong>🧩 练一练 18.1</strong>
-<p>题目：线性查找最坏情况下，要比较多少次？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：最多 <b>n 次</b>（目标在最后，或根本不在）。数据无序时只能挨个问。</p>
-</details>
-</div>
-
 如果数据**没有顺序**，你没法偷懒，只能从头到尾一个个看——这就是线性查找，也叫顺序查找。
 
 ```python
@@ -70,15 +61,6 @@ print(linear_search(nums, 5))   # -1（没有 5）
 ---
 
 ## 18.2 二分查找（Binary Search）：每次砍半的"聪明猜"
-
-<div class="try-it">
-<strong>🧩 练一练 18.2</strong>
-<p>题目：二分查找能“每次砍半”的前提是什么？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：数据必须<b>有序</b>。无序就没法判断目标在左半还是右半，二分失效。</p>
-</details>
-</div>
-
 如果数据**已经按从小到大排好**，我们就可以像猜数字一样，**每次都看中间那个，然后扔掉不可能的一半**。
 
 核心三步循环：
@@ -105,15 +87,6 @@ print(linear_search(nums, 5))   # -1（没有 5）
 ---
 
 ## 18.3 代码实现（while 版）：二分查找
-
-<div class="try-it">
-<strong>🧩 练一练 18.3</strong>
-<p>题目：写线性查找，在 [3, 1, 4, 2] 中找 4，返回它的索引。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>for i,x in enumerate([3,1,4,2]): if x==4: print(i)</code> 输出 <code>2</code>。</p>
-</details>
-</div>
-
 我们用 `while` 循环把上面的逻辑写下来——这正好呼应 [第7章](../control-flow/while-loops.md) 的 `while`：**"只要区间还非空，就继续猜"**。
 
 ```python
@@ -146,15 +119,6 @@ print(binary_search(sorted_nums, 9))    # -1
 ---
 
 ## 18.4 数一数：二分到底省了多少？
-
-<div class="try-it">
-<strong>🧩 练一练 18.4</strong>
-<p>题目：二分每轮把范围砍成一半，n = 1000 大约几轮能找到？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：约 <b>10 轮</b>。因为 2^10 = 1024 ≥ 1000，每次砍半，10 次就够。</p>
-</details>
-</div>
-
 我们把线性查找和二分查找的"比较次数"都数出来，直观感受差距：
 
 ```python
@@ -191,15 +155,6 @@ print("二分查找比较次数：", binary_search_count(data, 123456))   # 约 
 ---
 
 ## 18.5 线性 vs 二分：什么时候用哪个？
-
-<div class="try-it">
-<strong>🧩 练一练 18.5</strong>
-<p>题目：什么时候该用线性查找，而不是二分？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：数据<b>无序</b>或<b>很小</b>时。无序没法二分；很小则二分省下的次数不值当。</p>
-</details>
-</div>
-
 | 场景 | 用线性查找 | 用二分查找 |
 |------|-----------|-----------|
 | 数组是否有序 | 有序无序都行 | **必须有序** |

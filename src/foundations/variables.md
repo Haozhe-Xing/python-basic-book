@@ -37,15 +37,6 @@
 ---
 
 ## 2.1 变量是什么：带标签的盒子
-
-<div class="try-it">
-<strong>🧩 练一练 2.1</strong>
-<p>题目：用变量存你的年龄，再打印"我今年 X 岁"。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>age = 14</code>，再用 f-string：<code>print(f"我今年 {age} 岁")</code> 输出 <code>我今年 14 岁</code>。</p>
-</details>
-</div>
-
 变量 = 一个**有名字的盒子**，盒子里装着一个值。你用一个等号 `=` 把值"放进"盒子里：
 
 ```python
@@ -54,6 +45,10 @@ name = "小龙"      # 把 "小龙" 放进叫 name 的盒子
 ```
 
 此后写 `age`，Python 就会去找那个盒子、取出 `14` 来用。
+
+![变量赋值的状态变化：ticket_price 从 30 被重新赋值为 35](../images/f1-variable-assignment-flow.svg)
+
+*图：执行 `ticket_price = 35` 时，右侧的新值会替换变量原来保存的 30。*
 
 ### 🧠 Mental Model: 变量是贴了标签的格子
 
@@ -66,15 +61,6 @@ name = "小龙"      # 把 "小龙" 放进叫 name 的盒子
 ---
 
 ## 2.2 四种基础数据类型：int / float / str / bool
-
-<div class="try-it">
-<strong>🧩 练一练 2.2</strong>
-<p>题目：判断 3.14 是 int 还是 float？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>float</code>（带小数点）。整数 3 才是 <code>int</code>。可用 <code>type(3.14)</code> 验证。</p>
-</details>
-</div>
-
 盒子里的"值"分好几种类型，Python 管它们叫**数据类型（data type）**。初学者先认识四个最常用的：
 
 | 类型 | 名称 | 装什么 | 例子 |
@@ -102,15 +88,6 @@ print(age, height, name, is_student)
 ---
 
 ## 2.3 给变量起名：规则与好习惯
-
-<div class="try-it">
-<strong>🧩 练一练 2.3</strong>
-<p>题目：下面哪个变量名不合法：my_name / 2cool / total_score / class？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>2cool</code>（不能以数字开头）、<code>class</code>（是 Python 关键字）。合法：my_name、total_score。</p>
-</details>
-</div>
-
 起名字有"硬规则"和"好习惯"两套。
 
 **硬规则（违反会报错）：**
@@ -138,15 +115,6 @@ x1 = 30         # 同样含糊
 ---
 
 ## 2.4 看清类型：type()
-
-<div class="try-it">
-<strong>🧩 练一练 2.4</strong>
-<p>题目：用 type() 看看字符串 "hello" 的类型。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>type("hello")</code> 输出 <code>&lt;class 'str'&gt;</code>。</p>
-</details>
-</div>
-
 记不清盒子里装的是啥类型？用内置函数 `type()` 看一眼：
 
 ```python
@@ -161,15 +129,6 @@ print(type(True))        # <class 'bool'>
 ---
 
 ## 2.5 类型转换：int() / float() / str()
-
-<div class="try-it">
-<strong>🧩 练一练 2.5</strong>
-<p>题目：把字符串 "42" 变成整数 42，再加 8，打印结果。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>n = int("42") + 8</code>，<code>print(n)</code> 输出 <code>50</code>。</p>
-</details>
-</div>
-
 有时候盒子里的类型不对，需要"换装"。三个常用转换函数：
 
 | 函数 | 作用 | 例子 | 结果 |
@@ -333,7 +292,7 @@ print("欢迎光临，玩得开心！")
 | 3 | 用中文引号做字符串 | `name = "小龙"` | Python 只认英文引号 | 切英文输入法，用 `" "` |
 | 4 | 忘转类型就相加 | `"14" + 1` | 文字和数字不能加，报错 | 先 `int("14")` 再算 |
 | 5 | 以为 `int()` 会四舍五入 | `int(3.9)` 得 `3` 却以为是 `4` | `int` 直接截断小数 | 需要四舍五入用 `round()` |
-| 6 | 用关键字当变量名 | `str = "hi"` | `str` 是内置函数名，覆盖后失灵 | 改成 `text` 等自定义名 |
+| 6 | 覆盖内置名称 | `str = "hi"` | `str` 是内置类型名，覆盖后会让 `str()` 不能正常使用 | 改成 `text` 等自定义名；真正的关键字如 `if` 根本不能当变量名 |
 
 ---
 

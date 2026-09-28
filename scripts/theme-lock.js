@@ -1,13 +1,19 @@
-// theme-lock.js — 强制本书使用浅色主题
+// theme-lock.js — 本书仅使用浅色主题
 (function () {
-  try {
-    localStorage.setItem("mdbook-theme", "light");
-    localStorage.setItem("mdbook-prefered-theme", "light");
-  } catch (e) {}
   var root = document.documentElement;
-  if (root) {
-    root.classList.remove("theme-dark");
+
+  function applyLightTheme() {
+    try {
+      localStorage.setItem("mdbook-theme", "light");
+      localStorage.setItem("mdbook-preferred-theme", "light");
+    } catch (e) {}
+
+    root.classList.remove("theme-dark", "theme-navy", "theme-coal", "theme-ayu");
+    root.classList.add("theme-light");
     root.setAttribute("data-theme", "light");
     root.style.colorScheme = "light";
   }
+
+  applyLightTheme();
+  document.addEventListener("DOMContentLoaded", applyLightTheme);
 })();

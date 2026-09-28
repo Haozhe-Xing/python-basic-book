@@ -40,15 +40,6 @@
 ---
 
 ## 26.1 你已经拥有什么（先盘点）
-
-<div class="try-it">
-<strong>🧩 练一练 26.1</strong>
-<p>题目：学完本书，盘点一下你已经掌握了什么？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：变量/循环/函数/数据结构，外加<b>计算思维与基础算法</b>（搜索、排序、递归、贪心）。这是后续路线的地基。</p>
-</details>
-</div>
-
 别急着往前冲，先看清背包里有什么：
 
 - **计算思维双引擎**：能把大问题拆小（分解）、找规律（模式识别）、抽象成结构、设计步骤（算法）。
@@ -67,15 +58,6 @@
 ---
 
 ## 26.2 🚀 路线 A：算法竞赛（USACO）
-
-<div class="try-it">
-<strong>🧩 练一练 26.2</strong>
-<p>题目：路线 A“算法竞赛”指的是什么？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：指参加 <b>USACO</b> 等信息学竞赛，用本书的算法基础继续刷题干到 Silver/Gold。</p>
-</details>
-</div>
-
 如果你喜欢"解谜 + 比快慢"，这是最纯粹的思维训练。
 
 - **下一步目标**：从 Bronze 刷到 Silver。Silver 会考堆、二分答案、前缀和、简单图论——[第25章](algorithm-arena.md) 的二分和 DP 正是地基。
@@ -87,15 +69,6 @@
 ---
 
 ## 26.3 🤖 路线 B：AI / 机器学习
-
-<div class="try-it">
-<strong>🧩 练一练 26.3</strong>
-<p>题目：路线 B“AI / 机器学习”需要什么基础？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：扎实的 <b>Python + 数学 + 数据结构与算法</b>，再加机器学习框架（如 PyTorch）。</p>
-</details>
-</div>
-
 如果你想让电脑"从数据里学规律"，这是当下最热的方向。
 
 - **地基**：本章的[数据处理](data-analysis.md)（统计、清洗、可视化）就是 AI 的 daily 基本功；[递归/DP](algorithm-arena.md) 的思想也会在序列模型里重现。
@@ -105,15 +78,6 @@
 ---
 
 ## 26.4 🌐 路线 C：Web 开发
-
-<div class="try-it">
-<strong>🧩 练一练 26.4</strong>
-<p>题目：路线 C“Web 开发”大致做些什么？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：做<b>网站</b>——前端（页面）和后端（服务器/数据库），Python 可用 Django / FastAPI 写后端。</p>
-</details>
-</div>
-
 如果你想做出"别人能打开网页就用"的东西。
 
 - **后端用 Python**：`Flask` 或 `Django` 框架，把你的函数变成"网站背后的逻辑"。你写的 `def` 函数，摇身一变成"处理用户请求的接口"。
@@ -133,15 +97,6 @@
 ---
 
 ## 26.6 🛠️ Git 入门：给你的代码装"时光机"
-
-<div class="try-it">
-<strong>🧩 练一练 26.5</strong>
-<p>题目：Git 的三次“存档”动作，对应哪三条常用命令？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>git add</code>（暂存）→ <code>git commit</code>（存档）→ <code>git push</code>（推到远程如 GitHub）。</p>
-</details>
-</div>
-
 四条路线迟早都要用 **Git**——它是"版本管理"工具：记录你每次改动、能随时回到过去、能多人协作不打架。GitHub 则是把 Git 仓库放到网上的平台。
 
 ### 直觉：三次"存档"
@@ -165,10 +120,15 @@ git add .                     # 存当前目录所有改动
 # 3) "存档"——提交一次快照，并写一句说明
 git commit -m "完成了古堡探险的第一版"
 
-# 4) 把本地存档推到 GitHub（先在网上建好仓库并关联）
-git push                      # 推送到远程
+# 4) 第一次把本地存档推到 GitHub（先在网上建好空仓库）
+git remote add origin <仓库地址>
+git branch -M main
+git push -u origin main       # 第一次：建立本地与远程的连接
 
-# 5) 从 GitHub 把项目下载/更新到本地
+# 5) 之后提交完成后，推送到远程
+git push
+
+# 6) 从 GitHub 把项目下载/更新到本地
 git clone <仓库地址>          # 第一次下载
 git pull                      # 之后拉取别人/其他设备的更新
 ```

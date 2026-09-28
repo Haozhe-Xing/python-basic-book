@@ -8,6 +8,7 @@ language = "zh"
 build-dir = "book"
 
 [output.html]
+no-section-label = true
 default-theme = "light"
 preferred-dark-theme = "navy"
 additional-css = ["styles/website.css", "styles/theme-lock.css"]

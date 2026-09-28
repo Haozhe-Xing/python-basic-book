@@ -6,6 +6,8 @@
 
 # Chapter 23: 项目一 · 互动文字冒险《迷雾古堡探险》
 
+> **支持等级：示范 + 补全（高支持）** 先跟着最小版本跑通一轮，再补完 2 处关键逻辑；完整成品放在尝试之后，卡住时再展开对照。
+
 > 📝 **Before You Continue:** 本章把前面几块"积木"拼成第一个完整作品。请确认你已见过：
 > - [第6章 条件判断 if](../control-flow/conditionals.md) —— 用来决定"走不通时怎么办"
 > - [第8章 循环 for](../control-flow/for-loops.md) —— 用来遍历一个场景里的所有方向
@@ -41,15 +43,6 @@
 ---
 
 ## 23.1 先把"古堡"想清楚：数据长什么样
-
-<div class="try-it">
-<strong>🧩 练一练 23.1</strong>
-<p>题目：动手写文字冒险前，先把“古堡”想成什么数据结构？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：想成<b>字典</b>——键是场景名，值是该场景的信息（描述 + 可走的方向）。</p>
-</details>
-</div>
-
 动手写代码前，先像计算机科学家一样**抽象**：这座古堡由若干个"场景"组成，每个场景有：
 
 1. **一段描述**（玩家看到的话）；
@@ -68,15 +61,6 @@
 ---
 
 ## 23.2 用字典存"整个古堡"
-
-<div class="try-it">
-<strong>🧩 练一练 23.2</strong>
-<p>题目：每个“场景”字典里，至少要有哪两类信息？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：① <b>描述</b>（这个场景长啥样）；② <b>可选方向</b>（能去哪、对应哪个场景）。</p>
-</details>
-</div>
-
 我们给每个场景建一个**内层字典**，再用一个**外层字典**把它们按名字收在一起。看代码：
 
 ```python
@@ -93,9 +77,9 @@ scenes = {
         "item": "key",                         # 这里有一把钥匙
     },
     "garden": {
-        "desc": "荒废的花园里杂草齐腰。一只乌鸦盯着你，似乎在看守什么。",
+        "desc": "荒废的花园里杂草齐腰。一只乌鸦盯着你；石台上放着一枚护身符。",
         "choices": {"west": "entrance"},
-        "item": None,
+        "item": "amulet",                 # 拿走后离开花园不会受伤
     },
     "library": {
         "desc": "满墙的书落满灰尘。一本摊开的日记写着：『钥匙能打开地窖的铁门。』",
@@ -113,6 +97,16 @@ scenes = {
         "item": None,
     },
 }
+
+# 最小可运行里程碑：只完成“一次观察 + 一次移动”
+current = "entrance"
+print(scenes[current]["desc"])
+command = input("先走一步（north/east）> ").strip().lower()
+if command in scenes[current]["choices"]:
+    current = scenes[current]["choices"][command]
+    print(scenes[current]["desc"])
+else:
+    print("那个方向走不通。")
 ```
 
 > 💡 **Key Insight:** 注意 `choices` 本身也是一个字典——`"north": "hall"` 表示"往北走会到 hall"。于是"去哪"这件事，变成了一个**查字典**操作：`scenes["entrance"]["choices"]["north"]` 直接得到 `"hall"`。不用写一堆 `if direction == "north": ...`，这就是字典的威力。
@@ -122,16 +116,9 @@ scenes = {
 ---
 
 ## 23.3 用函数驱动冒险
-
-<div class="try-it">
-<strong>🧩 练一练 23.3</strong>
-<p>题目：用函数驱动冒险时，负责“显示当前场景”的函数通常叫什么？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：常叫 <code>show_room()</code> 之类——它根据当前场景打印描述和可走方向。</p>
-</details>
-</div>
-
 光有数据不会动。我们需要几个**函数**把"重复的活"封装起来：显示场景、捡物品、移动。
+
+先不要翻到完整成品。23.3.1 示范“读取场景并显示”，23.3.2 轮到你照着同一模式补完“改变背包”和“改变位置”两个分支。
 
 ### 23.3.1 显示当前场景
 
@@ -160,33 +147,28 @@ def show_scene(scene_id):
 def take_item(scene_id):
     """捡起当前场景的物品，放进背包。"""
     scene = scenes[scene_id]
-    if scene["item"] and scene["item"] not in inventory:
-        inventory.append(scene["item"])          # 用列表 append 把钥匙装进背包
-        print(f"你捡起了 {scene['item']}，已放进背包。")
-    else:
-        print("这里没有可以捡的东西。")
+
+    # TODO 1：同时满足“场景有物品”和“背包里还没有”时，
+    # 用 inventory.append(...) 收进背包；否则打印“这里没有可以捡的东西。”
+    pass
 
 
 def go(direction):
     """根据方向移动到下一个场景；走不通就留在原地。"""
-    global current                               # current 在函数外，改它要声明 global
+    global current
     scene = scenes[current]
     if direction == "take":
         take_item(current)
         return
     if direction == "open":
-        if "open" in scene["choices"]:
-            if "key" in inventory:               # 开门需要钥匙
-                current = scene["choices"]["open"]
-            else:
-                print("铁门锁着，你需要一把钥匙。")
-        else:
-            print("这里没有门可以开。")
+        # TODO 2：先判断当前场景能否 open，再判断背包里是否有 key。
+        # 有钥匙才更新 current；两种失败情况都要给玩家提示。
+        pass
         return
     if direction in scene["choices"]:
-        current = scene["choices"][direction]    # 查字典，直接"瞬移"到下一场景
+        current = scene["choices"][direction]
     else:
-        print("那个方向走不通，换一个试试。")     # 走不通，留在原地
+        print("那个方向走不通，换一个试试。")
 ```
 
 > 🐛 **Common Bug:** 在 `go` 里直接写 `current = ...` 会报 `UnboundLocalError`。因为函数里给 `current` 赋值，Python 会把它当成本地变量；想改函数**外面**那个 `current`，必须加 `global current`。这是 [第14章 函数与作用域](../functions/functions-intro.md) 里最容易踩的坑之一。
@@ -196,15 +178,6 @@ def go(direction):
 ---
 
 ## 23.4 主循环：让游戏一直跑下去
-
-<div class="try-it">
-<strong>🧩 练一练 23.4</strong>
-<p>题目：主循环要让游戏一直跑下去，直到发生什么才停？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：直到玩家<b>输入退出命令</b>、或<b>到达胜利场景</b>。用 <code>while</code> 循环 + 退出条件实现。</p>
-</details>
-</div>
-
 游戏要"一直玩到结束"，所以用一个 `while True` 主循环，每次：显示场景 → 问玩家要做什么 → 执行 → 检查是否到达终点或退出。
 
 ```python
@@ -230,15 +203,9 @@ def play():
 
 ---
 
-## 23.5 完整代码 & 如何运行
+## 23.5 完整参考答案（尝试后再看）
 
-<div class="try-it">
-<strong>🧩 练一练 23.5</strong>
-<p>题目：这个冒险游戏怎么运行？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：把代码保存成 <code>adventure.py</code>，在终端运行 <code>python adventure.py</code> 即可开玩。</p>
-</details>
-</div>
+展开答案前，先检查你的补全版：在大厅连续输入两次 `take`，背包中只能有一个 `key`；没有钥匙时 `open` 不能进入藏宝室；走不存在的方向时 `current` 保持不变。三项中至少通过两项再对照答案。
 
 把下面整段保存为 `adventure.py`（和前面各小节拼起来就是完整程序），然后在终端运行：
 
@@ -269,9 +236,9 @@ scenes = {
         "item": "key",
     },
     "garden": {
-        "desc": "荒废的花园里杂草齐腰。一只乌鸦盯着你，似乎在看守什么。",
+        "desc": "荒废的花园里杂草齐腰。一只乌鸦盯着你；石台上放着一枚护身符。",
         "choices": {"west": "entrance"},
-        "item": None,
+        "item": "amulet",                 # 拿走后离开花园不会受伤
     },
     "library": {
         "desc": "满墙的书落满灰尘。一本摊开的日记写着：『钥匙能打开地窖的铁门。』",
@@ -362,7 +329,34 @@ if __name__ == "__main__":
 
 </details>
 
-🛠️ **项目工坊：** 上面的代码就是本章的"成品"。复制粘贴就能跑——先跑通它，再往下看"怎么改出你自己的游戏"。
+🛠️ **项目工坊：** 用参考答案核对你补的两个 TODO，只改错误处，不要整段覆盖自己的版本。确认通关后，再继续改出你自己的游戏。
+
+### 从零运行清单
+
+1. 在 VS Code 中打开你的练习文件夹，新建文件并命名为 `adventure.py`；把上面的**完整代码**粘进去，按 <kbd>Ctrl</kbd>+<kbd>S</kbd>（macOS 是 <kbd>Command</kbd>+<kbd>S</kbd>）保存。
+2. 选择 VS Code 菜单 **终端 → 新建终端**，确认终端就在 `adventure.py` 所在文件夹，再运行：
+
+   ```bash
+   python adventure.py     # Windows
+   python3 adventure.py    # macOS
+   ```
+
+3. 看到“欢迎来到《迷雾古堡探险》！”就说明游戏启动了。按下面顺序每次输入一条、再按回车，可以稳定通关：
+
+   ```text
+   north
+   take
+   down
+   open
+   ```
+
+   最后看到“你找到了古堡的秘宝”和“通关！你用一把钥匙解开了古堡的秘密。”就是结束判据；想主动结束可输入 `quit`。
+
+| 常见失败 | 怎么修复 |
+|---|---|
+| 提示找不到 `adventure.py` | 在 VS Code 终端先确认文件已保存，并让终端进入这个文件所在文件夹后再运行。 |
+| 提示 `python` 或 `python3` 找不到 | 在 VS Code 右下角选择本书使用的 Python 解释器，再按当前系统对应命令重试。 |
+| 输入后总说“走不通” | 只输入 `north`、`take` 这类单词，不要输入 `go north`；方向和命令要用英文。 |
 
 ---
 
@@ -499,18 +493,15 @@ if __name__ == "__main__":
 **Approach:** 只动数据，不动逻辑——这正是字典方案的优势。
 
 ```python
-# 1) 在 scenes 里加一个新键值对
-"secret": {
+# 1) 在现有 scenes 字典里新增一个场景
+scenes["secret"] = {
     "desc": "墙上的暗格轻轻弹开，里面藏着一张泛黄的藏宝图。",
     "choices": {"south": "library"},
     "item": "map",
-},
-# 2) 给 library 的 choices 加一条
-"library": {
-    "desc": "...",
-    "choices": {"east": "hall", "north": "secret"},   # 新增 north
-    "item": None,
-},
+}
+
+# 2) 给已有 library 场景新增一条路
+scenes["library"]["choices"]["north"] = "secret"
 ```
 
 **Key points:**
@@ -523,7 +514,7 @@ if __name__ == "__main__":
 
 **Problem 23.2 — 给游戏加"血量"** 🟡 Medium
 
-给玩家加一个 `hp = 3`。设定：在 `garden`（花园）里若不先 `take` 任何护身物就 `west` 离开，会被乌鸦啄一下，`hp` 减 1；`hp` 到 0 就游戏结束。提示：在 `go` 里对 `garden` 的离开做特殊判断。
+给玩家加一个 `hp = 3`。设定：在 `garden`（花园）里若不先 `take` 护身符 `amulet` 就向 `west` 离开，会被乌鸦啄一下，`hp` 减 1；`hp` 到 0 就游戏结束。提示：在 `go` 里对 `garden` 的离开做特殊判断。
 
 <details>
 <summary>💡 Solution (click to reveal)</summary>
@@ -538,8 +529,8 @@ def go(direction):
     scene = scenes[current]
     if direction in scene["choices"]:
         nxt = scene["choices"][direction]
-        # 从 garden 离开且血量为正：被乌鸦啄
-        if current == "garden" and hp > 0:
+        # 没拿护身符就从 garden 向 west 离开：被乌鸦啄
+        if current == "garden" and direction == "west" and "amulet" not in inventory:
             hp -= 1
             print(f"乌鸦啄了你一下！hp 剩 {hp}")
             if hp <= 0:
@@ -569,6 +560,7 @@ def go(direction):
 
 ```python
 def play():
+    global current
     ...
     while True:
         show_scene(current)

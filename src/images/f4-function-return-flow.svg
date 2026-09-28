@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="664" viewBox="0 0 680 664" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="svga-function-return-flow-title svga-function-return-flow-desc">
+  <title id="svga-function-return-flow-title">函数调用与 return 数据流</title>
+  <desc id="svga-function-return-flow-desc">以 ticket_total(30, 2) 为例，展示实参进入函数、绑定到参数、函数体计算，并由 return 把 60 交回调用处的过程。</desc>
+  <rect x="0" y="0" width="680" height="664" fill="#F8FAFC"/>
+  <text x="40" y="54" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="26" font-weight="700" fill="#1E293B">函数调用：参数进去，return 把结果交回来</text>
+  <text x="40" y="82" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="16" fill="#475569">例子：两张票，每张 30 元，计算总价。</text>
+
+  <rect x="40" y="112" width="600" height="90" rx="16" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+  <text x="68" y="146" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="17" font-weight="700" fill="#1E3A8A">total = ticket_total(30, 2)</text>
+  <text x="68" y="177" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="15" fill="#475569">调用处给函数两个实参：30 和 2。</text>
+
+  <path d="M340 216 L340 240" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
+  <path d="M332 233 L340 241 L348 233" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="40" y="256" width="600" height="136" rx="16" fill="#EFF6FF" stroke="#93C5FD" stroke-width="2"/>
+  <text x="68" y="289" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="17" font-weight="700" fill="#1E3A8A">进入函数：def ticket_total(price, count)</text>
+  <rect x="80" y="314" width="210" height="50" rx="10" fill="#FFFFFF" stroke="#2563EB" stroke-width="2"/>
+  <text x="104" y="345" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="17" font-weight="700" fill="#1E3A8A">price = 30</text>
+  <rect x="390" y="314" width="210" height="50" rx="10" fill="#FFFFFF" stroke="#2563EB" stroke-width="2"/>
+  <text x="414" y="345" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="17" font-weight="700" fill="#1E3A8A">count = 2</text>
+
+  <path d="M340 406 L340 430" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
+  <path d="M332 423 L340 431 L348 423" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="40" y="446" width="600" height="90" rx="16" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+  <text x="68" y="480" font-family="JetBrains Mono, PingFang SC, Noto Sans SC, Microsoft YaHei, monospace" font-size="18" font-weight="700" fill="#1E3A8A">return price * count</text>
+  <text x="68" y="511" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="17" fill="#475569">代入参数：30 × 2 =</text>
+  <text x="332" y="512" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="26" font-weight="700" fill="#1E293B">60</text>
+
+  <path d="M340 550 L340 574" stroke="#16A34A" stroke-width="3" stroke-linecap="round"/>
+  <path d="M332 567 L340 575 L348 567" fill="none" stroke="#16A34A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="40" y="590" width="600" height="44" rx="14" fill="#DCFCE7"/>
+  <text x="340" y="619" text-anchor="middle" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, system-ui, sans-serif" font-size="17" font-weight="700" fill="#166534">return 60 → 调用处接住：total = 60</text>
+</svg>

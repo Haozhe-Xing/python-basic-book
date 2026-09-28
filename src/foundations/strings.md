@@ -37,15 +37,6 @@
 ---
 
 ## 3.1 字符串是什么：一串排好队的字符
-
-<div class="try-it">
-<strong>🧩 练一练 3.1</strong>
-<p>题目：创建字符串 s = "Python"，打印它的长度。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>s = "Python"</code> 后 <code>print(len(s))</code> 输出 <code>6</code>。</p>
-</details>
-</div>
-
 字符串就是**用英文引号包住的一串字符**，字符一个挨一个排好队，从左边数第 0 个开始。
 
 ```python
@@ -58,15 +49,6 @@ print(s)          # Python
 ---
 
 ## 3.2 拼接：用 + 把文字接起来
-
-<div class="try-it">
-<strong>🧩 练一练 3.2</strong>
-<p>题目：把 "Hello" 和 "World" 拼成 "HelloWorld"（中间不留空格）。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>print("Hello" + "World")</code> 输出 <code>HelloWorld</code>。要加空格就写 <code>"Hello " + "World"</code>。</p>
-</details>
-</div>
-
 字符串之间用 `+` 拼接，像把两段胶布粘一起：
 
 ```python
@@ -81,15 +63,6 @@ print(first + " " + second)  # 算法 游乐场（中间加个空格）
 ---
 
 ## 3.3 索引：s[0] 取出第几个字符
-
-<div class="try-it">
-<strong>🧩 练一练 3.3</strong>
-<p>题目：s = "Python"，取出第 1 个字符（索引 0）和最后一个（负数索引）。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>s[0]</code> 是 <code>'P'</code>，<code>s[-1]</code> 是 <code>'n'</code>。负数从右往左数。</p>
-</details>
-</div>
-
 每个字符都有"位置编号"，叫**索引（index）**，从 `0` 开始数（不是 1！）。用 `s[编号]` 取出对应字符。
 
 ```python
@@ -113,15 +86,6 @@ print(s[-1])  # n   ← 负数从右边数：-1 是倒数第 1 个
 ---
 
 ## 3.4 切片：s[1:4] 取出一段
-
-<div class="try-it">
-<strong>🧩 练一练 3.4</strong>
-<p>题目：s = "Python"，取出中间的 "yth"（索引 1 到 3）。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>s[1:4]</code> 输出 <code>'yth'</code>。切片 <code>[a:b]</code> 取从 a 到 b-1。</p>
-</details>
-</div>
-
 **切片（slice）** 取出"从第 a 个到第 b 个之前"的一段，写法 `s[a:b]`，**含头不含尾**（b 那个位置不取）。
 
 ```python
@@ -139,15 +103,6 @@ print(s[::2])    # Pto  ← 每隔一个取一个（步长 2）
 ---
 
 ## 3.5 长度：len()
-
-<div class="try-it">
-<strong>🧩 练一练 3.5</strong>
-<p>题目：字符串 "banana"，数一数里面有几个字母 'a'？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：3 个。可用 <code>"banana".count('a')</code> 得到 <code>3</code>。</p>
-</details>
-</div>
-
 `len(字符串)` 返回字符个数：
 
 ```python
@@ -205,11 +160,13 @@ print("xy" in "Python")     # False
 第 2 章初见 f-string，这里补全：它不只能塞变量，还能塞**表达式**和**方法调用**。
 
 ```python
-name = "小龙"
-print(f"你好，{name.upper()}！")         # 你好，小龙！ → 你好，小龙！(upper)
-print(f"名字长度：{len(name)}")          # 名字长度：2
-print(f"倒序：{name[::-1]}")             # 倒序：龙小
+name = "alice"
+print(f"你好，{name.upper()}！")         # 你好，ALICE！
+print(f"名字长度：{len(name)}")          # 名字长度：5
+print(f"倒序：{name[::-1]}")             # 倒序：ecila
 ```
+
+> 📝 **Note:** 汉字没有大小写，所以 `"小龙".upper()` 的显示结果仍是 `"小龙"`。要观察 `.upper()` 的效果，请用英文字母试试。
 
 > 💡 **Pro Tip:** `{name[::-1]}` 是"整个反着取"（步长 -1），轻松实现字符串反转，做回文判断超方便。
 
@@ -229,32 +186,23 @@ print(sentence)     # 涐今天茽开心
 
 ---
 
-## 3.11 案例：密码强度初判（长度 + 含数字）
+## 3.11 案例：先看懂密码规则（长度 + 指定片段）
 
-一个合格密码至少要"够长"且"含数字"。长度用 `len()`，含数字用 `in` 配合一个循环扫一遍（循环我们第 7、8 章才正式讲，这里先照抄感受"逐个检查"的思路）：
+先不急着做完整的“密码强度判定器”。这一章已经能验证**长度**，也能验证某个**指定片段**是否出现；把这两件事先跑通：
 
 ```python
-password = "abc12345"        # 8 位且含数字，符合规则
-length_ok = len(password) >= 8          # 至少 8 位
-
-digits = "0123456789"
-has_digit = False
-for ch in password:                     # 逐个字符检查（循环细节后面讲）
-    if ch in digits:
-        has_digit = True
-
-if length_ok and has_digit:
-    print("密码强度：合格 ✅")
-else:
-    print("密码太弱：需至少8位且含数字 ❌")
+password = "abc12345"
+print(len(password) >= 8)       # True：长度至少为 8
+print("123" in password)        # True：包含指定片段 "123"
 ```
 
 **输出：**
 ```
-密码强度：合格 ✅
+True
+True
 ```
 
-> 🤔 **Why 要循环检查数字？** 因为 `in` 一次只能比一个具体字符。`"1" in password` 能查有没有 1，但查不出"有没有任意数字"。所以把 `0~9` 挨个试一遍——这正是"模式"思维：把"含数字"分解成"逐个比对"。
+这两行都是“提出一个规则，得到 True 或 False”。现在不要尝试把结果分成“合格/不合格”，也不要检查“是否含任意一个数字”：那两步分别需要第 6 章的 `if` 和第 8 章的 `for`。学完后可回到第 8 章的“回接：完整密码检查器”，把这里的两个小判断组合成完整程序。
 
 ---
 
@@ -276,15 +224,6 @@ words = ["我", "爱", "Python"]
 text = "".join(words)              # 我爱Python
 csv  = ",".join(words)            # 我,爱,Python
 ```
-
-<div class="try-it">
-<strong>🧩 练一练 3.12</strong>
-<p>题目：把字符串 <code>"1 2 3 4 5"</code>（空格分隔）用 <code>split()</code> 拆成列表，再用 <code>"-"</code> 作为分隔符 <code>join</code> 拼回去，最终得到 <code>"1-2-3-4-5"</code>。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>parts = "1 2 3 4 5".split()</code> 得到 <code>['1','2','3','4','5']</code>；<code>"-".join(parts)</code> 得到 <code>'1-2-3-4-5'</code>。<code>split()</code> 不带参数按空白拆。</p>
-</details>
-</div>
-
 > 💡 **Key Insight:** `split` 是"字符串 → 列表"，`join` 是"列表 → 字符串"，方向相反、常配合用：先 `split` 拆开处理每个片段，再 `join` 拼回去。做单词统计、CSV 解析、日志分析都靠它。
 
 ---
@@ -303,15 +242,6 @@ print(name.rstrip())    # "  小明"  只去右边
 - `strip()`：去**两端**
 - `lstrip()`：只去**左边**（left）
 - `rstrip()`：只去**右边**（right）
-
-<div class="try-it">
-<strong>🧩 练一练 3.13</strong>
-<p>题目：用户用 <code>input()</code> 得到字符串 <code>"  hello  "</code>（两端各 2 个空格），用 <code>strip()</code> 去掉两端空格后，它的长度 <code>len()</code> 是多少？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>len("  hello  ".strip())</code> 先得到 <code>"hello"</code>，长度为 <code>5</code>。清理空白后再取长度才准确。</p>
-</details>
-</div>
-
 > ⚠️ **Warning:** 不清理就直接比较，会出莫名其妙的 bug——<code>"小明 "</code> 和 <code>"小明"</code> 会被当成两个不同的人。密码、用户名比对前先 <code>.strip()</code> 是标准动作。
 
 ---
@@ -334,15 +264,6 @@ print(f"{name:<5}")       # "小明   "   左对齐
 print(f"{name:^5}")       # " 小明  "   居中
 print(f"{123:0>6}")       # "000123"   左侧补 0 到 6 位
 ```
-
-<div class="try-it">
-<strong>🧩 练一练 3.14</strong>
-<p>题目：用 f-string 把 <code>0.12345</code> 保留 3 位小数输出；再把 <code>98765</code> 用千分位格式输出。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>f"{0.12345:.3f}"</code> → <code>"0.123"</code>；<code>f"{98765:,}"</code> → <code>"98,765"</code>。格式符写在冒号后：<code>.3f</code> 是三位小数，<code>,</code> 是千分位。</p>
-</details>
-</div>
-
 > 💡 **Key Insight:** 格式符写在 `{变量:格式}` 的冒号后面。`.2f` = 浮点保留两位小数，`,` = 千分位，`< > ^` = 左/右/居中对齐，`0>` = 左侧补零。记这组组合，排版从此不求人。
 
 ---
@@ -359,25 +280,24 @@ print(f"{123:0>6}")       # "000123"   左侧补 0 到 6 位
 
 ---
 
-## 🛠️ 项目工坊：算法游乐场 · 简易加密器
+## 🛠️ 项目工坊：算法游乐场 · 三字母暗号体验
 
-游乐场升级！给游客做个"凯撒加密器"玩具版——把一句话里每个字符往后挪几位（凯撒密码的雏形）。用上本章的**字符串遍历**和 `ord()`/`chr()`：
+先做一个只处理三个大写字母的凯撒加密器玩具版：把每个字母的编号加上 `3`，再变回字母。这里不需要循环或函数；三步操作直接写开，正好能看见“字符 → 编号 → 新字符”的变化。
 
-- `ord(字符)`：拿到字符的"编号"（如 `ord('A')` = 65）。
+- `ord(字符)`：拿到字符的“编号”（如 `ord('A')` = 65）。
 - `chr(编号)`：把编号变回字符（如 `chr(68)` = `'D'`）。
 
 ```python
-# 算法游乐场 · 简易加密器（第3章新增）
-def caesar(text, shift):
-    result = ""
-    for ch in text:                  # 遍历每个字符
-        result += chr(ord(ch) + shift)   # 编号 + shift，再变回字符
-    return result
-
+# 算法游乐场 · 三字母暗号体验
 msg = "ABC"
-secret = caesar(msg, 3)
+shift = 3
+
+secret = chr(ord(msg[0]) + shift)
+secret = secret + chr(ord(msg[1]) + shift)
+secret = secret + chr(ord(msg[2]) + shift)
+
 print("原文：", msg)          # ABC
-print("密文：", secret)       # DEF（每个字母后移3位）
+print("密文：", secret)       # DEF
 ```
 
 **输出：**
@@ -386,9 +306,9 @@ print("密文：", secret)       # DEF（每个字母后移3位）
 密文： DEF
 ```
 
-现在游乐场多了 **「简易加密器」**：游客输一句话，游乐场把它"移位"成密文，像特工发暗号。第 5 章我们会让它**接收游客自己输入**的文字，变成真正的交互加密机。
+现在能亲手运行、修改 `msg`（保持三个大写字母）或 `shift`，观察密文怎样变化。它故意只处理三个字符：让程序自动处理任意长度的文字，需要第 8 章的 `for`；把这段流程封装成可反复调用的“加密器按钮”，需要第 14 章的函数。到那两章再完成完整版。
 
-> 📝 **Note:** 这是"玩具版"——它连空格、标点也一起移位了（如空格会变成别的怪符号）。真正的凯撒密码只对字母做循环移位，那要等学了更多字符串技巧再升级。先体会"遍历每个字符 + 改写"这个核心模式。
+> 📝 **Note:** 这仍是玩具版：它没有处理字母表末尾回绕，也不适合真实保密。现在的目标只是体验字符编号如何参与变换。
 
 ---
 
@@ -569,33 +489,34 @@ print(email[:at])              # 取到索引 8 之前 → xiaolong
 
 ---
 
-**Problem 3.3 — 敏感词检测** 🟡 Medium
+**Problem 3.3 — 两个关键词各自出现了吗？** 🟡 Medium
 
-给定一句话 `text`，判断里面是否同时包含 `"作业"` 和 `"抄"`（都用 `in`）。包含则打印"⚠️ 检测到可疑内容"，否则打印"✅ 内容正常"。
+给定一句话 `text`，分别打印它是否包含 `"作业"`、是否包含 `"抄"`（都用 `in`）。把“两个结果都为 True 时该怎样处理”留到第 4、6 章。
 
 **Sample Input:**
 ```python
 text = "我不能抄作业"
 ```
-**Sample Output:** `⚠️ 检测到可疑内容`
+**Sample Output:**
+```
+True
+True
+```
 
 <details>
 <summary>💡 Solution (click to reveal)</summary>
 
-**Approach:** 用两个 `in` 判断，再用 `and` 组合（逻辑运算符第 4 章正式学，这里先照用）。
+**Approach:** 每个 `in` 都是一个独立的“是否包含”问题，直接打印它的布尔结果。
 
 ```python
 text = "我不能抄作业"
-if "作业" in text and "抄" in text:
-    print("⚠️ 检测到可疑内容")
-else:
-    print("✅ 内容正常")
+print("作业" in text)
+print("抄" in text)
 ```
 
 **Key points:**
 - `"作业" in text` 和 `"抄" in text` 各自返回布尔值。
-- `and` 要求两者都真才走警告分支。
-- 完整逻辑判断在第 4、6 章展开。
+- 第 4 章会用 `and` 把两个结果合并；第 6 章再用 `if` 给出不同反馈。
 
 </details>
 
@@ -603,30 +524,30 @@ else:
 
 **Problem 3.4 — 反转暗号（挑战）** 🏆 Challenge
 
-写一个函数 `reverse_text(s)`，返回字符串的**反序**（用切片一步完成）。测试 `reverse_text("游乐场")` 应输出 `"场乐游"`。再想一想：如果输入是 `"上海自来水来自海上"`，反序后和它自己一样吗？这种字符串叫什么？（提示：回文）
+把变量 `text` 的内容反转后打印（用切片一步完成）。测试 `text = "游乐场"` 应输出 `"场乐游"`。再想一想：如果输入是 `"上海自来水来自海上"`，反序后和它自己一样吗？这种字符串叫什么？（提示：回文）
 
 **Sample Input:**
 ```python
-reverse_text("游乐场")
+text = "游乐场"
 ```
 **Sample Output:** `场乐游`
 
 <details>
 <summary>💡 Solution (click to reveal)</summary>
 
-**Approach:** 切片 `[::-1]` 表示"从头到尾、步长 -1"，即整体反转。
+**Approach:** 切片 `[::-1]` 表示“从头到尾、步长 -1”，即整体反转。
 
 ```python
-def reverse_text(s):
-    return s[::-1]
+text = "游乐场"
+print(text[::-1])                    # 场乐游
 
-print(reverse_text("游乐场"))        # 场乐游
-print(reverse_text("上海自来水来自海上"))  # 上海自来水来自海上（和自己一样！）
+palindrome = "上海自来水来自海上"
+print(palindrome[::-1])              # 上海自来水来自海上（和自己一样！）
 ```
 
 **Key points:**
-- `s[::-1]` 是字符串反转的"一行魔法"，底层就是按步长 -1 倒着取。
-- 正反读都一样（如"上海自来水来自海上"）的字符串叫**回文（palindrome）**。回文判断以后做算法题（如第 18 章搜索、第 20 章递归）会反复出现，记住这个词。
+- `text[::-1]` 是字符串反转的“一行魔法”，底层就是按步长 -1 倒着取。
+- 正反读都一样（如“上海自来水来自海上”）的字符串叫**回文（palindrome）**。学完第 14 章函数后，可以把这一步封装成可重复调用的函数。
 
 </details>
 

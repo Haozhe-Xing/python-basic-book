@@ -35,15 +35,6 @@
 ---
 
 ## 1.0 在线环境跑起来（等不及？走这条）
-
-<div class="try-it">
-<strong>🧩 练一练 1.1</strong>
-<p>题目：在在线环境里，点"运行"后，代码的输出显示在哪里？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：显示在编辑器<b>下方的控制台 / 输出区</b>。如果没看到，确认你按了"运行 / Run"按钮。</p>
-</details>
-</div>
-
 不想先装东西？完全 OK。打开浏览器就行：
 
 1. 搜 **Replit**（或 Google **Colab**、国内可访问的类似在线 Python 环境）。
@@ -57,15 +48,6 @@
 ---
 
 ## 1.1 你的第一行代码：`print()`
-
-<div class="try-it">
-<strong>🧩 练一练 1.2</strong>
-<p>题目：让电脑打印出你自己的名字。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>print("小龙")</code> 会输出 <code>小龙</code>。<code>print()</code> 括号里用引号包住文字即可。</p>
-</details>
-</div>
-
 `print()` 是让电脑"说一句话"的命令。把想说的话放进**英文引号**里：
 
 ```python
@@ -99,27 +81,9 @@ print("今天天气真好")
 ---
 
 ## 1.2 海龟画图：画出第一幅画
-
-<div class="try-it">
-<strong>🧩 练一练 1.3</strong>
-<p>题目：让海龟画一个正方形（提示：forward 前进 + right 右转各 4 次）。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>import turtle</code> 后，<code>for _ in range(4): t.forward(100); t.right(90)</code>。</p>
-</details>
-</div>
-
 Python 自带一个超好玩的画图工具叫 **`turtle`（海龟）**。想象一只小海龟趴在画布上，你下"前进、转弯"的指令，它就用尾巴画出轨迹。
 
 ### 🧠 Mental Model: 海龟与画布
-
-<div class="try-it">
-<strong>🧩 练一练 1.5</strong>
-<p>题目：海龟刚启动时，它面朝哪个方向？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：面朝<b>右（东）</b>。<code>forward(100)</code> 让它朝当前面向前进 100 步，<code>right(90)</code> 原地右转 90°。</p>
-</details>
-</div>
-
 <div style="text-align:center; margin:20px 0;">
 <svg width="420" height="220" viewBox="0 0 420 220" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;">
   <rect x="20" y="20" width="380" height="180" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
@@ -160,32 +124,24 @@ turtle.done()             # 保持窗口（在线环境可能可省略）
 ---
 
 ## 1.3 让画"活"起来：再试几个图形
-
-<div class="try-it">
-<strong>🧩 练一练 1.4</strong>
-<p>题目：让海龟画一个等边三角形（每个外角是 120°）。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>for _ in range(3): t.forward(100); t.right(120)</code>。每画一条边右转 120° 刚好合拢。</p>
-</details>
-</div>
-
 同样两只命令（`forward` 前进、`right`/`left` 转弯），换个数字就能画别的。试试：
 
 ```python
 import turtle
 t = turtle.Turtle()
 
-# 画一个三角形（三条边，每次转 120 度）
-for side in range(3):        # 这里先照抄，循环下章细讲
-    t.forward(120)
-    t.right(120)
-
+# 画一个三角形：前进、右转，重复写三次
+# 现在每一行都和 1.2 的正方形代码一样，只是转角改成 120 度。
+t.forward(120)
+t.right(120)
+t.forward(120)
+t.right(120)
+t.forward(120)
+t.right(120)
 turtle.done()
 ```
 
-> 📝 **Note:** 上面用了 `for` 循环，你现在**不用懂它**，照抄感受"换个角度就变图形"即可。第二篇会正式拆开讲它——到时候你会恍然大悟："原来那两行能省这么多！"
-
-想挑战？把 `right(120)` 换成 `right(72)` 并改成 `range(5)`，看看画出什么（答案：正五边形 pentagon）。
+现在只改两个已经见过的参数：边长 `120` 和转角 `120`。想挑战？把三次右转都改成 `72`，并把“前进 + 右转”这对命令手动写五次，看看画出什么（答案：正五边形 pentagon）。第 8 章学习 `for` 后，会把这种重复命令缩短。
 
 ---
 
@@ -274,7 +230,7 @@ turtle.done()
 <details>
 <summary>💡 提示 / 答案要点</summary>
 
-前进 3 次，每次右转 120 度。因为三角形外角是 120°，可写 `for _ in range(3): t.forward(100); t.right(120)`。
+前进 3 次，每次右转 120 度。因为三角形外角是 120°，把“前进、右转”这对命令手动写三遍即可；第 8 章会学到把重复命令缩短的写法。
 
 </details>
 
@@ -365,35 +321,17 @@ turtle.done()
 
 **Problem 1.3 — 猜图形（挑战思考）** 🟡 Medium
 
-如果把 1.3 三角形的 `t.right(120)` 改成 `t.right(72)` 并把重复次数改成 `5`，会画出什么正多边形？用代码验证你的猜想。
+把 1.3 三角形代码中的每个 `t.right(120)` 改为 `t.right(72)`，再把“前进 + 右转”手动补到五组。它会画出什么正多边形？运行你改好的代码验证猜想。
 
-**Sample Input:**
-```python
-import turtle
-t = turtle.Turtle()
-for side in range(5):
-    t.forward(120)
-    t.right(72)
-turtle.done()
-```
 **Sample Output:** 一个正五边形
 
 <details>
 <summary>💡 Solution (click to reveal)</summary>
 
-**Approach:** 正 `n` 边形每次转角 = `360 / n`。`360 / 5 = 72`，重复 5 次正好绕一圈闭合 → 正五边形。
-
-```python
-import turtle
-t = turtle.Turtle()
-for side in range(5):        # 重复 5 次
-    t.forward(120)
-    t.right(72)              # 360 / 5 = 72 度
-turtle.done()
-```
+**Approach:** 正 `n` 边形每次转角 = `360 / n`。`360 / 5 = 72`，做 5 次“前进、右转”正好绕一圈闭合，所以是正五边形。
 
 **Key points:**
 - 规律：边数 `n` ↔ 转角 `360/n`。
-- 这是"找规律"的计算思维雏形，后面算法篇会经常用到。
+- 第 1 章先把命令写开，确保每一行都认识；第 8 章再用 `for` 缩短重复。
 
 </details>

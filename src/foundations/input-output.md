@@ -37,15 +37,6 @@
 ---
 
 ## 5.1 input()：让电脑听你说话
-
-<div class="try-it">
-<strong>🧩 练一练 5.1</strong>
-<p>题目：用 input() 问用户名字，并打印"你好，XX"。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>name = input("你叫什么？")</code> 后 <code>print("你好，" + name)</code>。</p>
-</details>
-</div>
-
 `input(提示语)` 会**暂停程序**，等你从键盘打字、按回车，然后把你说的内容作为**字符串**返回。
 
 ```python
@@ -66,15 +57,6 @@ print("你好，" + name + "！")
 ---
 
 ## 5.2 类型转换：int(input())
-
-<div class="try-it">
-<strong>🧩 练一练 5.2</strong>
-<p>题目：让用户输入两个数（用 int(input())），打印它们的和。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>a=int(input()); b=int(input()); print(a+b)</code>。注意 input 得到的是字符串，必须转 int 才能相加。</p>
-</details>
-</div>
-
 因为 `input()` 返回字符串，要算数就得转类型：
 
 ```python
@@ -101,15 +83,6 @@ print("身高是", height, "米")
 ---
 
 ## 5.3 f-string 输出
-
-<div class="try-it">
-<strong>🧩 练一练 5.3</strong>
-<p>题目：用 f-string 打印"我叫 X，今年 Y 岁"（变量 name、age）。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>print(f"我叫 {name}，今年 {age} 岁")</code>。花括号里直接写变量名。</p>
-</details>
-</div>
-
 输入和前面学的 f-string 一结合，就能做出自然的对话感：
 
 ```python
@@ -123,15 +96,6 @@ print(f"欢迎 {name}，{age} 岁的你正适合来算法游乐场！")
 ---
 
 ## 5.4 多值输入：split()
-
-<div class="try-it">
-<strong>🧩 练一练 5.4</strong>
-<p>题目：用户输入一行"3 5 7"，用 split 取出三个数并求和。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>nums = input().split()</code> 得到 <code>['3','5','7']</code>，再 <code>sum(int(x) for x in nums)</code> = 15。</p>
-</details>
-</div>
-
 一次要输多个数（比如两个坐标、长和宽），用 `split()` 按空格切开，再分别转换：
 
 ```python
@@ -154,15 +118,6 @@ print("和是", x + y)
 ---
 
 ## 5.5 案例：互动问答机器人
-
-<div class="try-it">
-<strong>🧩 练一练 5.5</strong>
-<p>题目：写一个互动问答：问对方最喜欢的语言，打印一句带答案的话。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>lang = input("你最喜欢的语言？")</code> 然后 <code>print(f"原来你喜欢 {lang}！")</code>。</p>
-</details>
-</div>
-
 让程序根据你说的话回应，最简单的"聊天机器人"雏形：
 
 ```python
@@ -184,7 +139,7 @@ print(f"{food} 我也爱！下次一起去吃 🍜")
 
 ## 5.6 案例：BMI 计算器（接第2章）
 
-把第 2 章写死的 BMI 程序，升级成"你输数据、它算结果"的交互版：
+把第 2 章写死的 BMI 程序，升级成“你输数据、它算结果”的交互版：
 
 ```python
 name = input("名字：")
@@ -193,14 +148,6 @@ weight = float(input("体重(公斤)："))
 
 bmi = weight / (height ** 2)
 print(f"{name}，你的 BMI 是 {bmi:.1f}")
-
-# 顺手加一句健康提示（比较运算来自第4章）
-if bmi < 18.5:
-    print("偏瘦，注意营养 🍚")
-elif bmi <= 24:
-    print("标准，保持得很好 💪")
-else:
-    print("偏重，多运动哦 🏃")
 ```
 
 运行示例：
@@ -209,10 +156,9 @@ else:
 身高(米)：1.75
 体重(公斤)：68
 小龙，你的 BMI 是 22.2
-标准，保持得很好 💪
 ```
 
-> 💡 **Key Insight:** 看！第 2 章的变量 + 第 4 章的比较 + 本章的 `input`，三章知识**串成一条流水线**：输入 → 计算 → 判断 → 输出。这就是"交互系统"的真身。
+> 💡 **Key Insight:** 看！第 2 章的变量 + 第 4 章的运算 + 本章的 `input`，三章知识已经串成一条流水线：输入 → 计算 → 输出。这就是“交互系统”的真身。第 6 章学完 `if` 后，再给 BMI 加上不同区间的提示。
 
 ---
 
@@ -234,23 +180,19 @@ else:
 
 ## 🛠️ 项目工坊：算法游乐场 · 门票问答机
 
-游乐场大升级！把第 2 章写死的"游客名牌"变成**会对话的门票问答机**：游客自己输入名字和年龄，游乐场算出票价并欢迎他。
+游乐场大升级！把第 2 章写死的“游客名牌”变成**会对话的门票问答机**：游客输入名字和张数，游乐场按固定票价算出总价并欢迎他。
 
 ```python
-# 算法游乐场 · 门票问答机（第5章新增）
+# 算法游乐场 · 门票问答机
 print("🎡 欢迎来到算法游乐场！")
 name = input("请告诉我你的名字：")
-age = int(input("今年几岁啦？ "))
-
-# 票价规则：12 岁以下儿童票 15 元，其余标准票 30 元
-if age < 12:
-    price = 15
-else:
-    price = 30
+count = int(input("要买几张标准票？ "))
+price = 30
+total = price * count
 
 print("=" * 30)
 print(f"你好，{name}！欢迎光临 🎡")
-print(f"你的票价是 {price} 元，请尽情玩耍！")
+print(f"标准票 {count} 张，共 {total} 元，请尽情玩耍！")
 print("=" * 30)
 ```
 
@@ -258,14 +200,14 @@ print("=" * 30)
 ```
 🎡 欢迎来到算法游乐场！
 请告诉我你的名字：小龙
-今年几岁啦？ 14
+要买几张标准票？ 2
 ==============================
 你好，小龙！欢迎光临 🎡
-你的票价是 30 元，请尽情玩耍！
+标准票 2 张，共 60 元，请尽情玩耍！
 ==============================
 ```
 
-现在游乐场升级了 **「门票问答机」**：从"写死名牌"进化到"实时对话售票"——游客输入驱动整个流程。第 6 章学完 `if` 后，你可以给票价加更多规则（如老人优惠、会员折扣）。
+现在游乐场升级了 **「门票问答机」**：从“写死名牌”进化到“实时对话售票”——游客输入驱动整个流程。第 6 章学完 `if` 后，再给它加儿童、老人和会员等不同票价规则。
 
 ---
 
@@ -290,8 +232,8 @@ print("=" * 30)
 | 1 | 忘了 `input` 返回字符串 | `age = input(); age + 1` 报错 | 字符串不能加数字 | `int(input(...))` |
 | 2 | 把提示语当数据 | `input("14")` 以为输入是 14 | 提示只是显示，真值靠你敲 | 真值来自回车后的输入 |
 | 3 | `split` 转类型漏做的 | `a, b = input().split()` 后直接 `a+b` | 切开仍是字符串 | 各自 `int(a)`/`int(b)` |
-| 4 | 中文引号写 input 提示 | `input("名字：")` | 报错或乱码 | 用英文引号 |
-| 5 | 输非数字给 `int()` | 输 `"abc"` 给 `int(input())` | 转换失败崩溃 | 确保输数字，或加异常处理（后面学） |
+| 4 | 用中文弯引号包字符串 | `input(“名字：”)` | `“ ”` 不是 Python 字符串引号，会触发 `SyntaxError`；中文提示文字“名字：”本身合法 | 写 `input("名字：")` 或 `input('名字：')` |
+| 5 | 输非数字给 `int()` | 输 `"abc"` 给 `int(input())` | 转换失败崩溃 | 确保输数字，或用 [Chapter 16A：错误与异常处理](../functions/exceptions.md) 中的 `try / except` 处理 |
 | 6 | 多值个数对不上 | `x, y = input().split()` 只输一个数 | 解包数量不匹配报错 | 输入个数要和解包一致 |
 
 ---
@@ -315,7 +257,7 @@ print("=" * 30)
 > A: 不必。`input()` 也能空着调用，只是没提示用户不知道该输什么。带提示更友好，建议养成习惯。
 
 **Q2: 用户输错（比如该输数字却输字母）程序会怎样？**
-> A: `int("abc")` 会抛 `ValueError` 直接崩溃。严谨做法要"异常处理"（后面章节学 `try/except`）。初学先保证自己输入正确格式。
+> A: `int("abc")` 会抛 `ValueError` 直接崩溃。严谨做法要用 [Chapter 16A：错误与异常处理](../functions/exceptions.md) 中的 `try / except`。初学先保证自己输入正确格式。
 
 **Q3: `split()` 不写参数默认按什么切？**
 > A: 默认按任意空白（空格、Tab、换行）切。写 `split(",")` 就按逗号切。多个空格也会被当成"一个分隔"，很省心。
@@ -468,36 +410,32 @@ print("和是", a + b)
 
 ---
 
-**Problem 5.4 — 智能票价台（挑战）** 🏆 Challenge
+**Problem 5.4 — 多张标准票合计（挑战）** 🏆 Challenge
 
-扩展本章门票问答机：除"12 岁以下 15 元、其余 30 元"外，再加规则——**60 岁及以上老人票 20 元**。用 `if / elif / else`（第 6 章正式讲，这里先照结构写）根据输入的 `age` 算出 `price` 并打印欢迎语。测试 `age = 65` 应输出票价 20。
+把本章门票问答机扩展为“每张标准票 30 元”，让用户输入购买张数并输出总价。年龄分档票价要在第 6 章学完 `if / elif / else` 后再做。
 
 **Sample Input:**（运行后输入）
 ```
-65
+4
 ```
-**Sample Output:** `你的票价是 20 元，请尽情玩耍！`
+**Sample Output:** `共 120 元`
 
 <details>
 <summary>💡 Solution (click to reveal)</summary>
 
-**Approach:** 用 `if / elif / else` 按年龄三段分票价，把结果存进 `price` 再打印。
+**Approach:** 输入张数后，用“每张价格 × 张数”计算总价。
 
 ```python
-age = int(input("今年几岁啦？ "))
-if age < 12:
-    price = 15          # 儿童
-elif age >= 60:
-    price = 20          # 老人
-else:
-    price = 30          # 标准
-print(f"你的票价是 {price} 元，请尽情玩耍！")
+count = int(input("要买几张标准票？ "))
+price = 30
+total = price * count
+print(f"共 {total} 元")
 ```
 
 **Key points:**
-- 分支顺序有讲究：`age < 12` 先判儿童；`elif age >= 60` 判老人；其余（12~59）走 `else` 标准票。
-- 把分支结果存进 `price` 变量，最后统一打印，逻辑清爽。
-- 第 6 章会讲清 `elif` 是"否则如果"，以及分支只走第一条命中的规则。
+- `int(input(...))` 把输入的张数变成整数。
+- 这里所有人使用同一个固定价格，所以只需要乘法，不需要分支。
+- 第 6 章会用 `if / elif / else` 把年龄分档票价加回来。
 
 </details>
 

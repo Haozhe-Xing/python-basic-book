@@ -35,15 +35,6 @@
 ---
 
 ## 15.1 局部变量：函数"房间"里的私有物
-
-<div class="try-it">
-<strong>🧩 练一练 15.1</strong>
-<p>题目：在函数里定义的变量，函数外面能直接用吗？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<b>不能</b>。那是<b>局部变量</b>，只活在这个函数的“房间”里。</p>
-</details>
-</div>
-
 函数内部定义的变量，只在这个函数里有效，叫**局部变量（local variable）**。函数一结束，它们就被"回收"了，外面访问不到：
 
 ```python
@@ -60,15 +51,6 @@ print(code)                  # ❌ 报错：NameError: name 'code' is not define
 ---
 
 ## 15.2 全局变量：所有函数共享的"客厅"
-
-<div class="try-it">
-<strong>🧩 练一练 15.2</strong>
-<p>题目：全局变量和局部变量的主要区别？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：全局变量<b>所有函数共享</b>（像客厅），局部变量只在自己函数内有效（像卧室私物）。</p>
-</details>
-</div>
-
 写在函数**外面**、所有函数都能看到的变量，叫**全局变量（global variable）**。它像家里的"客厅"，谁都能进：
 
 ```python
@@ -84,58 +66,62 @@ enter_park("小红")            # 小红 入园，当前共 2 人
 print(total_guests)           # 2，外面也能读到
 ```
 
-> ⚠️ **Warning:** 在函数里**读**全局变量一般没问题；但想**改**它，必须写 `global 变量名` 声明，否则 Python 会以为你要新建一个同名的局部变量，改的只是"冒牌货"，真正的全局变量纹丝不动。上面若漏了 `global total_guests`，两次调用后 `total_guests` 仍是 `0`。
+> ⚠️ **Warning:** 在函数里**读**全局变量一般没问题；但像 `total_guests = total_guests + 1` 这样给它重新赋值时，必须写 `global total_guests`。否则 Python 会把 `total_guests` 当作局部变量；右边想读取它时，它还没有值，第一次调用就会报 `UnboundLocalError`。
 
-> 🐛 **Common Bug:** 忘了 `global` 却不报错，只是"没生效"。这类 bug 最难查，因为程序不崩、只是结果不对。经验法则：**尽量少用全局变量**；要共享数据，优先用参数传进去、`return` 交出来（第 14 章的套路）。
+> 🐛 **Common Bug:** 别把两种情况混在一起：`count = count + 1` 是重新绑定名字，需要 `global`；`items.append("苹果")` 是修改已有列表内容，通常不需要 `global`。经验法则：**尽量少用全局变量**；要共享数据，优先用参数传进去、`return` 交出来（第 14 章的套路）。
 
 ---
 
 ## 15.3 参数传递：值传递还是引用传递？（浅提）
-
-<div class="try-it">
-<strong>🧩 练一练 15.3</strong>
-<p>题目：列表这种“可变对象”作为参数传进函数，在里面被修改，会影响外面的原列表吗？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<b>会</b>。因为传的是同一个对象的引用，函数里改了，外面也跟着变。</p>
-</details>
-</div>
-
-你可能会问：把变量传给函数，函数里改了，外面会变吗？Python 的规则可以一句话概括：**传的是"对象的引用"（call by sharing）**。落到代码上分两种情况：
-
-- **不可变对象**（数字 `int`、字符串 `str`、元组）：函数里改，外面的原值**不变**。
-- **可变对象**（列表 `list`、字典 `dict`）：函数里就地改，外面的原值**会跟着变**。
+把变量传给函数后，函数里的改动会不会影响外面？先运行一个具体例子，不急着背术语：
 
 ```python
 def change_number(x):
-    x = x + 10          # x 是不可变数字，新建了一个值，外面不受影响
+    x = x + 10
     print("函数内 x =", x)
 
+
 def change_list(lst):
-    lst.append(99)      # lst 是可变列表，就地修改，外面跟着变
+    lst.append(99)
+    print("函数内 lst =", lst)
+
 
 n = 5
-change_number(n)
-print("外面 n =", n)    # 外面 n = 5（没变）
-
 data = [1, 2, 3]
+print("调用前：", n, data)
+change_number(n)
 change_list(data)
-print("外面 data =", data)  # 外面 data = [1, 2, 3, 99]（变了）
+print("调用后：", n, data)
 ```
 
-> 📝 **Note:** 这条规则不用死记硬背，先建立"**数字/字符串改不动，列表/字典能改动**"的直觉即可。等学到算法（比如排序一个列表）你会反复用到——传列表进函数排序，原列表直接就排好了，不用 `return`。
+**输出：**
+
+```text
+调用前： 5 [1, 2, 3]
+函数内 x = 15
+函数内 lst = [1, 2, 3, 99]
+调用后： 5 [1, 2, 3, 99]
+```
+
+把调用过程展开，状态变化如下：
+
+| 时刻 | 数字一侧 | 列表一侧 | 观察 |
+|------|----------|----------|------|
+| 调用前 | `n → 5` | `data → [1, 2, 3]` | 两个实参准备传入函数 |
+| `change_number` 内 | `x → 15`，`n → 5` | 尚未调用 | `x = x + 10` 让 `x` 改指向新整数，`n` 不变 |
+| `change_list` 内 | `n → 5` | `lst` 和 `data` 都指向 `[1, 2, 3, 99]` | `append` 就地修改了同一个列表 |
+| 调用后 | `n → 5` | `data → [1, 2, 3, 99]` | 数字没变，列表内容变了 |
+
+观察完现象再给它命名：Python 的参数传递规则叫**对象共享传递（call by sharing）**。形参起初与实参共享同一个对象；之后发生什么，取决于函数是让形参改指向新对象，还是就地修改原对象：
+
+- **不可变对象**（数字 `int`、字符串 `str`、元组）：`x = x + 10` 会让局部名字 `x` 改指向新对象，外面的 `n` **不变**。
+- **可变对象**（列表 `list`、字典 `dict`）：`lst.append(99)` 会就地修改共享对象，外面的 `data` **会看到变化**。
+
+> 📝 **Note:** 先记住判断方法：看函数内执行的是“重新绑定形参”，还是“就地修改共享对象”。如果不想让函数改动原列表，可以先复制一份，例如 `copy = data[:]`，再把副本传进去。
 
 ---
 
 ## 15.4 递归：函数调用它自己
-
-<div class="try-it">
-<strong>🧩 练一练 15.4</strong>
-<p>题目：用递归思想算 factorial(5)：写出“大问题 = 小一号的同问题”这个关系。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>factorial(n) = n * factorial(n-1)</code>，基线 <code>factorial(1)=1</code>。大问题化成小一号的自己。</p>
-</details>
-</div>
-
 真正的重头戏来了。**递归（recursion）= 一个函数在自己的函数体里调用自己**。听起来像"套娃悖论"，但只要有正确的"停手条件"，它就非常优雅。
 
 先看一个生活类比：**数一排人有多少**。你不想自己数，就问前一个人"你后面还有几个？"；他也不数，继续问前面的人……直到最前面那个人说"我后面 0 个"——这个答案一层层传回来，每个人 `+1` 报给后面，最后你拿到总数。这就是递归：**大问题（总数）= 小一号的同问题（前面人的后面人数）+ 一步处理（+1）。**
@@ -161,6 +147,10 @@ print(factorial(4))            # 4 * 3 * 2 * 1 = 24
 print(factorial(5))            # 120
 ```
 
+![递归调用展开：factorial(4) 深入到基线条件后逐层返回](../images/f4-recursion-unfold.svg)
+
+*图：调用先从 `factorial(4)` 缩小到 `factorial(1)`；基线返回 1 后，结果按 2、6、24 的顺序逐层回传。*
+
 ![递归调用栈：factorial(4)](../images/f4-recursion-stack.svg)
 
 上图把 `factorial(4)` 的执行画成了"调用栈"：先一层层**深入**调用更小的 `factorial`，直到碰到基线 `factorial(1)=1`，再一层层**回溯**把结果乘回来，最后得到 24。这正是所有递归的运行轨迹。
@@ -168,15 +158,6 @@ print(factorial(5))            # 120
 ---
 
 ## 15.5 递归三要素（写递归的 checklist）
-
-<div class="try-it">
-<strong>🧩 练一练 15.5</strong>
-<p>题目：写递归的三个要素（checklist）是？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：① <b>基线条件</b>（何时停）；② <b>递归步</b>（调用自己，规模变小）；③ <b>向基线收敛</b>（每步都更接近停下）。</p>
-</details>
-</div>
-
 任何一个正确的递归，都必须同时具备这三样东西，缺一个都可能"套娃套到天荒地老"：
 
 1. **基线条件（Base Case）**：最小的、不用再递归就能直接给出答案的情况。比如 `factorial(1) = 1`。
@@ -439,12 +420,12 @@ add_visitor()
 print(visitors)
 ```
 
-期望输出：`2`，实际输出：`0`（且没报错）。
+期望输出：`2`，实际会在第一次调用时抛出 `UnboundLocalError`：函数把 `visitors` 当作局部变量，却在赋值前先读取了它。
 
 <details>
 <summary>💡 Solution (click to reveal)</summary>
 
-**Approach:** 函数内想改全局变量，必须加 `global` 声明，否则 `visitors = visitors + 1` 新建的是局部变量，全局的 `visitors` 从未被碰。
+**Approach:** 函数内想用 `visitors = visitors + 1` 改全局变量，必须加 `global` 声明；否则它被判定为局部变量，右侧读取时还没有值。
 
 ```python
 visitors = 0
@@ -458,8 +439,8 @@ print(visitors)                # 2
 ```
 
 **Key points:**
-- 漏 `global` 时不报错、只是"没生效"，是典型的静默 bug。
-- 更好做法是用参数 + `return` 传值，避免依赖全局变量；这里仅为演示 `global` 语法。
+- 漏 `global` 时会报 `UnboundLocalError`，它提醒你“这个局部变量还没有值”。
+- 若只是修改全局列表的内容（如 `items.append(...)`），通常不必写 `global`；更好做法仍是用参数 + `return` 传值，避免依赖全局变量。
 
 </details>
 

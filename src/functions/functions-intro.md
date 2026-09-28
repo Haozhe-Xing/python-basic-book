@@ -39,15 +39,6 @@
 ---
 
 ## 14.1 你的第一个函数：问候函数
-
-<div class="try-it">
-<strong>🧩 练一练 14.1</strong>
-<p>题目：写一个名为 greet 的函数，输入名字，打印“你好，XX”。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>def greet(name): print(f"你好，{name}")</code>，调用 <code>greet("小龙")</code>。</p>
-</details>
-</div>
-
 函数用 `def` 开头（`def` = define，定义）。看一个最小例子：
 
 ```python
@@ -76,15 +67,6 @@ print(greet("小红"))          # 输出：你好, 小红
 ---
 
 ## 14.2 参数：给"按钮"喂不同的料
-
-<div class="try-it">
-<strong>🧩 练一练 14.2</strong>
-<p>题目：写函数 add(a, b)，打印 / 返回两个数的和。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>def add(a, b): return a + b</code>。参数 a、b 是喂进函数的“料”。</p>
-</details>
-</div>
-
 `name` 叫**形参（parameter）**，调用时写进括号的 `"小明"` 叫**实参（argument）**。形参是"占位符"，实参是"真正喂进去的值"。
 
 多个参数用逗号隔开：
@@ -114,15 +96,6 @@ print(power(5, 3))          # 给了 → 5 ** 3 = 125
 ---
 
 ## 14.3 return：让函数"吐"出结果（不是只打印）
-
-<div class="try-it">
-<strong>🧩 练一练 14.3</strong>
-<p>题目：写函数 square(n)，用 return 返回 n 的平方（不是只打印）。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>def square(n): return n * n</code>。return 让函数“吐”出结果，能被别的代码接着用。</p>
-</details>
-</div>
-
 很多初学者分不清 `print` 和 `return`，这俩**完全不是一回事**：
 
 ```python
@@ -141,6 +114,10 @@ print(y + 1)                # 输出 9
 - `print(...)`：把东西**显示**出来，函数本身不返回有用的值（默认返回 `None`）。
 - `return 值`：把值**交出去**，调用处能接住它继续运算。
 
+![函数调用与 return 数据流：ticket_total 接收 30 和 2，返回 60](../images/f4-function-return-flow.svg)
+
+*图：实参进入函数后绑定到参数，函数体算出 `30 × 2`，再由 `return` 把 60 交给调用处的 `total`。*
+
 > 🐛 **Common Bug:** 想接着用结果却只写了 `print`。比如写 `return print(x*2)`，其实 `print()` 返回的是 `None`，等于 `return None`——白白把结果弄丢了。要"算完还能用"，用 `return`；要"只是给人看"，用 `print`。两者也可以都要。
 
 函数里一旦执行到 `return`，**立刻结束**并返回：
@@ -158,17 +135,6 @@ print(absolute(-3))     # 3
 ---
 
 ## 14.4 文档字符串：给未来的自己写说明书
-
-<div class="try-it">
-<strong>🧩 练一练 14.4</strong>
-<p>题目：给函数 square 写一句文档字符串（docstring）。</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：<code>def square(n):
-    """返回 n 的平方"""
-    return n * n</code>。三引号写在函数体最前面。</p>
-</details>
-</div>
-
 函数稍微复杂点，过两周你自己都看不懂它在干嘛。用**文档字符串（docstring）**——函数体第一行用三引号 `"""..."""` 写说明——就能随时用 `help()` 查：
 
 ```python
@@ -192,16 +158,25 @@ print(celsius_to_fahrenheit(100))# 212.0
 
 ---
 
+### 回接：把第 3 章的三字母暗号变成完整加密器
+
+第 3 章为了先体验字符编号，只手动处理了三个字母。现在循环和函数都已经学过，可以把“处理一个字符”的动作交给 `for`，再把整套流程装进 `caesar` 按钮：
+
+```python
+def caesar(text, shift):
+    result = ""
+    for ch in text:
+        result = result + chr(ord(ch) + shift)
+    return result
+
+print(caesar("ABC", 3))    # DEF
+```
+
+`return result` 把完整密文交回调用处；所以同一个函数既能处理 `"ABC"`，也能处理任意长度的全大写字母文本。字母表末尾回绕、空格和标点的处理仍可留作后续升级。
+
+---
+
 ## 14.5 为什么封装：避免重复、易改
-
-<div class="try-it">
-<strong>🧩 练一练 14.5</strong>
-<p>题目：为什么把重复代码写成函数？</p>
-<details><summary>💡 看看答案</summary>
-<p>答案：① 避免重复抄写；② 改一处全部生效；③ 好测试、好复用。函数就是给一串操作起了个名字。</p>
-</details>
-</div>
-
 现在揭晓本章最核心的问题：**为什么要把代码塞进函数？**
 
 假设第 7 章积分系统里，每来一位游客都要干这件事：
@@ -357,7 +332,7 @@ for guest in guests:
 | 3 | 该用 `return` 却用 `print` | `return print(x*2)` | `print` 返回 `None`，结果被丢掉 | 要"接住结果"就用 `return x*2` |
 | 4 | 默认值参数写前面 | `def f(exp=2, base)` | 必填参数不能在选填参数后 | 顺序改成 `def f(base, exp=2)` |
 | 5 | 以为 `return` 后代码还会跑 | `return x\nprint("done")` | `return` 立刻结束函数 | 把还要执行的代码放 `return` 之前 |
-| 6 | 调用时张冠李戴参数 | `add(b=3, a=5)` 写反 | 位置参数顺序错会算错 | 用位置传参时按顺序；要乱序就写 `add(a=5, b=3)` |
+| 6 | 把位置参数和关键字参数混淆 | `add(3, 5)` 与 `add(b=3, a=5)` 当成一样 | 位置参数顺序重要；关键字参数按名字匹配，顺序不重要 | 位置传参按顺序写；`add(b=3, a=5)` 合法 |
 
 ---
 

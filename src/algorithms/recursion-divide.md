@@ -123,9 +123,9 @@ countdown(3)
 
 ```python
 def merge_sort(arr):
-    # 基线条件：长度 <= 1 已经有序，直接返回
+    # 基线条件：长度 <= 1 已经有序，直接返回一个副本
     if len(arr) <= 1:
-        return arr
+        return arr[:]
     mid = len(arr) // 2
     left = merge_sort(arr[:mid])    # 递归排左半
     right = merge_sort(arr[mid:])   # 递归排右半
@@ -173,7 +173,9 @@ print(merge_sort(data))   # [3, 9, 10, 27, 38, 43, 82]
 
 和 O(n²) 比：n = 1000 时，n² = 1,000,000，而 n·log₂n ≈ 10,000——快了 **100 倍**。数据越大，差距越夸张。
 
-> ⚡ **Pro Tip:** `merge_sort` 返回的是**新列表**，原列表没被改动。如果你写 `data = merge_sort(data)` 才拿到排好序的结果；直接 `merge_sort(data)` 不赋值，原 `data` 还是乱的。
+> ⚡ **Pro Tip:** `merge_sort` 返回的是**新列表**，原列表始终没被改动。要拿到结果必须接住它：`sorted_data = merge_sort(data)`；只写 `merge_sort(data)` 不赋值的话，`data` 还是乱序的。
+>
+> 注意基线那行写的是 `return arr[:]`，不是 `return arr`。看起来只差两个字符，后果却不一样：如果直接返回原对象，当输入是 `[]` 或只有 1 个元素时，函数会把**原列表本身**交出去。之后你往"结果"里 `append` 一个数，原数据也跟着变了——这叫**别名共享**，是新手很难察觉的一类 bug。`arr[:]` 先复制一份，把这个例外抹平。
 
 ---
 
@@ -302,23 +304,34 @@ def nested_box(size, depth):
     if depth == 0:                 # 基线：最里层画个小点就停
         t.dot(4, "#10b981")
         return
-    t.setheading(0)
+    # ① 从中心走到这一层的"左上角"（每层都从同一个中心出发）
+    t.setheading(90)               # 朝上
     t.forward(size / 2)
-    t.right(90)
+    t.setheading(180)              # 朝左
     t.forward(size / 2)
-    t.setheading(180)              # 回到左上角
+    t.setheading(0)                # 朝右，准备画
     t.pendown()
-    for _ in range(4):             # 画一圈方框
+    for _ in range(4):             # 顺时针画一圈方框
         t.forward(size)
         t.right(90)
     t.penup()
-    nested_box(size * 0.7, depth - 1)   # 往里套一层更小的
+
+    # ② 画完先回到中心，里层才有同一个中心可套
+    t.setheading(0)
+    t.forward(size / 2)
+    t.setheading(-90)              # 朝下
+    t.forward(size / 2)
+
+    # ③ 从中心再画小一号的一层
+    nested_box(size * 0.7, depth - 1)
 
 nested_box(160, 4)
 turtle.done()
 ```
 
-**模块 B — 归并排序给游客身高排队（纯终端）**：把模块 A 的 `merge_sort` 拿来用即可。
+> ⚠️ **为什么中间要"回到中心"这一步？** 如果把画笔留在上一层的角上直接递归，每层都会从旧角点往同一方向让开，方框就一层层往外漂、而不是层层套住。**递归的每一层都要从同一个起点出发**，这是"套娃"能套得起来的关键。
+
+**模块 B — 归并排序给游客身高排队（纯终端）**：直接复用本章 20.3 节写好的 `merge_sort` 即可。
 
 ```python
 heights = [172, 155, 168, 180, 161, 159, 175]
@@ -456,7 +469,7 @@ scores = [88, 62, 95, 71, 54, 90, 77]
 ```python
 def merge_sort(arr):
     if len(arr) <= 1:
-        return arr
+        return arr[:]          # 返回副本，避免和输入共享同一个列表
     mid = len(arr) // 2
     left = merge_sort(arr[:mid])
     right = merge_sort(arr[mid:])

@@ -93,15 +93,27 @@ from pathlib import Path
 
 
 def load_scores(path):
-    """从 UTF-8 CSV 读取“名字 → 分数”字典。"""
+    """从 UTF-8 CSV 读取“名字 → 分数”字典。
+
+    输入契约（不满足就直接报错）：
+    1. 文件里至少有一条记录（不能只有表头）；
+    2. 姓名去掉首尾空白后不为空，且不能重复；
+    3. 分数是 0~100 的整数。
+    """
     scores = {}
     with Path(path).open("r", encoding="utf-8", newline="") as file:
         for row in csv.DictReader(file):
             name = row["name"].strip()
+            if not name:
+                raise ValueError("CSV 里有空白姓名，请补上名字")
+            if name in scores:
+                raise ValueError(f"姓名重复：{name}——同名记录会互相覆盖，请改用学号做主键")
             score = int(row["score"])
             if not 0 <= score <= 100:
                 raise ValueError(f"{name} 的分数超出 0~100：{score}")
             scores[name] = score
+    if not scores:
+        raise ValueError("CSV 里没有任何成绩记录（是不是只有表头？）")
     return scores
 
 
@@ -109,6 +121,10 @@ scores = load_scores("scores.csv")
 ```
 
 第一次学习时可以先用硬编码数据完成项目；第二遍必须切换到 CSV，体会“数据来源变化，处理函数保持不变”。如果文件不存在或分数不是整数，请回到 [Chapter 16A](../functions/exceptions.md) 为调用处补上对应异常提示。
+
+> ⚠️ **为什么要主动拒绝这几种数据，而不是"能跑就行"？**
+> 假如 CSV 里出现两条 `小明`：`小明,60` 和 `小明,100`，字典会把前一条**直接覆盖**掉。程序照常输出"小明 100 分"，平均分也照常算——**看起来一切正常，其实数据已经错了**。这种 bug 最难查，因为没有任何报错提示你。
+> 所以处理外部数据时，**宁可让它当场报错，也不要让它算出一个"看着像对的"答案**。更贴近真实的做法是给每位同学一个**学号**做主键，这样名字重复也没关系。
 
 ### 先组合，再看参考实现
 
@@ -131,6 +147,7 @@ scores = load_scores("scores.csv")
 - [ ] `rank_scores(scores)` 不修改原字典，并把小丽排第一、小强排最后。
 - [ ] `render_text_chart(...)` 按排行榜顺序输出 6 行，每 2 分对应一个 `█`。
 - [ ] 主程序依次调用三个函数；更换 `scores` 后不需要修改函数内部代码。
+- [ ] `load_scores` 遇到**空白姓名、重复姓名、只有表头、分数超出 0~100**这四种情况会明确报错，而不是给出错误答案。
 - [ ] 先用终端文本版完成验收；海龟图是可选升级，不阻塞通关。
 
 先尝试把 24.2～24.4 的材料组合进这三个函数。若连续两次仍卡住，再到 24.5 展开完整参考实现。
@@ -156,7 +173,7 @@ print("平均分:", round(average, 2))          # 83.83（保留 2 位小数）
 
 - `scores.values()` 取出所有分数（一个"视图"，可当可迭代对象用）；
 - `max` / `min` / `sum` / `len` 都是内置函数，[第10章 列表](../data-structures/lists.md) 里见过它们；
-- `round(x, 2)` 把小数四舍五入到 2 位。
+- `round(x, 2)` 把数字保留到 2 位小数。注意它是"取最近的值"而不是"逢五进一"（卡正中间时取偶数），再加上浮点数本身有精度误差，所以它是**显示用**的修约，不适合拿来做金额结算。
 
 ### 24.2.2 自己用循环写（理解原理）
 
@@ -332,8 +349,6 @@ print("\n名次:", ranked)
 render_text_chart(ranked)
 
 # ---- （可选）海龟柱状图：需要本地环境看窗口 ----
-import turtle
-
 def draw_bar(t, x, y, width, height, color, label):
     t.penup()
     t.goto(x, y)
@@ -353,6 +368,7 @@ def draw_bar(t, x, y, width, height, color, label):
     t.write(str(height // 2), align="center")
 
 def turtle_bar_chart(data):
+    import turtle                 # ← 只在真要画图时才导入，纯文本流程完全不依赖它
     screen = turtle.Screen()
     screen.setworldcoordinates(-50, -50, 420, 250)
     t = turtle.Turtle()
@@ -369,6 +385,8 @@ def turtle_bar_chart(data):
 ```
 
 </details>
+
+> 📝 **为什么这里的 `import turtle` 写在函数里面？** 24.4.2 整节都在画海龟图，导入写在最上面没问题；但 24.5 是**完整程序**，海龟只是可选升级。把 `import turtle` 放进函数里，**不取消最后一行注释就永远不碰它**——即使系统缺少图形库（tkinter），纯文本统计照样跑通。这种"用到才导入"的写法，能防止可选功能拖垮主流程。
 
 🛠️ **项目工坊：** 先跑通上面的文本版，再试着取消最后一行注释、在本地环境看海龟图——对比两种"可视化"的差别。
 
@@ -388,7 +406,8 @@ def turtle_bar_chart(data):
 | 常见失败 | 怎么修复 |
 |---|---|
 | 提示找不到 `analyze.py` | 先保存文件；确认 VS Code 终端位于这个文件所在文件夹后再运行。 |
-| `ModuleNotFoundError` | 本项目不需要第三方库；请保留代码中的 `import turtle`，不要自行改成其他绘图库。 |
+| `ModuleNotFoundError: No module named '_tkinter'` | 系统缺少图形库（精简版 Python 或在线环境里常见），与你的代码无关 | **文本版不受影响**：只要不取消最后一行注释，程序能正常跑完。想画海龟图，请在本机安装带 tkinter 的完整版 Python。 |
+| 其他 `ModuleNotFoundError` | 主流程不需要任何第三方库 | 检查是不是自己多写了 import；正文代码只用标准库。 |
 | 海龟窗口没有出现 | 先确认文本柱状图已经输出；再确认已去掉最后一行调用代码前的 `#`，并在本地 VS Code 中运行。 |
 
 ---
@@ -543,7 +562,7 @@ for name, score in scores.items():
 
 **Problem 24.2 — 按名字排序（而不是分数）** 🟢 Easy
 
-把 `ranked` 改成"按名字拼音/字母从小到大"排。只改 `sorted` 的参数，其余不动。
+把 `ranked` 改成"按名字从小到大"排（英文就是字母顺序；**中文是按字符编码排的，不一定等于拼音顺序**，做完记得留意这一点）。只改 `sorted` 的参数，其余不动。
 
 <details>
 <summary>💡 Solution (click to reveal)</summary>
@@ -558,6 +577,7 @@ print(by_name)
 **Key points:**
 - `x[0]` 是名字，`x[1]` 是分数——换键就换排序依据。
 - 默认 `reverse=False`（升序），不用写。
+- ⚠️ **中文不是拼音排序：** Python 比的是字符的 Unicode 编码。`sorted(['张三', '李四'])` 得到 `['张三', '李四']`，而按拼音应该是"李四、张三"在前——两者不一样。英文名字则是正常的字母顺序（`['apple', 'pear']`）。真要按拼音排中文名，得另外给每个名字配一个拼音字符串当排序键。
 
 </details>
 

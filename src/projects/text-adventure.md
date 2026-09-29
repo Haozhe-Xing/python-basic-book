@@ -420,7 +420,7 @@ if __name__ == "__main__":
 > A: 用 `input(...).strip().lower()` 归一化（去空格、转小写），再交给 `go`。这样 ` NORTH `、`North`、`north` 都等效。
 
 **Q3: 能不能做成"打怪/血量"那种更硬核的游戏？**
-> A: 可以。给玩家状态加一个 `hp` 变量（也是字典或整数），在 `go` 或专门的函数里根据场景扣血、判断 `hp <= 0` 就 `game over`。骨架不变，只是状态更丰富。
+> A: 可以。给玩家状态加一个 `hp` 变量（也是字典或整数），在 `go` 或专门的函数里根据场景扣血；关键是要让**主循环**也检查 `hp <= 0` 并 `break`——只让扣血函数 `return` 只能停下这一步，游戏不会真正结束。骨架不变，只是状态更丰富。
 
 ### 🔗 Connections to Later Chapters
 
@@ -524,6 +524,7 @@ scenes["library"]["choices"]["north"] = "secret"
 ```python
 hp = 3
 
+# ① 扣血：在 go 里对 garden 的离开做特殊判断
 def go(direction):
     global current, hp
     scene = scenes[current]
@@ -535,15 +536,35 @@ def go(direction):
             print(f"乌鸦啄了你一下！hp 剩 {hp}")
             if hp <= 0:
                 print("你被啄晕了，探险失败……")
-                return
+                return          # 这一轮先不移动（但游戏还没结束！）
         current = nxt
     else:
         print("那个方向走不通，换一个试试。")
+
+
+# ② 结束游戏：主循环里也得检查，否则"晕倒"之后还能接着输入
+def play():
+    global current
+    while True:
+        if hp <= 0:             # ← 新增：每轮开头先看还活着吗
+            break
+        show_scene(current)
+        if current == "treasure":
+            print("\n通关！你用一把钥匙解开了古堡的秘密。")
+            break
+        command = input("\n你要怎么做？> ").strip().lower()
+        if command == "quit":
+            print("下次再来探险吧！")
+            break
+        go(command)
 ```
 
 **Key points:**
-- 状态变量 `hp` 和 `current` 一样用 `global` 声明。
-- 扣血后先判断再移动，避免"死了还继续走"。
+- 状态变量 `hp` 和 `current` 一样用 `global` 声明（`play` 里只是**读** `hp`，读全局变量不用声明）。
+- **必须改两处，只改 `go` 是不够的。** `go` 里的 `return` 只表示"这一次不走了"，`play` 的 `while` 还在等下一条指令——所以在 `play` 里补一句 `if hp <= 0: break`，游戏才真的结束。
+- 检查写在循环**开头**，所以晕倒后不会再显示场景、也不会再接收输入。
+- **只改两处，分别在完整代码的这两段：** `# ---------- 3. 函数：显示 / 捡物品 / 移动 ----------`（补上扣血判断）和 `# ---------- 4. 主循环 ----------`（补上 `hp <= 0` 检查）。其余部分原样保留。
+- **怎么验证：** 依次输入 `east west east west east west`（在 `entrance` 和 `garden` 之间来回三轮），第三次 `west` 之后 `hp` 归 0，程序应当**立刻结束**，而不是继续问你"你要怎么做？"。
 
 </details>
 

@@ -51,21 +51,21 @@
   <text x="415" y="64" font-size="15" font-weight="bold" fill="#4A6CF7">② 合并 Merge（把两个有序堆合成一个大有序堆）</text>
 
   <rect x="420" y="80" width="160" height="34" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
-  <text x="500" y="102" text-anchor="middle" font-size="13" fill="#1e293b">[3, 27, 38, 43]</text>
+  <text x="500" y="102" text-anchor="middle" font-size="13" fill="#1e293b">[27, 38, 43]</text>
   <rect x="600" y="80" width="160" height="34" rx="8" fill="#e8ecff" stroke="#4A6CF7" stroke-width="2"/>
-  <text x="680" y="102" text-anchor="middle" font-size="13" fill="#1e293b">[5, 9, 10, 82]</text>
+  <text x="680" y="102" text-anchor="middle" font-size="13" fill="#1e293b">[3, 9, 10, 82]</text>
   <line x1="500" y1="114" x2="540" y2="150" stroke="#10b981" stroke-width="2" marker-end="url(#alg2arrowG)"/>
   <line x1="680" y1="114" x2="640" y2="150" stroke="#10b981" stroke-width="2" marker-end="url(#alg2arrowG)"/>
 
   <rect x="420" y="150" width="340" height="44" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="3"/>
-  <text x="590" y="178" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">[3, 5, 9, 10, 27, 38, 43, 82]</text>
+  <text x="590" y="178" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">[3, 9, 10, 27, 38, 43, 82]</text>
 
   <!-- 合并规则说明 -->
-  <rect x="420" y="214" width="340" height="86" rx="8" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
-  <text x="436" y="238" font-size="13" font-weight="bold" fill="#d97706">合并规则（每次都挑小的）</text>
-  <text x="436" y="260" font-size="13" fill="#1e293b">比较两个堆的「队首」，谁小先取谁；</text>
-  <text x="436" y="282" font-size="13" fill="#1e293b">例：3 &lt; 5 → 取 3；5 &lt; 27 → 取 5；</text>
-  <text x="436" y="292" font-size="13" fill="#1e293b">9 &lt; 27 → 取 9 … 取完即有序。</text>
+  <rect x="420" y="206" width="340" height="94" rx="8" fill="#fef9ec" stroke="#f59e0b" stroke-width="2"/>
+  <text x="436" y="230" font-size="13" font-weight="bold" fill="#d97706">合并规则（每次都挑小的）</text>
+  <text x="436" y="254" font-size="13" fill="#1e293b">比较两个堆的「队首」，谁小先取谁；</text>
+  <text x="436" y="276" font-size="13" fill="#1e293b">例：3&lt;27 取 3，9&lt;27 取 9，10&lt;27 取 10……</text>
+  <text x="436" y="294" font-size="12" fill="#64748b">右半先出 3、9、10，左半再出 27、38、43，最后接上 82。</text>
 
   <!-- 底部公式栏 -->
   <rect x="0" y="420" width="800" height="20" fill="#1e293b"/>

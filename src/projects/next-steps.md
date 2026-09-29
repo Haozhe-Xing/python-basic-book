@@ -137,6 +137,33 @@ git pull                      # 之后拉取别人/其他设备的更新
 
 > ⚠️ **Warning:** 第一次 `push` 前要在 GitHub 网页建一个**空仓库**，并用 `git remote add origin <地址>` 把本地和云端连起来。别把密码写进代码再 `push`——敏感信息（密钥、token）永远放本地配置文件，别提交。
 
+**全新环境第一次用 Git，先做这三件事**（每台电脑只需做一次）：
+
+**① 确认 Git 已经装好**
+
+```bash
+git --version
+```
+
+能打印出版本号（例如 `git version 2.4x`）就说明可用。提示"找不到命令"，就去 [git-scm.com](https://git-scm.com/) 下载安装，装完**关掉终端重新打开**再试。
+
+**② 设置署名和邮箱**
+
+```bash
+git config --global user.name "你的名字"
+git config --global user.email "你的邮箱"
+```
+
+这两行决定每次"存档"上署名是谁。**不设置就提交，会直接报错 `Author identity unknown`**，提交失败——这不是代码问题，补上配置即可。
+
+邮箱会写进每一条提交记录里对外可见，建议用一个愿意公开的地址；GitHub 也提供 `你的用户名@users.noreply.github.com` 这种隐私邮箱可以用。
+
+**③ 第一次推送要做一次认证**
+
+现在的 GitHub 不接受用密码推送。第一次 `git push` 时会自动弹出浏览器让你登录授权（macOS 弹出钥匙串、Windows 弹出 Git Credential Manager），跟着提示走一遍，之后就不用再输了。
+
+> 📝 **上面这段命令速查的前提：** 已经装好 Git、配置过署名邮箱、并完成过首次认证。这三件事都做过以后，平时的流程就只剩下 `add → commit → push` 三步。
+
 > 💡 **Key Insight:** Git 不是"写代码"的工具，而是"**保护你写代码成果**"的工具。哪怕你只走 AI 或 Web 一条路，养成"每次完成一点就 `commit`"的习惯，将来一定感谢现在的自己。
 
 ---
@@ -317,6 +344,11 @@ git pull                      # 之后拉取别人/其他设备的更新
 
 ```bash
 cd <adventure.py 所在文件夹>
+
+# 全新环境第一次用 Git 才需要这两行（做过一次就永久生效）
+git config --global user.name "你的名字"
+git config --global user.email "你的邮箱"
+
 git init
 git add adventure.py
 git commit -m "迷雾古堡探险 v1"
@@ -326,6 +358,7 @@ git log --oneline          # 应看到一条提交记录
 **Key points:**
 - `git log` 是"查看存档历史"，能确认提交成功。
 - 出错时 `git status` 会告诉你当前处在哪一步。
+- `commit` 报 `Author identity unknown` 就是漏了那两行 `git config`——补上再提交即可，不用重新 `init`。
 
 </details>
 

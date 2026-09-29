@@ -3,49 +3,85 @@
   <rect x="0" y="0" width="800" height="440" fill="#f8f9fc"/>
 
   <!-- 标题 -->
-  <text x="400" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">Big-O 增长曲线：同样到 n=30，操作次数天差地别</text>
+  <text x="400" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#1e293b">Big-O 增长曲线：同一把尺子下，n² 早就冲上天，n 和 log n 都贴地板</text>
 
-  <!-- 坐标系背景 -->
-  <rect x="80" y="60" width="680" height="300" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <!-- ================= 左面板：统一尺度 0–900 ================= -->
+  <rect x="70" y="70" width="290" height="280" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="215" y="62" text-anchor="middle" font-size="13" font-weight="bold" fill="#4A6CF7">左：统一尺度（纵轴 0 – 900 次操作）</text>
 
   <!-- 网格横线 -->
-  <line x1="80" y1="135" x2="760" y2="135" stroke="#eef2ff" stroke-width="1"/>
-  <line x1="80" y1="210" x2="760" y2="210" stroke="#eef2ff" stroke-width="1"/>
-  <line x1="80" y1="285" x2="760" y2="285" stroke="#eef2ff" stroke-width="1"/>
+  <line x1="70" y1="163" x2="360" y2="163" stroke="#eef2ff" stroke-width="1"/>
+  <line x1="70" y1="257" x2="360" y2="257" stroke="#eef2ff" stroke-width="1"/>
 
   <!-- 坐标轴 -->
-  <line x1="80" y1="60" x2="80" y2="360" stroke="#64748b" stroke-width="2"/>
-  <line x1="80" y1="360" x2="760" y2="360" stroke="#64748b" stroke-width="2"/>
-  <text x="40" y="210" text-anchor="middle" font-size="13" fill="#64748b" transform="rotate(-90 40 210)">操作次数</text>
-  <text x="420" y="388" text-anchor="middle" font-size="13" fill="#64748b">数据规模 n（人数 / 元素个数）</text>
-  <text x="752" y="352" text-anchor="end" font-size="12" fill="#64748b">n=30</text>
-  <text x="86" y="74" text-anchor="start" font-size="12" fill="#64748b">顶部</text>
+  <line x1="70" y1="70" x2="70" y2="350" stroke="#64748b" stroke-width="2"/>
+  <line x1="70" y1="350" x2="360" y2="350" stroke="#64748b" stroke-width="2"/>
+  <text x="64" y="74" text-anchor="end" font-size="11" fill="#64748b">900</text>
+  <text x="64" y="167" text-anchor="end" font-size="11" fill="#64748b">600</text>
+  <text x="64" y="261" text-anchor="end" font-size="11" fill="#64748b">300</text>
+  <text x="64" y="354" text-anchor="end" font-size="11" fill="#64748b">0</text>
+  <text x="70" y="366" text-anchor="middle" font-size="11" fill="#64748b">0</text>
+  <text x="167" y="366" text-anchor="middle" font-size="11" fill="#64748b">10</text>
+  <text x="263" y="366" text-anchor="middle" font-size="11" fill="#64748b">20</text>
+  <text x="360" y="366" text-anchor="middle" font-size="11" fill="#64748b">30</text>
 
-  <!-- O(n²) 红色 平方 -->
-  <polyline points="80,360 150,355 221,344 291,327 361,304 432,275 502,240 572,199 643,152 713,99 760,60"
+  <!-- O(n²) 红：n=30 时 900 次 -->
+  <polyline points="70,350 118,342 167,319 215,280 263,226 312,156 360,70"
             fill="none" stroke="#ef4444" stroke-width="4"/>
-  <circle cx="760" cy="60" r="5" fill="#ef4444"/>
+  <circle cx="360" cy="70" r="5" fill="#ef4444"/>
+  <text x="354" y="62" text-anchor="end" font-size="12" font-weight="bold" fill="#ef4444">900</text>
 
-  <!-- O(n) 蓝色 线性 -->
-  <polyline points="80,350 150,320 221,290 291,260 361,230 432,200 502,170 572,140 643,110 713,80 760,60"
+  <!-- O(n) 蓝：n=30 时 30 次 -->
+  <polyline points="70,350 118,348 167,347 215,345 263,344 312,342 360,341"
             fill="none" stroke="#4A6CF7" stroke-width="4"/>
-  <circle cx="760" cy="60" r="5" fill="#4A6CF7"/>
 
-  <!-- O(log n) 绿色 对数 -->
-  <polyline points="80,360 150,240 221,192 291,161 361,138 432,120 502,105 572,93 643,81 713,72 760,66"
+  <!-- O(log n) 绿：n=30 时约 5 次（与蓝线几乎重合，故用虚线以便分辨） -->
+  <polyline points="70,350 118,349 167,349 215,349 263,349 312,348 360,348"
+            fill="none" stroke="#10b981" stroke-width="3" stroke-dasharray="6 4"/>
+  <text x="215" y="336" text-anchor="middle" font-size="12" fill="#64748b">蓝线（n）与绿线（log₂n）都挤在这里</text>
+
+  <!-- ================= 右面板：放大底部 0–40 ================= -->
+  <rect x="425" y="70" width="335" height="280" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="592" y="62" text-anchor="middle" font-size="13" font-weight="bold" fill="#10b981">右：放大底部（纵轴 0 – 40 次操作）</text>
+
+  <line x1="425" y1="140" x2="760" y2="140" stroke="#eef2ff" stroke-width="1"/>
+  <line x1="425" y1="210" x2="760" y2="210" stroke="#eef2ff" stroke-width="1"/>
+  <line x1="425" y1="280" x2="760" y2="280" stroke="#eef2ff" stroke-width="1"/>
+
+  <line x1="425" y1="70" x2="425" y2="350" stroke="#64748b" stroke-width="2"/>
+  <line x1="425" y1="350" x2="760" y2="350" stroke="#64748b" stroke-width="2"/>
+  <text x="419" y="74" text-anchor="end" font-size="11" fill="#64748b">40</text>
+  <text x="419" y="144" text-anchor="end" font-size="11" fill="#64748b">30</text>
+  <text x="419" y="214" text-anchor="end" font-size="11" fill="#64748b">20</text>
+  <text x="419" y="284" text-anchor="end" font-size="11" fill="#64748b">10</text>
+  <text x="419" y="354" text-anchor="end" font-size="11" fill="#64748b">0</text>
+  <text x="425" y="366" text-anchor="middle" font-size="11" fill="#64748b">0</text>
+  <text x="537" y="366" text-anchor="middle" font-size="11" fill="#64748b">10</text>
+  <text x="648" y="366" text-anchor="middle" font-size="11" fill="#64748b">20</text>
+  <text x="760" y="366" text-anchor="middle" font-size="11" fill="#64748b">30</text>
+
+  <!-- O(n) 蓝 -->
+  <polyline points="425,350 481,315 537,280 592,245 648,210 704,175 760,140"
+            fill="none" stroke="#4A6CF7" stroke-width="4"/>
+  <circle cx="760" cy="140" r="5" fill="#4A6CF7"/>
+  <text x="752" y="132" text-anchor="end" font-size="12" font-weight="bold" fill="#4A6CF7">30 次</text>
+
+  <!-- O(log n) 绿 -->
+  <polyline points="425,350 481,334 537,327 592,323 648,320 704,317 760,316"
             fill="none" stroke="#10b981" stroke-width="4"/>
-  <circle cx="760" cy="66" r="5" fill="#10b981"/>
+  <circle cx="760" cy="316" r="5" fill="#10b981"/>
+  <text x="752" y="308" text-anchor="end" font-size="12" font-weight="bold" fill="#10b981">5 次</text>
 
-  <!-- 图例 -->
-  <rect x="560" y="72" width="190" height="92" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
-  <rect x="574" y="86" width="22" height="6" rx="3" fill="#ef4444"/>
-  <text x="606" y="95" font-size="14" fill="#1e293b">O(n²) 平方：爆炸增长</text>
-  <rect x="574" y="116" width="22" height="6" rx="3" fill="#4A6CF7"/>
-  <text x="606" y="125" font-size="14" fill="#1e293b">O(n) 线性：稳步上升</text>
-  <rect x="574" y="146" width="22" height="6" rx="3" fill="#10b981"/>
-  <text x="606" y="155" font-size="14" fill="#1e293b">O(log n) 对数：很快平缓</text>
+  <!-- ================= 图例 ================= -->
+  <rect x="86" y="380" width="20" height="6" rx="3" fill="#ef4444"/>
+  <text x="114" y="388" font-size="13" fill="#1e293b">O(n²) 平方</text>
+  <rect x="206" y="380" width="20" height="6" rx="3" fill="#4A6CF7"/>
+  <text x="234" y="388" font-size="13" fill="#1e293b">O(n) 线性</text>
+  <rect x="326" y="380" width="20" height="6" rx="3" fill="#10b981"/>
+  <text x="354" y="388" font-size="13" fill="#1e293b">O(log n) 对数（虚线）</text>
 
   <!-- 底部说明 -->
-  <rect x="0" y="410" width="800" height="30" fill="#1e293b"/>
-  <text x="400" y="430" text-anchor="middle" font-size="13" fill="#94a3b8" font-family="Courier New, monospace">同样处理到 n=30，n² 曲线已贴天花板，log n 几乎还贴着地板 —— 差距就是"能不能用"</text>
+  <rect x="0" y="400" width="800" height="40" fill="#1e293b"/>
+  <text x="400" y="417" text-anchor="middle" font-size="12.5" fill="#94a3b8">同样处理到 n = 30：n² 要 900 次，n 要 30 次，log₂n 只要约 5 次</text>
+  <text x="400" y="434" text-anchor="middle" font-size="12.5" fill="#94a3b8">n 与 log n 在同一尺度下几乎重合，放大底部才看清：30 次 vs 5 次，相差 6 倍</text>
 </svg>

@@ -14,7 +14,7 @@
 |---|---|---|---|
 | `Problem 0.1`：查看你的 Python 版本 | 🟢 Easy | 查看你的 Python 版本 | [原章 Practice Problems 的 `<details>`](../getting-started/install.md#practice-problems) |
 | `Problem 0.2`：打印一句问候 | 🟢 Easy | 打印一句问候 | [原章 Practice Problems 的 `<details>`](../getting-started/install.md#practice-problems) |
-| `Problem 0.3`：用 uv 添加一个第三方库（可选） | 🟡 Medium | 用 `uv add` 管理依赖，并用 `uv run` 运行程序 | [原章 Practice Problems 的 `<details>`](../getting-started/install.md#practice-problems) |
+| `Problem 0.3`：排障：三个新手现场 | 🟡 Medium | 诊断 PATH、解释器与项目工作区三类常见故障 | [原章 Practice Problems 的 `<details>`](../getting-started/install.md#practice-problems) |
 
 ## 第1章：[你好，Python！](../getting-started/hello-python.md)
 
@@ -39,7 +39,7 @@
 |---|---|---|---|
 | `Problem 3.1`：取首尾字符 | 🟢 Easy | 取首尾字符 | [原章 Practice Problems 的 `<details>`](../foundations/strings.md#practice-problems) |
 | `Problem 3.2`：截出用户名 | 🟢 Easy | 截出用户名 | [原章 Practice Problems 的 `<details>`](../foundations/strings.md#practice-problems) |
-| `Problem 3.3`：敏感词检测 | 🟡 Medium | 敏感词检测 | [原章 Practice Problems 的 `<details>`](../foundations/strings.md#practice-problems) |
+| `Problem 3.3`：两个关键词各自出现了吗？ | 🟡 Medium | 用 `in` 分别判断两个关键词是否出现 | [原章 Practice Problems 的 `<details>`](../foundations/strings.md#practice-problems) |
 | `Problem 3.4`：反转暗号（挑战） | 🏆 Challenge | 反转暗号（挑战） | [原章 Practice Problems 的 `<details>`](../foundations/strings.md#practice-problems) |
 
 ## 第4章：[运算符与表达式](../foundations/operators.md)
@@ -58,7 +58,7 @@
 | `Problem 5.1`：回声机器人 | 🟢 Easy | 回声机器人 | [原章 Practice Problems 的 `<details>`](../foundations/input-output.md#practice-problems) |
 | `Problem 5.2`：年龄计算器 | 🟢 Easy | 年龄计算器 | [原章 Practice Problems 的 `<details>`](../foundations/input-output.md#practice-problems) |
 | `Problem 5.3`：两数求和器 | 🟡 Medium | 两数求和器 | [原章 Practice Problems 的 `<details>`](../foundations/input-output.md#practice-problems) |
-| `Problem 5.4`：智能票价台（挑战） | 🏆 Challenge | 智能票价台（挑战） | [原章 Practice Problems 的 `<details>`](../foundations/input-output.md#practice-problems) |
+| `Problem 5.4`：多张标准票合计（挑战） | 🏆 Challenge | 输入张数并与单价相乘得总价 | [原章 Practice Problems 的 `<details>`](../foundations/input-output.md#practice-problems) |
 
 ## 第6章：[条件判断 if](../control-flow/conditionals.md)
 
@@ -157,7 +157,8 @@
 | `Problem 16.1`：用 math 算球体积 | 🟢 Easy | 用 math 算球体积 | [原章 Practice Problems 的 `<details>`](../functions/modules.md#practice-problems) |
 | `Problem 16.2`：用 random 模拟掷骰子 | 🟡 Medium | 用 random 模拟掷骰子 | [原章 Practice Problems 的 `<details>`](../functions/modules.md#practice-problems) |
 | `Problem 16.3`：from 导入与别名 | 🟡 Medium | from 导入与别名 | [原章 Practice Problems 的 `<details>`](../functions/modules.md#practice-problems) |
-| `Problem 16.4`：🏆 Challenge：闭园幸运抽奖 | 🏆 Challenge | 闭园幸运抽奖 | [原章 Practice Problems 的 `<details>`](../functions/modules.md#practice-problems) |
+| `Problem 16.4`：把函数拆成双文件模块 | 🟡 Medium | 双文件模块：导入时执行顶层代码、`__main__` 入口 | [原章 Practice Problems 的 `<details>`](../functions/modules.md#practice-problems) |
+| `Problem 16.5`：🏆 Challenge：闭园幸运抽奖 | 🏆 Challenge | 闭园幸运抽奖 | [原章 Practice Problems 的 `<details>`](../functions/modules.md#practice-problems) |
 
 ## Chapter 16A：[错误与异常处理](../functions/exceptions.md)
 

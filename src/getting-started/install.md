@@ -154,6 +154,8 @@ VS Code 会自动在下方打开“终端”。看到 `你好，Python！` 就�
 
 > 图源：Visual Studio Code 官方 Python 教程（真实界面截图，访问日期：2026-09）。
 
+> 📝 **关于本章的图：** 全部来自 VS Code 与 Python 官方文档的**真实界面**，语言以英文（macOS）为主。Windows 上的按钮位置和文字会略有差别，**但步骤顺序完全一样**。本书凡是没配实拍图的地方（例如 Windows 安装向导、uv 的终端输出），一律用"你应该看到什么"的文字核对点代替——**不会用手绘示意图冒充真实截图**。
+
 > 🐛 **如果右上角没有 ▶：** 先确认文件名是 `hello.py`，再确认 Python 扩展已经装好；不行就按 `⌘⇧P`（Mac）或 `Ctrl+Shift+P`（Windows），搜索并运行 `Python: Select Interpreter`，选择 Python 3.x。
 
 ---
@@ -166,6 +168,13 @@ VS Code 会自动在下方打开“终端”。看到 `你好，Python！` 就�
 
 **步骤 2 — 运行并勾选（关键！）**
 双击安装包 → **务必勾选最下方 "Add python.exe to PATH"**（不勾，后面全乱）→ 点 `Install Now`。
+
+> 📷 **这一步没有实拍图，请用文字核对屏幕：**
+> 1. 安装向导第一屏**最下方**有一行小字复选框：`Add python.exe to PATH`。它字体偏小，最容易被顺手忽略。
+> 2. 点中它以后，方框里会出现**勾号**。
+> 3. 它上面一行是 `Install Now`，再往上是默认安装路径（形如 `C:\Users\你的名字\AppData\Local\Programs\Python\Python312`）。
+>
+> 只要这三行和你屏幕上的一致，就先勾上 PATH 再点 `Install Now`。**对不上时不要凭感觉点下一步**，去 `python.org` 官方安装说明核对一下再继续。
 
 > 🐛 **Common Bug:** 很多人一路狂点 "Next" 把那行 PATH 勾选漏掉，结果后面敲 `python` 报"不是内部或外部命令"。**这一个勾，决定后面顺不顺利。**
 
@@ -267,26 +276,39 @@ uv --version
 
 下面我们创建一个叫 `my_first_uv_project` 的小项目。所有命令都在 VS Code 的终端中输入；每敲一行、按一次回车，再输入下一行。
 
-**第 1 步：创建项目并进入项目文件夹**
+> 📝 **版本说明：** 本节步骤在 uv 0.6 上验证过（2026-09 复核）。`uv init` 生成的文件会随版本变化——旧版在根目录生成 `main.py`，较新版本生成 `src/` 布局。**以你屏幕上实际出现的文件为准**，下面把两种情况都写了。
+
+**第 1 步：创建项目文件夹**
 
 ```bash
 uv init my_first_uv_project
-cd my_first_uv_project
 ```
 
-此时左侧文件区会出现这些重要文件：
+这一步只是**在磁盘上新建了一个文件夹**，里面出现这些文件：
 
 | 文件 / 文件夹 | 先这样理解 |
 |---|---|
 | `pyproject.toml` | 项目的“配方单”：项目名字、Python 要求、需要哪些第三方库都写在这里 |
 | `.python-version` | 告诉 uv 这个项目优先使用哪一个 Python 版本 |
-| `src/` | 放以后更正式的项目代码；初学阶段先在项目根目录写 `main.py` 也可以 |
-| `.venv/` | uv 自动创建的“私人工具箱”；不需要手动打开或修改 |
-| `uv.lock` | uv 记录每个库精确版本的“购物小票”；不要手改它 |
+| `main.py` 或 `src/` | 起始示例文件。旧版 uv 生成根目录的 `main.py`；较新版本生成 `src/` 布局 |
+| `README.md`、`.gitignore` | 说明文件和版本控制忽略清单，暂时不用管 |
 
-> 📝 **关键理解：** `.venv` 不是多余文件夹。它就是“这个项目专用的 Python 小房间”。项目 A 装 `rich`，不会让项目 B 突然多出 `rich`。
+> ⚠️ **此时还没有 `.venv/`，也没有 `uv.lock`。** 它们要等到第 3 步才被创建——不少教程在这里写错，你照屏幕核对就好。
 
-**第 2 步：给项目添加一个真实的第三方库**
+**第 2 步：让 VS Code 打开这个新文件夹**
+
+终端里的 `cd my_first_uv_project` 只改变**终端**所在的位置，**不会**让 VS Code 左侧的文件区跟着切过去。必须显式打开：
+
+菜单 **文件 → 打开文件夹…**，选中 `my_first_uv_project` 再确定。
+
+打开后核对两件事：
+
+- 左侧文件区能看到第 1 步列出的那几个文件；
+- 窗口标题或左下角显示 `my_first_uv_project`。
+
+> ⚠️ **别跳过这一步。** 如果 VS Code 还停在上一层文件夹就新建 `main.py`，文件会落在错误的位置，后面 `uv run main.py` 会提示找不到文件。
+
+**第 3 步：给项目添加一个真实的第三方库**
 
 我们用 `rich` 做演示：它能让终端输出更漂亮。输入：
 
@@ -294,11 +316,15 @@ cd my_first_uv_project
 uv add rich
 ```
 
-这条命令会同时完成三件事：下载 `rich`、把它装进 `.venv`、把依赖写入 `pyproject.toml` 和 `uv.lock`。因此不用再手动创建虚拟环境、单独安装依赖或记录版本号。
+这条命令一次完成四件事：下载 `rich`、**创建 `.venv` 虚拟环境**、把包装进去、把依赖写进 `pyproject.toml` 和 `uv.lock`。
 
-**第 3 步：创建 `main.py` 并写代码**
+执行完再回头看左侧文件区：这时才**多出** `.venv/` 和 `uv.lock`。终端输出里也会出现 `Creating virtual environment at: .venv` 这样的提示——看到它就说明环境是在这一步建的。
 
-在 VS Code 左侧点击“新建文件”，输入 `main.py`。复制下面代码并保存：
+> 📝 **关键理解：** `.venv` 不是多余文件夹。它就是“这个项目专用的 Python 小房间”。项目 A 装 `rich`，不会让项目 B 突然多出 `rich`。
+
+**第 4 步：创建 `main.py` 并写代码**
+
+在 VS Code 左侧点击“新建文件”，输入 `main.py`（确认它建在 `my_first_uv_project` 根目录，不要建进 `src/` 里）。复制下面代码并保存：
 
 ```python
 from rich import print
@@ -308,7 +334,7 @@ print("[bold green]你好，uv！[/bold green]")
 
 第一行的意思是“使用刚才安装的 `rich` 工具”；第二行会打印一句绿色加粗的话。
 
-**第 4 步：让 uv 运行代码**
+**第 5 步：让 uv 运行代码**
 
 回到 VS Code 终端，输入：
 
@@ -316,24 +342,28 @@ print("[bold green]你好，uv！[/bold green]")
 uv run main.py
 ```
 
-第一次运行时，uv 会自动创建 `.venv`；以后每次运行，它都会先确认“项目依赖和环境是否仍然匹配”，然后再执行代码。你应该看到：
+`uv run` 会先确认“项目依赖和环境是否仍然匹配”（需要时自动补齐），然后再执行代码。你应该看到绿色的：
 
 ```text
 你好，uv！
 ```
 
-### 0.5.3 回到 VS Code：选择项目自己的解释器
+> 💡 **为什么用 `uv run main.py` 而不是 `python main.py`？** 因为 `uv run` 保证用的是**这个项目 `.venv` 里的解释器和库**；直接敲 `python` 有可能用到电脑上另一个 Python，于是莫名其妙地报 `No module named 'rich'`。
 
-打开 `my_first_uv_project` 文件夹后，点击 VS Code 右下角的 Python 版本；在列表里选择路径中含有 **`.venv`** 的 Python。例如 macOS 常见路径形如 `.venv/bin/python`，Windows 常见路径形如 `.venv\Scripts\python.exe`。
+### 0.5.3 让 VS Code 用上项目自己的解释器
+
+此时 VS Code 已经打开了 `my_first_uv_project`。点击右下角的 Python 版本号；在列表里选择路径中含有 **`.venv`** 的那一项——例如 macOS 常见路径形如 `.venv/bin/python`，Windows 常见路径形如 `.venv\Scripts\python.exe`。
 
 这样做以后，编辑器的补全、报错提示和右上角 ▶ 运行按钮，都会使用这个项目自己的库。若 `from rich import print` 下面出现红色波浪线，九成是因为 VS Code 还选着电脑的公共 Python，重新选择 `.venv` 即可。
+
+> 📝 **列表里没有 `.venv` 怎么办？** 先回头确认第 3 步的 `uv add rich` 已成功（左侧能看到 `.venv` 文件夹）。再点右下角重新选择；实在找不到，就用命令面板里的 **Python: Select Interpreter** 手动指向 `.venv`。
 
 ### 0.5.4 最常见的 4 个问题
 
 | 现象 | 最可能原因 | 直接修复 |
 |---|---|---|
 | `uv: command not found` / “不是内部或外部命令” | 安装后旧终端没有刷新 PATH | 关掉终端并新建；还不行就重启 VS Code |
-| `No module named 'rich'` | 没在项目文件夹中执行，或忘了 `uv add rich` | 在终端输入 `cd my_first_uv_project`，再执行 `uv add rich` |
+| `No module named 'rich'` | 终端不在项目文件夹里，或忘了 `uv add rich` | 先用 `cd my_first_uv_project` 让终端进入项目文件夹，再执行 `uv add rich`；以后运行代码统一用 `uv run main.py` |
 | VS Code 把 `rich` 标红 | 解释器选错了 | 右下角选择 `.venv` 里的 Python |
 | 想把项目发给同学 | 只把 `.py` 文件发过去了 | 连同 `pyproject.toml` 和 `uv.lock` 一起发；同学执行 `uv sync` 即可装出同样环境 |
 
@@ -419,20 +449,7 @@ uv run main.py
 
 ---
 
-### 加练 0.B · 版本验证小侦探 🟢
-
-Windows 输入 `python --version`，Mac 输入 `python3 --version`。如果都能看到 `Python 3.x.x`，说明什么？
-
-<details>
-<summary>💡 提示 / 答案要点</summary>
-
-说明 Python 已经能被终端找到，基础安装成功。Windows 重点看 PATH，Mac 重点用 `python3`。
-
-</details>
-
----
-
-### 加练 0.C · PATH 迷路修复 🟡
+### 加练 0.B · PATH 迷路修复 🟡
 
 Windows 同学安装后输入 `python` 提示“不是内部或外部命令”。请写出最可能原因和修复方案。
 
@@ -442,9 +459,6 @@ Windows 同学安装后输入 `python` 提示“不是内部或外部命令”�
 最可能是安装时没勾 `Add python.exe to PATH`。最稳修复：重新运行官方安装包，勾选 PATH，或在安装器里选择 Modify/Repair 后添加 PATH。
 
 </details>
-
----
-
 
 ---
 
@@ -505,33 +519,30 @@ print("你好，Python！")   # 运行时，引号里的内容会被原样打印
 
 ---
 
-**Problem 0.3 — 用 uv 添加一个第三方库（可选）** 🟡 Medium
+**Problem 0.3 — 排障：三个新手现场** 🟡 Medium
 
-用 `uv` 创建项目并添加 `emoji` 库，然后在 `main.py` 中打印一个表情。
+下面三位同学都卡住了。请分别说出**最可能的原因**和你建议的**下一步动作**（不用真的重做一遍，先在纸上写出判断）。
 
-**Sample Input:**
-```bash
-uv init emoji_demo
-cd emoji_demo
-uv add emoji
-```
-```python
-import emoji
-
-print(emoji.emojize("Python 真好玩 :rocket:"))
-```
-```bash
-uv run main.py
-```
-**Sample Output:** `Python 真好玩 🚀`
+1. Windows 同学敲 `python --version`，终端回一句"不是内部或外部命令"。
+2. 同学在 `my_first_uv_project` 里运行 `python main.py`，报 `No module named 'rich'`。
+3. 同学说自己"完全按教程走了 `uv run main.py`"，但 VS Code 左侧从头到尾都**没有出现过 `.venv` 文件夹**。
 
 <details>
 <summary>💡 Solution (click to reveal)</summary>
 
-**Approach:** 体验"借别人的积木"——`uv add emoji` 会把依赖加入当前项目，`uv run main.py` 会在项目环境中运行代码。
+**Approach:** 这三题对应的正是本章最容易踩的三个坑——PATH、解释器、项目工作区。
+
+**① PATH 没配上**
+安装时漏勾 `Add python.exe to PATH`（或装的是微软商店版）。做法：重新运行 python.org 的官方安装包，勾上 PATH；或把终端关掉重新打开再试——新终端才会读到刚更新的配置。
+
+**② 用错了 Python 解释器**
+`python main.py` 用的是电脑上的公共 Python，那里没有 `rich`。项目装的库在 **`.venv`** 里。做法：改用它自己的运行方式 `uv run main.py`；先在终端输 `uv --version` 确认 uv 可用。
+
+**③ 多半是没执行过 `uv add`**
+`.venv` 不是 `uv init` 生成的，而是**第一次执行 `uv add`（或需要同步环境时）才创建**。要检查两件事：终端里是否真的跑过 `uv add rich`；以及 VS Code 打开的文件夹是不是 `my_first_uv_project` 本身（终端里 `cd` 不会自动切换左侧工作区，要用**文件 → 打开文件夹…**）。
 
 **Key points:**
-- 先进入包含 `pyproject.toml` 的项目目录，再执行 `uv add emoji`。
-- `uv` 会把依赖记录在项目配置和锁文件中；以后仍用 `uv run main.py` 运行。
+- 排障的顺序是：**先看报错在说什么 → 再判断是哪一层出了问题（系统 / 终端位置 / 解释器 / 依赖）**，而不是急着重装。
+- 这三条都指向同一个习惯：**每一步都核对"屏幕上现在有什么"**，而不是凭印象继续往下敲。
 
 </details>

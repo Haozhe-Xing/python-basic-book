@@ -267,18 +267,22 @@ if __name__ == "__main__":
 购买几张票？输入 q 退出：3
 购买成功：3 张，共 60 元。
 本轮输入处理完毕。
+购买几张票？输入 q 退出：q
+已退出售票机。
 ```
+
+注意最后一段：输入 `q` 时**没有**打印"本轮输入处理完毕"。因为这一轮在 `try` 之前就 `return` 了，压根没进 `try`，`finally` 自然也不会执行。
 
 ![从“三张”触发 ValueError 到重试“3”成功的完整异常处理流程](../images/f4-exception-retry-flow.svg)
 
-*这张图强调：`except` 让失败可以重试，`else` 只处理成功结果，而 `finally` 在每一轮都会执行。*
+*这张图强调：`except` 让失败可以重试，`else` 只处理成功结果，而 `finally` 只要**进了这个 `try`**，离开时都会执行（成功也好、出错也好）。*
 
 关键流程如下：
 1. `run_ticket_machine()` 管理与用户的对话；
 2. `parse_ticket_count()` 把文本变成可靠票数；
 3. 校验失败时，函数用 `raise` 报告原因；
 4. 对话层用 `except ValueError as error` 接住并提示；
-5. 成功时进入 `else`，每轮结束时执行 `finally`。
+5. 只要流程进了这个 `try`，无论走 `else` 还是 `except`，离开时都会执行 `finally`；输入 `q` 是在 `try` 之前 `return` 的，不经过它。
 
 这种分工让代码更容易测试。下一章可以把购票记录写入文件，16C 章还会自动检查这个函数。
 

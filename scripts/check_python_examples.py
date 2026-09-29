@@ -24,6 +24,16 @@ PYTHON_FENCE_RE = re.compile(
     r"^ {0,3}(?P<fence>`{3,}|~{3,})\s*(?P<language>python|py)\b[^`~]*$",
     re.IGNORECASE,
 )
+BLOCKQUOTE_RE = re.compile(r"^ {0,3}> ?")
+
+
+def unquote(line: str) -> str:
+    """Strip Markdown blockquote markers so fenced code inside quotes is audited too."""
+    previous = None
+    while previous != line:
+        previous = line
+        line = BLOCKQUOTE_RE.sub("", line)
+    return line
 HEADING_RE = re.compile(r"^(?P<level>#{1,6})\s+(?P<title>.+?)\s*$")
 ERROR_CONTEXT_RE = re.compile(
     r"common mistakes?|common bug|错误示例|错误写法|错误代码|故意.*错|会报错|报错|syntaxerror|语法错|(?:找出|修复|被埋).{0,12}bug|bug.{0,12}(?:找出|修复)",
@@ -71,7 +81,7 @@ def parse_python_blocks(path: Path) -> list[PythonBlock]:
             headings = headings[: level - 1]
             headings.append(heading.group("title"))
 
-        opening = PYTHON_FENCE_RE.match(line)
+        opening = PYTHON_FENCE_RE.match(unquote(line))
         if not opening:
             line_number += 1
             continue
@@ -85,15 +95,15 @@ def parse_python_blocks(path: Path) -> list[PythonBlock]:
         line_number += 1
         code_lines: list[str] = []
 
-        while line_number < len(lines) and not closing_re.match(lines[line_number]):
-            code_lines.append(lines[line_number])
+        while line_number < len(lines) and not closing_re.match(unquote(lines[line_number])):
+            code_lines.append(unquote(lines[line_number]))
             line_number += 1
 
         closed = line_number < len(lines)
         end_line = line_number if closed else len(lines)
-        before = "".join(lines[max(0, code_start - 4):code_start])
+        before = "".join(unquote(item) for item in lines[max(0, code_start - 4):code_start])
         after_start = line_number + 1 if closed else len(lines)
-        after = "".join(lines[after_start:after_start + 3])
+        after = "".join(unquote(item) for item in lines[after_start:after_start + 3])
         context = "\n".join(headings) + "\n" + before + after
         blocks.append(
             PythonBlock(
